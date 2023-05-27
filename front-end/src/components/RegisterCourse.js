@@ -6,7 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 const RegisterCourse = () =>{
   return(
     <>
-    <Card style={{maxWidth:450, margin:"0 auto"}}>
+    <Card style={{maxWidth:550, margin:"0 auto"}}>
     <CardContent>
       <Typography gutterBottom variant='h5'>Register for your online course</Typography>
       <Typography gutterBottom color="textSecondary" variant='body2' component="p">All fields are compulsory, ensure all details are correct.</Typography>
@@ -36,7 +36,7 @@ const RegisterCourse = () =>{
           <TextField label="City" placeholder='Enter city' variant='outlined' fullWidth required/>
         </Grid>
         <Grid xs={12} sm={4} item>
-          <TextField label="State" placeholder='Enter state of residence' variant='outlined' fullWidth required/>
+          <TextField label="State / Province" placeholder='Enter state / province of residence' variant='outlined' fullWidth required/>
         </Grid>
         <Grid type='number' xs={12} sm={4} item>
           <TextField label="Zip" placeholder='Enter zip' variant='outlined' fullWidth required/>
