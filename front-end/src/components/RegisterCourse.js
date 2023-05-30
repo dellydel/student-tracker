@@ -41,13 +41,16 @@ const RegisterCourse = () =>{
         <Grid type='number' xs={12} sm={4} item>
           <TextField label="Zip" placeholder='Enter zip' variant='outlined' fullWidth required/>
         </Grid>
-        <Grid columns={12} sm={12} item>
+        <Grid xs={12} item>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker disableFuture fullWidth/>
           </LocalizationProvider>
         </Grid>
-        <Grid xs={12} item>
+        <Grid xs={12} sm={6} item>
           <Button type='submit' variant='contained' fullWidth>Submit</Button>
+        </Grid>
+        <Grid xs={12} sm={6} item>
+          <Button type='reset' variant='contained' fullWidth>Reset</Button>
         </Grid>
       </Grid>
       </form>
