@@ -39,10 +39,7 @@ Resources:
             Principal:
               AWS:
                 - "*"
-  MyS3Bucket:
-    Description: S3 bucket created from a CloudFormation template for event registration app
-    Value: backends3bucket-event-registration
-    Deployment:
+Deployment:
   Type: 'AWS::ApiGateway::Deployment'
   Properties: 
     RestApiId: !Ref MyApi
