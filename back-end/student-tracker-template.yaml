@@ -39,14 +39,14 @@ Resources:
             Principal:
               AWS:
                 - "*"
-Outputs:
   MyS3Bucket:
     Description: S3 bucket created from a CloudFormation template for event registration app
     Value: backends3bucket-event-registration
     Deployment:
   Type: 'AWS::ApiGateway::Deployment'
   Properties:
+    DependsOn: 
+      -APIGatewayMethod 
     RestApiId: !Ref MyApi
     Description: My deployment
     StageName: backend
-    
