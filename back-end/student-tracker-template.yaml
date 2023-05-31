@@ -39,10 +39,6 @@ Resources:
             Principal:
               AWS:
                 - "*"
-Outputs:
-  MyS3Bucket:
-    Description: S3 bucket created from a CloudFormation template for event registration app
-    Value: backends3bucket-event-registration
   StudentTable:
     Type: AWS::DynamoDB::Table
     Properties:
