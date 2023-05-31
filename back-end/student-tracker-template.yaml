@@ -45,8 +45,8 @@ Resources:
     Deployment:
   Type: 'AWS::ApiGateway::Deployment'
   Properties: 
-    RestApiId: !Ref MyApi
-    Description: My deployment   
-    StageName: backend
-    DependsOn: 
-    -APIGatewayMethod
+  RestApiId: !Ref MyApi
+  Description: My deployment   
+  StageName: backend
+  DependsOn: 
+  -APIGatewayMethod
