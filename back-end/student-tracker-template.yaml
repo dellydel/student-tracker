@@ -44,9 +44,9 @@ Resources:
     Value: backends3bucket-event-registration
     Deployment:
   Type: 'AWS::ApiGateway::Deployment'
-  Properties:
-    DependsOn: 
-      -APIGatewayMethod 
+  Properties: 
     RestApiId: !Ref MyApi
-    Description: My deployment
+    Description: My deployment   
     StageName: backend
+    DependsOn: 
+    -APIGatewayMethod
