@@ -60,4 +60,17 @@ Parameters:
   HashKeyElementType:
     Type: String
     Default: S
-    Description: Primary Key Type    
+    Description: Primary Key Type
+
+  ApiGateway method:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      RestApiId: !Ref studentTrackerAPI
+      ResourceId: !GetAtt 
+        - studentTrackerAPI
+        - RootResourceId
+      HttpMethod: GET
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS
+    
