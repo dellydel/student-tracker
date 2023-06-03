@@ -45,5 +45,5 @@ Resources:
       RestApiId: !Ref MyApi
       Description: My deployment
       StageName: backend 
-  DependsOn:
-  -APIGatewayMethod 
+    DependsOn:
+      -APIGatewayMethod 
