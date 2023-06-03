@@ -39,11 +39,11 @@ Resources:
             Principal:
               AWS:
                 - "*"
-Deployment:
-  Type: 'AWS::ApiGateway::Deployment'
-  Properties: 
-    RestApiId: !Ref MyApi
-    Description: My deployment   
-    StageName: backend
+  Deployment:
+    Type: 'AWS::ApiGateway::Deployment'
+    Properties:
+      RestApiId: !Ref MyApi
+      Description: My deployment
+      StageName: backend 
   DependsOn:
   -APIGatewayMethod 
