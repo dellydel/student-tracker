@@ -19,5 +19,4 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: event-registration
-          template: student-tracker-template.yaml
-          working-directory: ./back-end
+          template: ./back-end/student-tracker-template.yaml
