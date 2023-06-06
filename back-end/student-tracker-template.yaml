@@ -44,6 +44,36 @@ Resources:
     Properties:
       RestApiId: !Ref MyApi
       Description: My deployment
-      StageName: backend 
+      StageName: development
     DependsOn:
       -APIGatewayMethod 
+  GatewayResponse:
+    Type: AWS::ApiGateway::GatewayResponse
+    Properties:
+      ResponseParameters:
+        gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+        gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+      ResponseType: RESOURCE_NOT_FOUND
+      RestApiId: !Ref MyApi
+      StatusCode: '404'
+  Stack:
+    Type: 'AWS::ApiGateway::Resource'
+    Properties:
+      RestApiId: !Ref MyApi
+      ParentId: !GetAtt 
+        - MyApi
+        - RootResourceId
+      PathPart: stack
+  Parameters:
+    apiName: student-registration
+      Type: String
+    type:
+      Type: String
+  Resources:
+    MyRestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        EndpointConfiguration:
+          Types:
+            - !Ref type
+        Name: !Ref MyApi
