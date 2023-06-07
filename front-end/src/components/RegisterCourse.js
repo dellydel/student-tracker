@@ -5,7 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import axios from 'axios';
 
 const RegisterCourse = () =>{
-  const Function_Post =async (url,{jsonData}) =>{
+  const functionPost =async (url,{jsonData}) =>{
   try{       
     const response = await axios.post( url,{jsonData} );
 
