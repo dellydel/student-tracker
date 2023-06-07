@@ -1,0 +1,29 @@
+name: Upload Website
+
+on:
+  workflow_dispatch:
+      
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./front-end
+      - name: Build Site
+        run: npm run build
+        working-directory: ./front-end
+      - name: Configure AWS Creds
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{  secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Deploy to S3
+        run: aws s3 sync ./front-end/build s3://www.nextbyteweb.com
+        
+        

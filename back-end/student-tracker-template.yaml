@@ -209,6 +209,7 @@ Resources:
             Principal:
               AWS:
                 - "*"
+
 Parameters:
   LambdaFuncName:
     Type: String
@@ -225,3 +226,4 @@ Parameters:
   S3BucketName:
     Type: String
     Default: backends3bucket-event-registration
+
