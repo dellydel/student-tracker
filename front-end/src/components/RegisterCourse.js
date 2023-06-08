@@ -2,8 +2,19 @@ import { Card, CardContent, Typography, Grid, TextField, Button } from '@mui/mat
 import { DatePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import axios from 'axios';
 
 const RegisterCourse = () =>{
+  const functionPost =async (url,{jsonData}) =>{
+  try{       
+    const response = await axios.post( url,{jsonData} );
+
+      return( response.data);
+    }
+    catch(error){
+        return( error.response);
+    }
+  }
   return(
     <>
     <Card style={{maxWidth:550, margin:"0 auto"}}>
