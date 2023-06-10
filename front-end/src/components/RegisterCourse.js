@@ -89,7 +89,7 @@ const RegisterCourse = () => {
       });
   };
   return (
-=======
+
 import { Card, CardContent, Typography, Grid, TextField, Button } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers';
