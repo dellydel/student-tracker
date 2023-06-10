@@ -89,6 +89,21 @@ const RegisterCourse = () => {
       });
   };
   return (
+    <>
+      <Card style={{ maxWidth: 550, margin: "0 auto" }}>
+        <CardContent>
+          <Typography gutterBottom variant="h5">
+            Register for your online course
+          </Typography>
+          <Typography
+            gutterBottom
+            color="textSecondary"
+            variant="body2"
+            component="p"
+          >
+            All fields are compulsory, ensure all details are correct.
+          </Typography>
+
           <p></p>
           <form onSubmit={registerStudent}>
             <Grid container spacing={2}>
