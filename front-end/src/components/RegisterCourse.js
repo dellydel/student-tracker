@@ -1,8 +1,8 @@
 import {
-  Card, CardContent, Typography, Grid, TextField, Button,
+  Card, CardContent, Typography, Grid, TextField, Button, 
 } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 const RegisterCourse = () => {
   const [firstName, setFirstName] = useState("");
@@ -18,21 +18,28 @@ const RegisterCourse = () => {
 
   const [feedBackText, setFeedBackText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [registerStatus, setRegisterStatus] = useState(false);
+  const [registerStatus, setRegisterStatus] = useState(null);
 
   const resetForm =() =>{
     setFeedBackText("");
   }
   const revalidateEmailAndBuildJsonData = () => {
+    let validationMessage = "";
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      validationMessage = (
+        <font color='orange'>Enter a valid Email..</font>
+      )
       document.forms[0].email.focus();
-      setFeedBackText("Enter a valid Email..");
+      setFeedBackText(validationMessage);
       return false;
     }
     const thisYear = new Date().getFullYear();
     const birthYear = new Date(dateOfBirth).getFullYear();
     if (parseInt(thisYear - birthYear) < 10) {
-      setFeedBackText("Student must be more than 10 years old..");
+      validationMessage = (
+        <font color='orange'>Student must be more than 10 years old..</font>
+      )
+      setFeedBackText(validationMessage);
       document.forms[0].dateOfBirth.focus();
       return false;
     }
@@ -56,10 +63,20 @@ const RegisterCourse = () => {
     return formData
   };
   useEffect(() => {
-    if (registerStatus) {
-      setFeedBackText("Congratulations! You have successfully registered.");
-    } else {
-      setFeedBackText("Something went wrong! Please try again later.");
+    if (registerStatus !== null) {
+      if (registerStatus===true) {
+        let statusMessage = (
+          <font color="green">
+            Congratulations! You have successfully registered.
+          </font>
+        );
+        setFeedBackText(statusMessage);
+      } else if(registerStatus===false) {
+        let statusMessage = (
+          <font color="red">Something went wrong! Please try again later.</font>
+        );
+        setFeedBackText(statusMessage);
+      }
     }
   }, [registerStatus]);
   const registerStudent = (event) => {
@@ -98,7 +115,7 @@ const RegisterCourse = () => {
             variant="body2"
             component="p"
           >
-            All fields are compulsory, ensure all details are correct.
+            All fields are required, ensure all details are correct.
           </Typography>
 
           <p></p>
@@ -108,7 +125,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="First Name"
                   name="firstName"
-                  placeholder="Enter first name"
+                  helperText="Enter first name"
                   fullWidth
                   required
                   onChange={(event) => setFirstName(event.target.value)}
@@ -118,7 +135,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="Last Name"
                   name="lastName"
-                  placeholder="Enter last name"
+                  helperText="Enter last name"
                   variant="outlined"
                   fullWidth
                   required
@@ -130,7 +147,7 @@ const RegisterCourse = () => {
                   type="number"
                   name="phoneNumber"
                   label="Phone"
-                  placeholder="Enter phone number"
+                  helperText="Enter phone number"
                   variant="outlined"
                   fullWidth
                   required
@@ -142,7 +159,7 @@ const RegisterCourse = () => {
                   type="email"
                   name="email"
                   label="Email"
-                  placeholder="Enter email"
+                  helperText="Enter email"
                   variant="outlined"
                   onFocus={() => setFeedBackText("")}
                   fullWidth
@@ -154,7 +171,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="Street"
                   name="street"
-                  placeholder="Enter street"
+                  helperText="Enter street"
                   variant="outlined"
                   fullWidth
                   required
@@ -166,7 +183,7 @@ const RegisterCourse = () => {
                   type="number"
                   label="Apt#"
                   name="apartmentNo"
-                  placeholder="Enter house number"
+                  helperText="Apartment No"
                   variant="outlined"
                   fullWidth
                   required
@@ -177,7 +194,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="City"
                   name="city"
-                  placeholder="Enter city"
+                  helperText="Enter city"
                   variant="outlined"
                   fullWidth
                   required
@@ -188,7 +205,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="State / Province"
                   name="state"
-                  placeholder="Enter state / province of residence"
+                  helperText="Enter state / province"
                   variant="outlined"
                   fullWidth
                   required
@@ -199,7 +216,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="Zip"
                   name="zip"
-                  placeholder="Enter zip"
+                  helperText="Enter zip"
                   variant="outlined"
                   fullWidth
                   required
@@ -207,13 +224,10 @@ const RegisterCourse = () => {
                 />
               </Grid>
               <Grid xs={12} item>
-                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker disableFuture fullWidth/>
-          </LocalizationProvider> */}
                 <TextField
                   type="Date"
                   name="dateOfBirth"
-                  label="Date of birth"
+                  helperText="Enter date of birth"
                   variant="outlined"
                   fullWidth
                   required
