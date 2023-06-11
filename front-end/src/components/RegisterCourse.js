@@ -2,7 +2,7 @@ import {
   Card, CardContent, Typography, Grid, TextField, Button,
 } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const RegisterCourse = () => {
   const [firstName, setFirstName] = useState("");
@@ -18,11 +18,10 @@ const RegisterCourse = () => {
 
   const [feedBackText, setFeedBackText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [registerStatus, setRegisterStatus] = useState(null);
+  const [registerStatus, setRegisterStatus] = useState(false);
 
   const resetForm =() =>{
     setFeedBackText("");
-    setRegisterStatus("");
   }
   const revalidateEmailAndBuildJsonData = () => {
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
@@ -56,8 +55,14 @@ const RegisterCourse = () => {
     };
     return formData
   };
+  useEffect(() => {
+    if (registerStatus) {
+      setFeedBackText("Congratulations! You have successfully registered.");
+    } else {
+      setFeedBackText("Something went wrong! Please try again later.");
+    }
+  }, [registerStatus]);
   const registerStudent = (event) => {
-    setFeedBackText("");
     const jsonData = revalidateEmailAndBuildJsonData();
     if (!jsonData) {
       event.preventDefault();
@@ -66,12 +71,6 @@ const RegisterCourse = () => {
       const url =
         "https://xj1tbr7we0.execute-api.us-east-1.amazonaws.com/test/course-reg-lambda-2023";
       functionPost(url, jsonData);
-      console.log(registerStatus);
-      if (registerStatus) {
-        setFeedBackText("Congratulations! You have successfully registered.");
-      } else {
-        setFeedBackText("Something went wrong! Please try again later.");
-      }
     }
   };
   const functionPost = async (url,  jsonData ) => {
@@ -80,34 +79,27 @@ const RegisterCourse = () => {
       .then((response) => {
         setIsLoading(false);
         setRegisterStatus(true);
-        console.log(response);
       })
       .catch((error) => {
         setIsLoading(false);
         setRegisterStatus(false);
-        console.log(error);
       });
   };
   return (
-=======
-import { Card, CardContent, Typography, Grid, TextField, Button } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import axios from 'axios';
-
-const RegisterCourse = () =>{
-  const functionPost =async (url,{jsonData}) =>{
-  try{       
-    const response = await axios.post( url,{jsonData} );
-
-      return( response.data);
-    }
-    catch(error){
-        return( error.response);
-    }
-  }
-  return(
+    <>
+      <Card style={{ maxWidth: 550, margin: "0 auto" }}>
+        <CardContent>
+          <Typography gutterBottom variant="h5">
+            Register for your online course
+          </Typography>
+          <Typography
+            gutterBottom
+            color="textSecondary"
+            variant="body2"
+            component="p"
+          >
+            All fields are compulsory, ensure all details are correct.
+          </Typography>
 
           <p></p>
           <form onSubmit={registerStudent}>
