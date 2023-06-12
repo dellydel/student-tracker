@@ -2,7 +2,9 @@ import {
   Card, CardContent, Typography, Grid, TextField, Button, 
 } from "@mui/material";
 import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
+
+
 
 const RegisterCourse = () => {
   const [firstName, setFirstName] = useState("");
