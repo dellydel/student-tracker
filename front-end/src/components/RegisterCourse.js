@@ -121,7 +121,6 @@ const RegisterCourse = () => {
           >
             All fields are required, ensure all details are correct.
           </Typography>
-
           <p></p>
           <form onSubmit={registerStudent}>
             <Grid container spacing={2}>
