@@ -24,6 +24,7 @@ const RegisterCourse = () => {
 
   const resetForm =() =>{
     setFeedBackText("");
+    document.getElementById("submitButton").disabled = false;
   }
   const revalidateEmailAndBuildJsonData = () => {
     let validationMessage = "";
@@ -90,6 +91,7 @@ const RegisterCourse = () => {
       const url =
         "https://xj1tbr7we0.execute-api.us-east-1.amazonaws.com/test/course-reg-lambda-2023";
       functionPost(url, jsonData);
+      document.getElementById("submitButton").disabled = true;
     }
   };
   const functionPost = async (url,  jsonData ) => {
@@ -243,7 +245,7 @@ const RegisterCourse = () => {
                 </div>
               </Grid>
               <Grid xs={12} sm={6} item>
-                <Button type="submit" variant="contained" fullWidth>
+                <Button type="submit" variant="contained" id="submitButton" fullWidth>
                   Submit
                 </Button>
               </Grid>
