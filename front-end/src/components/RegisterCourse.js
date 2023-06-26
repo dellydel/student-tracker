@@ -1,8 +1,10 @@
 import {
-  Card, CardContent, Typography, Grid, TextField, Button,
+  Card, CardContent, Typography, Grid, TextField, Button, 
 } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import {useEffect, useState } from "react";
+
+
 
 const RegisterCourse = () => {
   const [firstName, setFirstName] = useState("");
@@ -22,18 +24,25 @@ const RegisterCourse = () => {
 
   const resetForm =() =>{
     setFeedBackText("");
-    setRegisterStatus("");
+    document.getElementById("submitButton").disabled = false;
   }
   const revalidateEmailAndBuildJsonData = () => {
+    let validationMessage = "";
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      validationMessage = (
+        <font color='orange'>Enter a valid Email..</font>
+      )
       document.forms[0].email.focus();
-      setFeedBackText("Enter a valid Email..");
+      setFeedBackText(validationMessage);
       return false;
     }
     const thisYear = new Date().getFullYear();
     const birthYear = new Date(dateOfBirth).getFullYear();
     if (parseInt(thisYear - birthYear) < 10) {
-      setFeedBackText("Student must be more than 10 years old..");
+      validationMessage = (
+        <font color='orange'>Student must be more than 10 years old..</font>
+      )
+      setFeedBackText(validationMessage);
       document.forms[0].dateOfBirth.focus();
       return false;
     }
@@ -56,8 +65,24 @@ const RegisterCourse = () => {
     };
     return formData
   };
+  useEffect(() => {
+    if (registerStatus !== null) {
+      if (registerStatus===true) {
+        let statusMessage = (
+          <font color="green">
+            Congratulations! You have successfully registered.
+          </font>
+        );
+        setFeedBackText(statusMessage);
+      } else if(registerStatus===false) {
+        let statusMessage = (
+          <font color="red">Something went wrong! Please try again later.</font>
+        );
+        setFeedBackText(statusMessage);
+      }
+    }
+  }, [registerStatus]);
   const registerStudent = (event) => {
-    setFeedBackText("");
     const jsonData = revalidateEmailAndBuildJsonData();
     if (!jsonData) {
       event.preventDefault();
@@ -66,12 +91,7 @@ const RegisterCourse = () => {
       const url =
         "https://xj1tbr7we0.execute-api.us-east-1.amazonaws.com/test/course-reg-lambda-2023";
       functionPost(url, jsonData);
-      console.log(registerStatus);
-      if (registerStatus) {
-        setFeedBackText("Congratulations! You have successfully registered.");
-      } else {
-        setFeedBackText("Something went wrong! Please try again later.");
-      }
+      document.getElementById("submitButton").disabled = true;
     }
   };
   const functionPost = async (url,  jsonData ) => {
@@ -80,12 +100,10 @@ const RegisterCourse = () => {
       .then((response) => {
         setIsLoading(false);
         setRegisterStatus(true);
-        console.log(response);
       })
       .catch((error) => {
         setIsLoading(false);
         setRegisterStatus(false);
-        console.log(error);
       });
   };
   return (
@@ -101,9 +119,8 @@ const RegisterCourse = () => {
             variant="body2"
             component="p"
           >
-            All fields are compulsory, ensure all details are correct.
+            All fields are required, ensure all details are correct.
           </Typography>
-
           <p></p>
           <form onSubmit={registerStudent}>
             <Grid container spacing={2}>
@@ -111,7 +128,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="First Name"
                   name="firstName"
-                  placeholder="Enter first name"
+                  helperText="Enter first name"
                   fullWidth
                   required
                   onChange={(event) => setFirstName(event.target.value)}
@@ -121,7 +138,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="Last Name"
                   name="lastName"
-                  placeholder="Enter last name"
+                  helperText="Enter last name"
                   variant="outlined"
                   fullWidth
                   required
@@ -133,7 +150,7 @@ const RegisterCourse = () => {
                   type="number"
                   name="phoneNumber"
                   label="Phone"
-                  placeholder="Enter phone number"
+                  helperText="Enter phone number"
                   variant="outlined"
                   fullWidth
                   required
@@ -145,7 +162,7 @@ const RegisterCourse = () => {
                   type="email"
                   name="email"
                   label="Email"
-                  placeholder="Enter email"
+                  helperText="Enter email"
                   variant="outlined"
                   onFocus={() => setFeedBackText("")}
                   fullWidth
@@ -157,7 +174,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="Street"
                   name="street"
-                  placeholder="Enter street"
+                  helperText="Enter street"
                   variant="outlined"
                   fullWidth
                   required
@@ -169,7 +186,7 @@ const RegisterCourse = () => {
                   type="number"
                   label="Apt#"
                   name="apartmentNo"
-                  placeholder="Enter house number"
+                  helperText="Apartment No"
                   variant="outlined"
                   fullWidth
                   required
@@ -180,7 +197,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="City"
                   name="city"
-                  placeholder="Enter city"
+                  helperText="Enter city"
                   variant="outlined"
                   fullWidth
                   required
@@ -191,7 +208,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="State / Province"
                   name="state"
-                  placeholder="Enter state / province of residence"
+                  helperText="Enter state / province"
                   variant="outlined"
                   fullWidth
                   required
@@ -202,7 +219,7 @@ const RegisterCourse = () => {
                 <TextField
                   label="Zip"
                   name="zip"
-                  placeholder="Enter zip"
+                  helperText="Enter zip"
                   variant="outlined"
                   fullWidth
                   required
@@ -210,13 +227,10 @@ const RegisterCourse = () => {
                 />
               </Grid>
               <Grid xs={12} item>
-                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker disableFuture fullWidth/>
-          </LocalizationProvider> */}
                 <TextField
                   type="Date"
                   name="dateOfBirth"
-                  label="Date of birth"
+                  helperText="Enter date of birth"
                   variant="outlined"
                   fullWidth
                   required
@@ -230,7 +244,7 @@ const RegisterCourse = () => {
                 </div>
               </Grid>
               <Grid xs={12} sm={6} item>
-                <Button type="submit" variant="contained" fullWidth>
+                <Button type="submit" variant="contained" id="submitButton" fullWidth>
                   Submit
                 </Button>
               </Grid>
