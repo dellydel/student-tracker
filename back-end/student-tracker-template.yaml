@@ -203,18 +203,19 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
-    MyS3BucketPolicy:
+
+  MyS3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref MyS3Bucket
       PolicyDocument:
         Statement:
-          - Action:
-              - s3:*
-            Effect: Allow
-            Resource:
-              - !Sub arn:aws:s3:::${MyS3Bucket}
-              - !Sub arn:aws:s3:::${MyS3Bucket}/*
-            Principal:
-              AWS:
-                - "*"
+        - Action:
+            - s3:*
+          Effect: Allow
+          Resource:
+            - !Sub arn:aws:s3:::${MyS3Bucket}
+            - !Sub arn:aws:s3:::${MyS3Bucket}/*
+          Principal:
+            AWS:
+              - "*"
