@@ -1,4 +1,23 @@
 AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  Env:
+    Type: String
+    AllowedValues : ["development", "production"]
+    Description: The deployment environment
+  LambdaFuncName:
+    Type: String
+    Default: 'registration-lambda-${Env}'
+  DynamoDBTableName:
+    Type: String
+    Default: 'next-byte-dynamoDB-${Env}'
+  APIName:
+    Type: String
+    Default: !Sub 'next-byte-api-${Env}'
+  S3BucketName:
+    Type: String
+    Default: !Sub 'next-byte-web-${Env}'
+    
 Resources:
   LambdaFunction:
     Type: 'AWS::Lambda::Function'
@@ -123,7 +142,7 @@ Resources:
     Properties:
       RestApiId: !Ref APIGatewayRestAPI
       StageName:
-        Ref: EnvironmentName
+        Ref: Env
     DependsOn: [APIGatewayOptionsMethod, APIGatewayPostMethod]
   APIGatewayPermission:
     Type: 'AWS::Lambda::Permission'
@@ -172,7 +191,7 @@ Resources:
                 Resource: '*'
   MyS3Bucket:
     Type: "AWS::S3::Bucket"
-    Description: Bucket on which we will deploy front end event registration app
+    Description: S3 Bucket on which we will deploy Next Byte Web
     Properties:
       BucketName: 
         Ref: S3BucketName
@@ -209,21 +228,3 @@ Resources:
             Principal:
               AWS:
                 - "*"
-
-Parameters:
-  LambdaFuncName:
-    Type: String
-    Default: course-reg-lambda-2023
-  DynamoDBTableName:
-    Type: String
-    Default: course-reg-dynamodb-2023
-  APIName:
-    Type: String
-    Default: course-reg-restapi-2023
-  EnvironmentName:
-    Type: String
-    Default: test
-  S3BucketName:
-    Type: String
-    Default: backends3bucket-event-registration
-
