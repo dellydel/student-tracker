@@ -1,11 +1,188 @@
-AWSTemplateFormatVersion: "2010-09-09"
-Description: Template to create s3 bucket and policy for event registration app
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  Env:
+    Type: String
+    AllowedValues: 
+      - development
+      - production
+    Description: The deployment environment
+
+Conditions:
+  IsDev: !Equals [!Ref Env, development] 
+
 Resources:
+  LambdaFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Code:
+        ZipFile: |
+          const AWS = require('aws-sdk')
+          const dbClient = new AWS.DynamoDB.DocumentClient()
+          exports.handler = async(event)=>{
+            let body;
+            let statusCode = 200;
+            try{
+              body = await dbClient.put(event).promise();
+            }catch(err){
+              statusCode = err.statusCode;
+              body = err.message;
+            }
+            return{
+              statusCode,
+              body
+            }
+          }      
+      FunctionName: !Sub 'registration-lambda-${Env}'
+      Handler: index.handler
+      Runtime: nodejs14.x
+      Role: !GetAtt IAMRole.Arn
+    DependsOn:
+      - DynamoDBTable
+  DynamoDBTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: !Sub 'next-byte-dynamoDB-${Env}'
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+    DependsOn:
+      - IAMRole
+  APIGatewayRestAPI:
+    Type: 'AWS::ApiGateway::RestApi'
+    Properties:
+      Name: !Sub 'next-byte-api-${Env}'
+    DependsOn:
+      - LambdaFunction
+  APIGatewayResource:
+    Type: 'AWS::ApiGateway::Resource'
+    Properties:
+      RestApiId: !Ref APIGatewayRestAPI
+      ParentId: !GetAtt
+        - APIGatewayRestAPI
+        - RootResourceId
+      PathPart: registration
+    DependsOn:
+      - APIGatewayRestAPI
+  APIGatewayOptionsMethod:
+    Type: "AWS::ApiGateway::Method"
+    Properties:
+      AuthorizationType: NONE
+      RestApiId: !Ref APIGatewayRestAPI
+      ResourceId: !Ref APIGatewayResource
+      HttpMethod: OPTIONS
+      Integration:
+        Type: MOCK
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: ''
+        PassthroughBehavior: WHEN_NO_MATCH
+        RequestTemplates:
+          application/json: '{"statusCode": 200}'
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+            method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+    DependsOn:
+      - APIGatewayResource
+  APIGatewayPostMethod:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      RestApiId: !Ref APIGatewayRestAPI
+      ResourceId: !Ref APIGatewayResource
+      HttpMethod: POST
+      AuthorizationType: NONE
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels: { "application/json": "Empty" }
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+      Integration:
+        Type: AWS
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseTemplates:
+              application/json: ''
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        PassthroughBehavior: WHEN_NO_MATCH
+        IntegrationHttpMethod: POST
+        Uri: !Sub
+          - >-
+            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFuncNameArn}/invocations
+          - LambdaFuncNameArn: !GetAtt LambdaFunction.Arn
+    DependsOn:
+      - APIGatewayResource
+  APIGatewayDeployment:
+    Type: 'AWS::ApiGateway::Deployment'
+    Properties:
+      RestApiId: !Ref APIGatewayRestAPI
+      StageName:
+        Ref: Env
+    DependsOn: [APIGatewayOptionsMethod, APIGatewayPostMethod]
+  APIGatewayPermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName: !GetAtt LambdaFunction.Arn
+      Principal: apigateway.amazonaws.com
+    DependsOn:
+      - APIGatewayDeployment
+  IAMRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: Policy_api-lambda-db
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'dynamodb:BatchGetItem'
+                  - 'dynamodb:BatchWriteItem'
+                  - 'dynamodb:TagResource'
+                  - 'dynamodb:UntagResource'
+                  - 'dynamodb:PutItem'
+                  - 'dynamodb:DeleteItem'
+                  - 'dynamodb:GetItem'
+                  - 'dynamodb:Scan'
+                  - 'dynamodb:Query'
+                  - 'dynamodb:UpdateItem'
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogStream'
+                  - 'logs:CreateLogGroup'
+                  - 'logs:PutLogEvents'
+                Resource: '*'
   MyS3Bucket:
     Type: "AWS::S3::Bucket"
-    Description: Bucket on which we will deploy front end event registration app
+    Description: S3 Bucket on which we will deploy Next Byte Web
     Properties:
-      BucketName: backends3bucket-event-registration
+      BucketName: !If [IsDev, dev.nextbyteweb.com,  www.nextbyteweb.com]       
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
@@ -39,25 +216,3 @@ Resources:
             Principal:
               AWS:
                 - "*"
-  StudentTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: course-registration-dynamodb-tbl
-      AttributeDefinitions:
-        - 
-          AttributeName: !Ref HashKeyElementName
-          AttributeType: !Ref HashKeyElementType
-      KeySchema:
-        - 
-          AttributeName: !Ref HashKeyElementName
-          KeyType: HASH
-      BillingMode: PAY_PER_REQUEST    
-Parameters:
-  HashKeyElementName:
-    Type: String
-    Default: id
-    Description: Primary Key Name
-  HashKeyElementType:
-    Type: String
-    Default: S
-    Description: Primary Key Type    
