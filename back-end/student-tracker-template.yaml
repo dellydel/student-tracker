@@ -180,6 +180,7 @@ Resources:
                 Resource: '*'
   MyS3Bucket:
     Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain,
     Description: S3 Bucket on which we will deploy Next Byte Web
     Properties:
       BucketName: !If [IsDev, dev.nextbyteweb.com,  www.nextbyteweb.com]       
