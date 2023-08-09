@@ -4,15 +4,15 @@ Parameters:
   Env:
     Type: String
     AllowedValues : 
-      - "development"
-      - "production"
+      - 'development'
+      - 'production'
     Description: The deployment environment
   LambdaFuncName:
     Type: String
-    Default: 'registration-lambda-${Env}'
+    Default: !Sub 'registration-lambda-${Env}'
   DynamoDBTableName:
     Type: String
-    Default: 'next-byte-dynamoDB-${Env}'
+    Default: !Sub 'next-byte-dynamoDB-${Env}'
   APIName:
     Type: String
     Default: !Sub 'next-byte-api-${Env}'
