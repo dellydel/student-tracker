@@ -180,6 +180,10 @@ Resources:
     Description: S3 Bucket on which we will deploy Next Byte Web
     Properties:
       BucketName: !Sub 'next-byte-web-${Env}'
+        Fn::If:
+          - Fn::Equals: [${Env}, development]
+          - www.nextbyteweb.com
+          - dev.nextbyteweb.com
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
