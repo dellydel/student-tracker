@@ -2,11 +2,13 @@ name: Upload Website
 
 on:
   workflow_dispatch:
-    inputs:
+     inputs:
       environment:
         description: "Deployment Environment"
-        required: true
-        default: development    
+        type: choice
+        options:
+        - development
+        - production  
 jobs:
   Deploy:
     runs-on: ubuntu-latest
