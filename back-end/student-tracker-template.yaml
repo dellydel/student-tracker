@@ -62,8 +62,7 @@ Resources:
       ParentId: !GetAtt
         - APIGatewayRestAPI
         - RootResourceId
-      PathPart:
-        Ref: LambdaFuncName
+      PathPart: registration
     DependsOn:
       - APIGatewayRestAPI
   APIGatewayOptionsMethod:
