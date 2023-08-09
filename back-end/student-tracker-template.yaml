@@ -4,8 +4,8 @@ Parameters:
   Env:
     Type: String
     AllowedValues : 
-      - 'development'
-      - 'production'
+      - development
+      - production
     Description: The deployment environment
   LambdaFuncName:
     Type: String
