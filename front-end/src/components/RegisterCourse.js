@@ -120,13 +120,17 @@ const RegisterCourse = () => {
                     fullWidth
                     label="Date of birth"
                     placeholder="Enter date of birth"
-                    required
                     minDate="01-01-2013"
                   />
                 </LocalizationProvider>
               </Grid>
               <Grid xs={12} sm={6} item>
-                <Button type="submit" variant="contained" fullWidth>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ backgroundColor: "green" }}
+                  fullWidth
+                >
                   Submit
                 </Button>
               </Grid>
