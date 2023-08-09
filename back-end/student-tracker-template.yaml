@@ -7,19 +7,7 @@ Parameters:
       - development
       - production
     Description: The deployment environment
-  LambdaFuncName:
-    Type: String
-    Default: !Sub 'registration-lambda-${Env}'
-  DynamoDBTableName:
-    Type: String
-    Default: !Sub 'next-byte-dynamoDB-${Env}'
-  APIName:
-    Type: String
-    Default: !Sub 'next-byte-api-${Env}'
-  S3BucketName:
-    Type: String
-    Default: !Sub 'next-byte-web-${Env}'
-    
+   
 Resources:
   LambdaFunction:
     Type: 'AWS::Lambda::Function'
@@ -42,8 +30,7 @@ Resources:
               body
             }
           }      
-      FunctionName:
-        Ref: LambdaFuncName
+      FunctionName: !Sub 'registration-lambda-${Env}'
       Handler: index.handler
       Runtime: nodejs14.x
       Role: !GetAtt IAMRole.Arn
@@ -52,8 +39,7 @@ Resources:
   DynamoDBTable:
     Type: 'AWS::DynamoDB::Table'
     Properties:
-      TableName:
-        Ref: DynamoDBTableName
+      TableName: !Sub 'next-byte-dynamoDB-${Env}'
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -66,8 +52,7 @@ Resources:
   APIGatewayRestAPI:
     Type: 'AWS::ApiGateway::RestApi'
     Properties:
-      Name:
-        Ref: APIName
+      Name: !Sub 'next-byte-api-${Env}'
     DependsOn:
       - LambdaFunction
   APIGatewayResource:
@@ -195,8 +180,7 @@ Resources:
     Type: "AWS::S3::Bucket"
     Description: S3 Bucket on which we will deploy Next Byte Web
     Properties:
-      BucketName: 
-        Ref: S3BucketName
+      BucketName: !Sub 'next-byte-web-${Env}'
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
