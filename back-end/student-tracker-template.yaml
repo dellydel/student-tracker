@@ -7,7 +7,10 @@ Parameters:
       - development
       - production
     Description: The deployment environment
-   
+
+Conditions:
+  IsDev: !Equals [!Ref Env, development] 
+
 Resources:
   LambdaFunction:
     Type: 'AWS::Lambda::Function'
@@ -179,11 +182,7 @@ Resources:
     Type: "AWS::S3::Bucket"
     Description: S3 Bucket on which we will deploy Next Byte Web
     Properties:
-      BucketName: !Sub 'next-byte-web-${Env}'
-        Fn::If:
-          - Fn::Equals: [${Env}, development]
-          - www.nextbyteweb.com
-          - dev.nextbyteweb.com
+      BucketName: !If [IsDev, dev.nextbyteweb.com,  www.nextbyteweb.com]       
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
