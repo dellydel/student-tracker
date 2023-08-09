@@ -1,10 +1,15 @@
 name: Deploy Infrastructure - Dev
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "Deployment Environment"
+        required: true
+        default: "development"
 jobs:
   Deploy_Back_End:
     runs-on: ubuntu-latest
-    environment: development
+    environment: ${{ github.event.inputs.environment}}
     steps: 
       - name: Checkout
         uses: actions/checkout@v2
@@ -19,5 +24,5 @@ jobs:
       - name: Deploy to AWS CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
-          name: Next-Byte-Dev
+          name: next-byte-${{ github.event.inputs.environment}}
           template: ./back-end/student-tracker-template.yaml
