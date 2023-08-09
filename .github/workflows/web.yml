@@ -28,4 +28,4 @@ jobs:
           aws-secret-access-key: ${{  secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Deploy to S3
-        run: aws s3 sync ./front-end/build s3://${{ github.event.inputs.environment == development && dev.nextbyteweb.com || www.nextbyteweb.com}} 
+        run: aws s3 sync ./front-end/build s3://${{ github.event.inputs.environment == 'development' && dev.nextbyteweb.com || www.nextbyteweb.com}} 
