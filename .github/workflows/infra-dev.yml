@@ -5,7 +5,7 @@ on:
       environment:
         description: "Deployment Environment"
         required: true
-        default: "development"
+        default: development
 jobs:
   Deploy_Back_End:
     runs-on: ubuntu-latest
