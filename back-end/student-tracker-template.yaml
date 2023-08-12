@@ -13,7 +13,7 @@ Conditions:
 
 Resources:
   LambdaFunction:
-    Type: 'AWS::Lambda::Function'
+    Type: AWS::Lambda::Function
     Properties:
       Code:
         ZipFile: |
@@ -40,7 +40,7 @@ Resources:
     DependsOn:
       - DynamoDBTable
   DynamoDBTable:
-    Type: 'AWS::DynamoDB::Table'
+    Type: AWS::DynamoDB::Table
     Properties:
       TableName: !Sub 'next-byte-dynamoDB-${Env}'
       AttributeDefinitions:
@@ -69,7 +69,7 @@ Resources:
     DependsOn:
       - APIGatewayRestAPI
   APIGatewayOptionsMethod:
-    Type: "AWS::ApiGateway::Method"
+    Type: AWS::ApiGateway::Method
     Properties:
       AuthorizationType: NONE
       RestApiId: !Ref APIGatewayRestAPI
@@ -99,7 +99,7 @@ Resources:
     DependsOn:
       - APIGatewayResource
   APIGatewayPostMethod:
-    Type: 'AWS::ApiGateway::Method'
+    Type: AWS::ApiGateway::Method
     Properties:
       RestApiId: !Ref APIGatewayRestAPI
       ResourceId: !Ref APIGatewayResource
@@ -127,7 +127,7 @@ Resources:
     DependsOn:
       - APIGatewayResource
   APIGatewayDeployment:
-    Type: 'AWS::ApiGateway::Deployment'
+    Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: !Ref APIGatewayRestAPI
       StageName:
@@ -142,7 +142,7 @@ Resources:
     DependsOn:
       - APIGatewayDeployment
   IAMRole:
-    Type: 'AWS::IAM::Role'
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
@@ -178,8 +178,10 @@ Resources:
                   - 'logs:CreateLogGroup'
                   - 'logs:PutLogEvents'
                 Resource: '*'
+                                
   MyS3Bucket:
-    Type: "AWS::S3::Bucket"
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
     Description: S3 Bucket on which we will deploy Next Byte Web
     Properties:
       BucketName: !If [IsDev, dev.nextbyteweb.com,  www.nextbyteweb.com]       
@@ -201,18 +203,19 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
+
   MyS3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref MyS3Bucket
       PolicyDocument:
         Statement:
-          - Action:
-              - s3:*
-            Effect: Allow
-            Resource:
-              - !Sub arn:aws:s3:::${MyS3Bucket}
-              - !Sub arn:aws:s3:::${MyS3Bucket}/*
-            Principal:
-              AWS:
-                - "*"
+        - Action:
+            - s3:*
+          Effect: Allow
+          Resource:
+            - !Sub arn:aws:s3:::${MyS3Bucket}
+            - !Sub arn:aws:s3:::${MyS3Bucket}/*
+          Principal:
+            AWS:
+              - "*"
