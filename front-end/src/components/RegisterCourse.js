@@ -230,7 +230,8 @@ const RegisterCourse = () => {
                 </div>
               </Grid>
               <Grid xs={12} sm={6} item>
-                <Button type="submit" variant="contained" fullWidth>
+                <Button type="submit" variant="contained" 
+                sx={{backgroundColor:"green"}} fullWidth>
                   Submit
                 </Button>
               </Grid>
