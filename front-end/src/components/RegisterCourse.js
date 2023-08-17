@@ -236,7 +236,7 @@ const RegisterCourse = () => {
                 <Button
                   type="submit"
                   variant="contained"
-                  sx={{ backgroundColor: "green" }}
+                  style={{ backgroundColor: "green" }}
                   fullWidth
                 >
                   Submit
