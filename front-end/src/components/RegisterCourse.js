@@ -1,7 +1,6 @@
 import {
-  Card, CardContent, Typography, Grid, TextField, Button, 
+  Card, CardContent, Typography, Grid, TextField, Button,
 } from "@mui/material";
-import axios from "axios";
 import {useEffect, useState } from "react";
 
 
@@ -12,7 +11,6 @@ const RegisterCourse = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [street, setStreet] = useState("");
-  const [apartmentNo, setApartmentNo] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
@@ -55,7 +53,6 @@ const RegisterCourse = () => {
         phoneNumber,
         email,
         street,
-        apartmentNo,
         city,
         state,
         zip,
@@ -96,15 +93,19 @@ const RegisterCourse = () => {
   };
   const functionPost = async (url,  jsonData ) => {
     setIsLoading(true);
-    axios.post(url, jsonData)
-      .then((response) => {
-        setIsLoading(false);
-        setRegisterStatus(true);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setRegisterStatus(false);
-      });
+    const response = await fetch(url,{
+      method: "POST",
+      body: JSON.stringify(jsonData),
+      headers: { "Content-Type": "Application/json" },     
+    })
+    if (response.ok) {
+      setIsLoading(false);
+      setRegisterStatus(true);
+    } else {
+      setIsLoading(false);
+      setRegisterStatus(false);
+    }
+    return response.ok;
   };
   return (
     <>
@@ -121,6 +122,7 @@ const RegisterCourse = () => {
           >
             All fields are required, ensure all details are correct.
           </Typography>
+
           <p></p>
           <form onSubmit={registerStudent}>
             <Grid container spacing={2}>
@@ -170,27 +172,15 @@ const RegisterCourse = () => {
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </Grid>
-              <Grid xs={12} sm={9} item>
+              <Grid xs={12} item>
                 <TextField
                   label="Street"
                   name="street"
-                  helperText="Enter street"
+                  placeholder="Enter street"
                   variant="outlined"
                   fullWidth
                   required
                   onChange={(event) => setStreet(event.target.value)}
-                />
-              </Grid>
-              <Grid xs={12} sm={3} item>
-                <TextField
-                  type="number"
-                  label="Apt#"
-                  name="apartmentNo"
-                  helperText="Apartment No"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  onChange={(event) => setApartmentNo(event.target.value)}
                 />
               </Grid>
               <Grid xs={12} sm={4} item>
@@ -244,7 +234,7 @@ const RegisterCourse = () => {
                 </div>
               </Grid>
               <Grid xs={12} sm={6} item>
-                <Button type="submit" variant="contained" id="submitButton" fullWidth>
+                <Button type="submit" color="success" variant="contained" fullWidth>
                   Submit
                 </Button>
               </Grid>
