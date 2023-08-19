@@ -1,16 +1,13 @@
+import logo from './logo.svg';
 import './App.css';
-import { Typography } from '@mui/material';
-import RegisterCourse from './components/RegisterCourse';
+import Landingpage from './components/Landingpage';
 
-const App = () => {
+function App() {
   return (
     <div className="App">
-    <Typography gutterBottom variant='h4'>
-      Course Registration Form
-    </Typography>
-    <RegisterCourse />
-  </div>
+      <Landingpage/>
+    </div>
   );
-};
+}
 
 export default App;
