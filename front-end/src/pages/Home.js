@@ -1,15 +1,12 @@
 import React from "react";
-
-// import About from "../components/About";
-// import Canvas from "../components/Canvas";
-// import Features from "../components/Features";
+import Footer from "../components/Footer";
+import Features from "../components/Features";
 import Header from "../components/Header";
-// import LazyShow from "../components/LazyShow";
 import MainHero from "../components/MainHero";
 import MainHeroImage from "../components/MainHeroImage";
 import { Grid, Box } from "@mui/material";
-// import Pricing from "../components/Pricing";
-// import Product from "../components/Product";
+import Pricing from "../components/Pricing";
+import Testimonials from "../components/Testimonials";
 
 const Home = () => {
   return (
@@ -23,29 +20,10 @@ const Home = () => {
         </Box>
         <MainHeroImage />
       </Box>
-      {/* <Canvas />
-      <LazyShow>
-        <>
-          <Product />
-          <Canvas />
-        </>
-      </LazyShow>
-      <LazyShow>
-        <>
-          <Features />
-          <Canvas />
-        </>
-      </LazyShow>
-      <LazyShow>
-        <Pricing />
-      </LazyShow>
-      <LazyShow>
-        <>
-          <Canvas />
-          <About />
-        </>
-      </LazyShow>
-      <Analytics /> */}
+      <Features />
+      <Testimonials />
+      <Pricing />
+      <Footer />
     </Grid>
   );
 };
