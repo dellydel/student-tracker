@@ -1,11 +1,10 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button, Box, Stack } from "@mui/material";
-//import stack from "@mui/material";
 
 function Navigation() {
   return (
     <div>
-      <Box sx={{ flexGrow: 1, backgroundColor: "purple" }}>
+      <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
             <Typography

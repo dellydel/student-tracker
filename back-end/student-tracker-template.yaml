@@ -55,7 +55,7 @@ Resources:
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub 'next-byte-dynamoDB-${Env}'
+      TableName: !Sub 'next-byte-Students-${Env}'
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
