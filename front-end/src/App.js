@@ -2,7 +2,7 @@ import "./App.css";
 import { Typography } from "@mui/material";
 import RegisterCourse from "./components/RegisterCourse";
 import Navigation from "./components/Navigation";
-
+import Login from "./components/Login";
 const App = () => {
   return (
     <div className="App">
@@ -11,6 +11,7 @@ const App = () => {
       </Typography>
       <RegisterCourse />
       <Navigation />
+      <Login />
     </div>
   );
 };
