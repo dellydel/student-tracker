@@ -1,18 +1,6 @@
 .App {
   text-align: center;
 }
-/* .amplify-button[data-variation='primary'] {
-  background: linear-gradient(
-    to right,
-    var(--amplify-colors-green-80),
-    var(--amplify-colors-orange-40)
-  );
-} */
-
-.amplify-button[data-variation='primary'] {
-  background: var(--amplify-colors-green-80)  
-}
-
 
 .App-logo {
   height: 40vmin;
