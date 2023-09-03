@@ -46,6 +46,7 @@ const Login = () => {
                   variant="outlined"
                   fullWidth
                   size="small"
+                  value={email}
                   required
                   onChange={(event) => setEmail(event.target.value)}
                 />
@@ -70,6 +71,7 @@ const Login = () => {
                   fullWidth
                   size="small"
                   required
+                  value={password}
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </Grid>
