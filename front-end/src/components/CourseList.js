@@ -1,6 +1,6 @@
 import { Card, CardContent, Grid } from "@mui/material";
 import Course from "./Course";
-import courseList from "./courseList.json";
+import courseList from "../test-data/courseList.json";
 function CourseList() {
   return (
     <Card
