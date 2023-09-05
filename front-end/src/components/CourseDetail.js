@@ -1,6 +1,5 @@
 import { Card, CardContent, Typography, Grid, Button } from "@mui/material";
-
-const CSS = ({
+const CourseDetail = ({
   courseName,
   duration,
   technology,
@@ -99,7 +98,6 @@ const CSS = ({
                   Price:{price}
                 </span>
               </Grid>
-
               <Grid xs={12} item>
                 <Button
                   style={{
@@ -122,4 +120,4 @@ const CSS = ({
     </>
   );
 };
-export default CSS;
+export default CourseDetail;
