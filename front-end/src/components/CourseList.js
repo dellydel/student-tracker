@@ -45,4 +45,5 @@ function CourseList() {
     </Card>
   );
 }
+
 export default CourseList;

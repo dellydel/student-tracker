@@ -7,7 +7,7 @@
         "duration": "6 months duration",
         "cost": "$250",
         "technology": "front-end, HTML",
-        "courseOutline": {
+        "courseOutline":{
           "outline1": "..intro to html.",
           "outline2": "Learning about tags."
         } 
