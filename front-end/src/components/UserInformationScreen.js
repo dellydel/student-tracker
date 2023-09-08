@@ -1,9 +1,9 @@
 import React from "react";
-import courseList from "./courseList";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import courseList from "./test-data/courseList";
 
 const UserInformationScreen = () => {
   return (
