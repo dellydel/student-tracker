@@ -1,15 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-import Landingpage from './components/Landingpage';
-import SuccessPopup from './components/SuccessPopup';
-import UserInformationScreen from './components/UserInformationScreen';
+import "./App.css";
+import LandingPage from "./components/LandingPage";
+import SuccessPopup from "./components/SuccessPopup";
+import UserInformationScreen from "./components/UserInformationScreen";
 
 function App() {
   return (
     <div className="App">
-      <Landingpage/><p/>
-      <UserInformationScreen/><p/>
-      <SuccessPopup/>
+      <LandingPage />
+      <p />
+      <UserInformationScreen />
+      <p />
+      <SuccessPopup />
     </div>
   );
 }
