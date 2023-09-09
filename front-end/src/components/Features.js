@@ -4,7 +4,7 @@ import Divider from "./Divider";
 
 const Features = () => {
   return (
-    <Box sx={{ pt: 28 }}>
+    <Box>
       <Box sx={{ width: "800px", m: "auto", mx: "auto" }}>
         <Typography
           variant="h3"

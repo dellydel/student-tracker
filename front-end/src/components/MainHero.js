@@ -1,8 +1,19 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
+
+const heroStyle = {
+  backgroundImage: "url(https://picsum.photos/id/4/1600/500)",
+  backgroundRepeat: "no-repeat",
+  backgroundPositionX: "center",
+  backgroundPositionY: "top",
+  backgroundSize: "cover",
+  padding: 15,
+  marginBottom: 5,
+};
+
 const MainHero = () => {
   return (
-    <Box sx={{ marginTop: 18, px: 20, maxWidth: "650px" }}>
+    <Box sx={heroStyle}>
       <Box sx={{ textAlign: "left" }}>
         <Typography
           variant="h2"
