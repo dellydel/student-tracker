@@ -1,4 +1,5 @@
 import { Card, CardContent, Typography, Grid, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 const CourseDetail = ({
   courseName,
   duration,
@@ -7,6 +8,7 @@ const CourseDetail = ({
   price,
   outline,
 }) => {
+  const navigate = useNavigate();
   return (
     <>
       <Card
@@ -108,6 +110,9 @@ const CourseDetail = ({
                   type="submit"
                   variant="contained"
                   fullWidth
+                  onClick={() => {
+                    navigate("/register");
+                  }}
                 >
                   Register Now
                 </Button>

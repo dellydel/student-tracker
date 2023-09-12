@@ -1,22 +1,26 @@
 import "./App.css";
-import { Typography } from "@mui/material";
 import RegisterCourse from "./components/RegisterCourse";
-import Navigation from "./components/Navigation";
 import Login from "./components/Login";
 import CourseList from "./components/CourseList";
 import CourseDetail from "./components/CourseDetail";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import LandingPage from "./components/LandingPage";
+import UserInformationScreen from "./components/UserInformationScreen";
 const App = () => {
   return (
-    <div className="App">
-      <Typography gutterBottom variant="h4">
-        Course Registration Form
-      </Typography>
-      <RegisterCourse />
-      <Navigation />
-      <Login />
-      <CourseList />
-      <CourseDetail />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<LandingPage />} />
+          <Route path="/user" element={<UserInformationScreen />} />
+          <Route path="/courses" element={<CourseList />} />
+          <Route path="/course-details" element={<CourseDetail />} />
+          <Route path="/view-courses" element={<CourseList />} />
+          <Route path="/register" element={<RegisterCourse />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 export default App;
