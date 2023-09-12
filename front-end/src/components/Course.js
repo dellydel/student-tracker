@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Grid } from "@mui/material";
+import { Card, Grid, Link } from "@mui/material";
 
 function Course({ id, title, detail }) {
   return (
@@ -19,10 +19,10 @@ function Course({ id, title, detail }) {
         >
           <hr />
           <div key={id}>
-            <span>
+            <Link href="/course-details" color="inherit" underline="none">
               {` ${title} ${detail.duration} ${detail.cost}
               `}
-            </span>
+            </Link>
           </div>
         </Grid>
       </Grid>

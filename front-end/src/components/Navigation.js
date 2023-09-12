@@ -1,6 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, Button, Box, Stack } from "@mui/material";
-
+import { AppBar, Toolbar, Typography, Link, Box, Stack } from "@mui/material";
 function Navigation() {
   return (
     <div>
@@ -13,8 +12,12 @@ function Navigation() {
               sx={{ flexGrow: 1 }}
             ></Typography>
             <Stack direction="row" spacing={2}>
-              <Button color="inherit">Home</Button>
-              <Button color="inherit">View Courses</Button>
+              <Link href="/LandingPage" color="inherit" underline="none">
+                Home
+              </Link>
+              <Link href="/view-courses" color="inherit" underline="none">
+                View Courses
+              </Link>
             </Stack>
           </Toolbar>
         </AppBar>
