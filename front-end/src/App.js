@@ -7,9 +7,7 @@ function App() {
   return (
     <div className="App">
       <LandingPage />
-      <p />
       <UserInformationScreen />
-      <p />
       <SuccessPopup />
     </div>
   );
