@@ -1,5 +1,10 @@
 import {
-  Card, CardContent, Typography, Grid, TextField, Button,
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  TextField,
+  Button,
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
@@ -20,10 +25,10 @@ const RegisterCourse = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [registerStatus, setRegisterStatus] = useState(null);
 
-  const resetForm =() =>{
+  const resetForm = () => {
     setFeedBackText("");
     setRegisterStatus("");
-  }
+  };
   const revalidateEmailAndBuildJsonData = () => {
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
       document.forms[0].email.focus();
@@ -50,11 +55,11 @@ const RegisterCourse = () => {
         city,
         state,
         zip,
-        dateOfBirth
+        dateOfBirth,
       },
       TableName: "course-reg-dynamodb-2023",
     };
-    return formData
+    return formData;
   };
   const registerStudent = (event) => {
     setFeedBackText("");
@@ -74,9 +79,10 @@ const RegisterCourse = () => {
       }
     }
   };
-  const functionPost = async (url,  jsonData ) => {
+  const functionPost = async (url, jsonData) => {
     setIsLoading(true);
-    axios.post(url, jsonData)
+    axios
+      .post(url, jsonData)
       .then((response) => {
         setIsLoading(false);
         setRegisterStatus(true);
@@ -224,18 +230,25 @@ const RegisterCourse = () => {
                 />
               </Grid>
               <Grid xs={12} item>
-                <div>
-                  {isLoading ? "Loading...": feedBackText}
-                  
-                </div>
+                <div>{isLoading ? "Loading..." : feedBackText}</div>
               </Grid>
               <Grid xs={12} sm={6} item>
-                <Button type="submit" variant="contained" fullWidth>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  style={{ backgroundColor: "green" }}
+                  fullWidth
+                >
                   Submit
                 </Button>
               </Grid>
               <Grid xs={12} sm={6} item>
-                <Button type="reset" onClick={resetForm} variant="contained" fullWidth>
+                <Button
+                  type="reset"
+                  onClick={resetForm}
+                  variant="contained"
+                  fullWidth
+                >
                   Reset
                 </Button>
               </Grid>
