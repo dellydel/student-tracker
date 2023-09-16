@@ -1,6 +1,5 @@
 import "./App.css";
 import RegisterCourse from "./components/RegisterCourse";
-import Login from "./components/Login";
 import CourseList from "./components/CourseList";
 import CourseDetail from "./components/CourseDetail";
 import { BrowserRouter, Routes, Route } from "react-router-dom";

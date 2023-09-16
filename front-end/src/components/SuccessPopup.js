@@ -6,7 +6,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import DialogTitle from "@mui/material/DialogTitle";
 
 const SuccessPopup = () => {
   const [open, setOpen] = React.useState(false);

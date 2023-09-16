@@ -1,5 +1,3 @@
-import React from "react";
-
 const courseList = [
   {
     name: "CompTIA A+ Certification",
