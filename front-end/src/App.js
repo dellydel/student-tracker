@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./App.css";
 import "./App.css";
+import RegisterCourse from "./components/RegisterCourse";
+import CourseList from "./components/CourseList";
 import CourseDetail from "./components/CourseDetail";
 import CourseList from "./components/CourseList";
 import LandingPage from "./components/LandingPage";
