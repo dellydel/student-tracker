@@ -1,29 +1,39 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, Link, Box, Stack } from "@mui/material";
+import { AppBar, Toolbar, Link, Box } from "@mui/material";
+
+const pages = [
+	{ name: "HOME", link: "/" },
+	{ name: "COURSES", link: "/courses" },
+];
+
 function Navigation() {
-  return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography
-              variant="h2"
-              component="div"
-              sx={{ flexGrow: 1 }}
-            ></Typography>
-            <Stack direction="row" spacing={2}>
-              <Link href="/LandingPage" color="inherit" underline="none">
-                Home
-              </Link>
-              <Link href="/view-courses" color="inherit" underline="none">
-                View Courses
-              </Link>
-            </Stack>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </div>
-  );
+	return (
+		<div>
+			<Box sx={{ flexGrow: 1 }}>
+				<AppBar position="static">
+					<Toolbar>
+						<Box
+							sx={{
+								flexGrow: 1,
+								display: "flex",
+								justifyContent: "flex-end",
+							}}
+						>
+							{pages.map((page) => (
+								<Link
+									key={page}
+									href={page.link}
+									sx={{ m: 1, p: 1, color: "white", textDecoration: "none" }}
+								>
+									{page.name}
+								</Link>
+							))}
+						</Box>
+					</Toolbar>
+				</AppBar>
+			</Box>
+		</div>
+	);
 }
 
 export default Navigation;
