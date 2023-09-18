@@ -1,4 +1,4 @@
-name: Upload Website
+name: Deploy Front End
 
 on:
   workflow_dispatch:
