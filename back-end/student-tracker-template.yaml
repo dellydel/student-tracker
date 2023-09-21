@@ -39,7 +39,6 @@ Resources:
       Role: !GetAtt IAMRole.Arn
     DependsOn:
       - DynamoDBTable
-  
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -53,7 +52,6 @@ Resources:
       BillingMode: PAY_PER_REQUEST
     DependsOn:
       - IAMRole 
-  
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
