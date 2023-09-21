@@ -6,6 +6,7 @@ import Courses from "./pages/Courses";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import RegisterCourse from "./pages/RegisterCourse";
+import UserInformationScreen from "./pages/UserInformationScreen";
 
 const theme = createTheme({
 	typography: {
@@ -25,6 +26,7 @@ const App = () => {
 						<Route path="/courses" element={<Courses />} />
 						<Route path="/course-details" element={<CourseDetails />} />
 						<Route path="/register" element={<RegisterCourse />} />
+						<Route path="/user" element={<UserInformationScreen />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
