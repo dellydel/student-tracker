@@ -64,7 +64,33 @@ Resources:
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
     DependsOn:
+      - IAMRole
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'next-byte-Courses-${Env}'
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+    DependsOn:
       - IAMRole    
+   DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'next-byte-Registrations-${Env}'
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+    DependsOn:
+      - IAMRole        
   APIGatewayRestAPI:
     Type: 'AWS::ApiGateway::RestApi'
     Properties:
