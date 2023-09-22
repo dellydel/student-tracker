@@ -1,5 +1,6 @@
 import React from "react";
 import Divider from "@mui/material/Divider";
+import Link from "@mui/material/Link";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
@@ -32,14 +33,16 @@ const Courses = () => {
 function Course({ course }) {
 	return (
 		<>
-			<b>
-				<ListItem alignItems="flex-start">{course.name} </ListItem>
-			</b>
-			<ListItem alignItems="flex-start">{course.description} </ListItem>
-			<ListItem alignItems="flex-start">{course.Price}</ListItem>
-			<p>
-				<Divider />
-			</p>
+			<Link href="/course-details" color="inherit" underline="none">
+				<b>
+					<ListItem alignItems="flex-start">{course.name} </ListItem>
+				</b>
+				<ListItem alignItems="flex-start">{course.description} </ListItem>
+				<ListItem alignItems="flex-start">{course.Price}</ListItem>
+				<p>
+					<Divider />
+				</p>
+			</Link>
 		</>
 	);
 }
