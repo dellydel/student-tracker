@@ -170,18 +170,6 @@ const RegisterCourse = () => {
                   onChange={(event) => setStreet(event.target.value)}
                 />
               </Grid>
-              <Grid xs={12} sm={3} item>
-                <TextField
-                  type="number"
-                  label="Apt#"
-                  name="apartmentNo"
-                  placeholder="Enter house number"
-                  variant="outlined"
-                  fullWidth
-                  required
-                  onChange={(event) => setApartmentNo(event.target.value)}
-                />
-              </Grid>
               <Grid xs={12} sm={4} item>
                 <TextField
                   label="City"
