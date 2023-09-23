@@ -3,13 +3,13 @@ AWSTemplateFormatVersion: 2010-09-09
 Parameters:
   Env:
     Type: String
-    AllowedValues: 
+    AllowedValues:
       - development
       - production
     Description: The deployment environment
 
 Conditions:
-  IsDev: !Equals [!Ref Env, development] 
+  IsDev: !Equals [!Ref Env, development]
 
 Resources:
   LambdaFunction:
@@ -32,8 +32,8 @@ Resources:
               statusCode,
               body
             }
-          }      
-      FunctionName: !Sub 'registration-lambda-${Env}'
+          }
+      FunctionName: !Sub "registration-lambda-${Env}"
       Handler: index.handler
       Runtime: nodejs14.x
       Role: !GetAtt IAMRole.Arn
@@ -42,7 +42,7 @@ Resources:
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub 'next-byte-Students-${Env}'
+      TableName: !Sub "next-byte-Students-${Env}"
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -55,7 +55,7 @@ Resources:
   DynamoDBCourses:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub 'next-byte-Courses-${Env}'
+      TableName: !Sub "next-byte-Courses-${Env}"
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -64,11 +64,11 @@ Resources:
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
     DependsOn:
-      - IAMRole    
-   DynamoDBRegistrations:
+      - IAMRole
+  DynamoDBRegistrations:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: !Sub 'next-byte-Registrations-${Env}'
+      TableName: !Sub "next-byte-Registrations-${Env}"
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
@@ -77,15 +77,15 @@ Resources:
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
     DependsOn:
-      - IAMRole        
+      - IAMRole
   APIGatewayRestAPI:
-    Type: 'AWS::ApiGateway::RestApi'
+    Type: "AWS::ApiGateway::RestApi"
     Properties:
-      Name: !Sub 'next-byte-api-${Env}'
+      Name: !Sub "next-byte-api-${Env}"
     DependsOn:
       - LambdaFunction
   APIGatewayResource:
-    Type: 'AWS::ApiGateway::Resource'
+    Type: "AWS::ApiGateway::Resource"
     Properties:
       RestApiId: !Ref APIGatewayRestAPI
       ParentId: !GetAtt
@@ -110,14 +110,14 @@ Resources:
               method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
               method.response.header.Access-Control-Allow-Origin: "'*'"
             ResponseTemplates:
-              application/json: ''
+              application/json: ""
         PassthroughBehavior: WHEN_NO_MATCH
         RequestTemplates:
           application/json: '{"statusCode": 200}'
       MethodResponses:
         - StatusCode: 200
           ResponseModels:
-            application/json: 'Empty'
+            application/json: "Empty"
           ResponseParameters:
             method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
             method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
@@ -141,7 +141,7 @@ Resources:
         IntegrationResponses:
           - StatusCode: 200
             ResponseTemplates:
-              application/json: ''
+              application/json: ""
             ResponseParameters:
               method.response.header.Access-Control-Allow-Origin: "'*'"
         PassthroughBehavior: WHEN_NO_MATCH
@@ -160,9 +160,9 @@ Resources:
         Ref: Env
     DependsOn: [APIGatewayOptionsMethod, APIGatewayPostMethod]
   APIGatewayPermission:
-    Type: 'AWS::Lambda::Permission'
+    Type: "AWS::Lambda::Permission"
     Properties:
-      Action: 'lambda:InvokeFunction'
+      Action: "lambda:InvokeFunction"
       FunctionName: !GetAtt LambdaFunction.Arn
       Principal: apigateway.amazonaws.com
     DependsOn:
@@ -178,7 +178,7 @@ Resources:
               Service:
                 - lambda.amazonaws.com
             Action:
-              - 'sts:AssumeRole'
+              - "sts:AssumeRole"
       Path: /
       Policies:
         - PolicyName: Policy_api-lambda-db
@@ -187,30 +187,30 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - 'dynamodb:BatchGetItem'
-                  - 'dynamodb:BatchWriteItem'
-                  - 'dynamodb:TagResource'
-                  - 'dynamodb:UntagResource'
-                  - 'dynamodb:PutItem'
-                  - 'dynamodb:DeleteItem'
-                  - 'dynamodb:GetItem'
-                  - 'dynamodb:Scan'
-                  - 'dynamodb:Query'
-                  - 'dynamodb:UpdateItem'
-                Resource: '*'
+                  - "dynamodb:BatchGetItem"
+                  - "dynamodb:BatchWriteItem"
+                  - "dynamodb:TagResource"
+                  - "dynamodb:UntagResource"
+                  - "dynamodb:PutItem"
+                  - "dynamodb:DeleteItem"
+                  - "dynamodb:GetItem"
+                  - "dynamodb:Scan"
+                  - "dynamodb:Query"
+                  - "dynamodb:UpdateItem"
+                Resource: "*"
               - Effect: Allow
                 Action:
-                  - 'logs:CreateLogStream'
-                  - 'logs:CreateLogGroup'
-                  - 'logs:PutLogEvents'
-                Resource: '*'
-                                
+                  - "logs:CreateLogStream"
+                  - "logs:CreateLogGroup"
+                  - "logs:PutLogEvents"
+                Resource: "*"
+
   MyS3Bucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Description: S3 Bucket on which we will deploy Next Byte Web
     Properties:
-      BucketName: !If [IsDev, dev.nextbyteweb.com,  www.nextbyteweb.com]       
+      BucketName: !If [IsDev, dev.nextbyteweb.com, www.nextbyteweb.com]
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
@@ -236,12 +236,12 @@ Resources:
       Bucket: !Ref MyS3Bucket
       PolicyDocument:
         Statement:
-        - Action:
-            - s3:*
-          Effect: Allow
-          Resource:
-            - !Sub arn:aws:s3:::${MyS3Bucket}
-            - !Sub arn:aws:s3:::${MyS3Bucket}/*
-          Principal:
-            AWS:
-              - "*"
+          - Action:
+              - s3:*
+            Effect: Allow
+            Resource:
+              - !Sub arn:aws:s3:::${MyS3Bucket}
+              - !Sub arn:aws:s3:::${MyS3Bucket}/*
+            Principal:
+              AWS:
+                - "*"
