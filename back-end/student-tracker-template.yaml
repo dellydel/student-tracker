@@ -39,7 +39,7 @@ Resources:
       Role: !GetAtt IAMRole.Arn
     DependsOn:
       - DynamoDBTable
-  DynamoDBTable:
+  DynamoDBCourses:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: !Sub 'next-byte-dynamoDB-${Env}'
