@@ -6,6 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { DialogTitle } from "@mui/material";
 
 const SuccessPopup = () => {
   const [open, setOpen] = React.useState(false);
@@ -35,6 +36,9 @@ const SuccessPopup = () => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
+            <DialogTitle>
+              Comfirm
+            </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
                 “Are you sure you want to submit”.
