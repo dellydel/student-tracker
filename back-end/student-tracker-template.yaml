@@ -52,7 +52,7 @@ Resources:
       BillingMode: PAY_PER_REQUEST
     DependsOn:
       - IAMRole
-  DynamoDBTable:
+  DynamoDBStudents:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: !Sub 'next-byte-Students-${Env}'
@@ -65,7 +65,7 @@ Resources:
       BillingMode: PAY_PER_REQUEST
     DependsOn:
       - IAMRole
-  DynamoDBTable:
+  DynamoDBCourses:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: !Sub 'next-byte-Courses-${Env}'
@@ -78,7 +78,7 @@ Resources:
       BillingMode: PAY_PER_REQUEST
     DependsOn:
       - IAMRole    
-   DynamoDBTable:
+   DynamoDBRegistrations:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: !Sub 'next-byte-Registrations-${Env}'
