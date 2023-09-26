@@ -40,9 +40,9 @@ const MainHero = () => {
 				</Typography>
 				<Box sx={{ mt: 3, display: "flex", justifyContent: "flex-start" }}>
 					<Button
-						sx={{ m: 1, p: 2 }}
+						sx={{ px: 2 }}
 						variant="contained"
-						size="large"
+						size="medium"
 						href="/courses"
 					>
 						BROWSE COURSES
