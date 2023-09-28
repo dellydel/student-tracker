@@ -15,7 +15,14 @@ const heroStyle = {
 const MainHero = () => {
 	return (
 		<Box sx={heroStyle}>
-			<Box sx={{ textAlign: "left" }}>
+			<Box
+				sx={{
+					textAlign: "left",
+					maxWidth: "1050px",
+					margin: "0 auto",
+					padding: "0 20px",
+				}}
+			>
 				<Typography
 					variant="h2"
 					color="white"
