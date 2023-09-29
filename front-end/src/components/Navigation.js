@@ -1,10 +1,15 @@
-import React from "react";
+
 import { AppBar, Toolbar, Link, Box } from "@mui/material";
+
 
 const pages = [
 	{ name: "HOME", link: "/" },
 	{ name: "COURSES", link: "/courses" },
+	
+	
 ];
+
+
 
 function Navigation() {
 	return (
@@ -29,6 +34,7 @@ function Navigation() {
 								</Link>
 							))}
 						</Box>
+						
 					</Toolbar>
 				</AppBar>
 			</Box>
