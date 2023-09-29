@@ -30,7 +30,7 @@ const MainHero = () => {
 						fontWeight: "bold",
 					}}
 				>
-					Next Byte
+					NextByte
 				</Typography>
 				<Typography variant="h2" color={"primary"} sx={{ fontWeight: "bold" }}>
 					Training and Consulting

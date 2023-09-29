@@ -1,5 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Typography, Grid, Button } from "@mui/material";
+import {
+	Card,
+	CardContent,
+	Typography,
+	Grid,
+	Button,
+	Box,
+} from "@mui/material";
 
 const CourseDetails = ({
 	courseName,
@@ -11,7 +18,7 @@ const CourseDetails = ({
 }) => {
 	const navigate = useNavigate();
 	return (
-		<>
+		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 			<Card
 				style={{
 					maxWidth: 700,
@@ -123,7 +130,7 @@ const CourseDetails = ({
 					</form>
 				</CardContent>
 			</Card>
-		</>
+		</Box>
 	);
 };
 export default CourseDetails;

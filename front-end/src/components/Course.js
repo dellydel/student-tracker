@@ -1,33 +1,26 @@
 import React from "react";
-import { Card, Grid, Link } from "@mui/material";
+import { Link, Card, Typography } from "@mui/material";
 
-function Course({ id, title, detail }) {
+const Course = ({ course }) => {
 	return (
-		<Card
-			style={{
-				maxWith: "600",
-				marginTop: "70",
-				marginLeft: "auto",
-				marginRight: "auto",
-			}}
-		>
-			<Grid container spacing={1} style={{ border: "1 solid black" }}>
-				<Grid
-					item
-					xs={12}
-					style={{ textAlign: "center", justifyItem: "center", margin: "2px" }}
+		<Card sx={{ maxWidth: 425, p: 3, m: 3, backgroundColor: "#f5f5f5" }}>
+			<Link href="/course-details" color="inherit" underline="none">
+				<Typography
+					variant="h5"
+					component="div"
+					sx={{ fontWeight: "bold", mb: 1, color: "#1976d2" }}
 				>
-					<hr />
-					<div key={id}>
-						<Link href="/course-details" color="inherit" underline="none">
-							{` ${title} ${detail.duration} ${detail.cost}
-              `}
-						</Link>
-					</div>
-				</Grid>
-			</Grid>
+					{course.name}
+				</Typography>
+				<Typography component="p" sx={{ mb: 1 }}>
+					{course.description}
+				</Typography>
+				<Typography component="p" sx={{ fontWeight: "bold" }}>
+					{course.Price}
+				</Typography>
+			</Link>
 		</Card>
 	);
-}
+};
 
 export default Course;
