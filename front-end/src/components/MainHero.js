@@ -15,7 +15,14 @@ const heroStyle = {
 const MainHero = () => {
 	return (
 		<Box sx={heroStyle}>
-			<Box sx={{ textAlign: "left" }}>
+			<Box
+				sx={{
+					textAlign: "left",
+					maxWidth: "1050px",
+					margin: "0 auto",
+					padding: "0 20px",
+				}}
+			>
 				<Typography
 					variant="h2"
 					color="white"
@@ -23,7 +30,7 @@ const MainHero = () => {
 						fontWeight: "bold",
 					}}
 				>
-					Next Byte
+					NextByte
 				</Typography>
 				<Typography variant="h2" color={"primary"} sx={{ fontWeight: "bold" }}>
 					Training and Consulting
@@ -40,9 +47,9 @@ const MainHero = () => {
 				</Typography>
 				<Box sx={{ mt: 3, display: "flex", justifyContent: "flex-start" }}>
 					<Button
-						sx={{ m: 1, p: 2 }}
+						sx={{ px: 2 }}
 						variant="contained"
-						size="large"
+						size="medium"
 						href="/courses"
 					>
 						BROWSE COURSES

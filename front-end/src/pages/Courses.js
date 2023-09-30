@@ -1,13 +1,11 @@
 import React from "react";
-import Divider from "@mui/material/Divider";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Typography from "@mui/material/Typography";
+import { Box, Typography } from "@mui/material";
+import Course from "../components/Course";
 import courseList from "../test-data/courseList";
 
 const Courses = () => {
 	return (
-		<div>
+		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 			<Typography
 				variant="h6"
 				gutterBottom
@@ -20,27 +18,20 @@ const Courses = () => {
 			>
 				Course List
 			</Typography>
-			<List>
+			<Box
+				component={"div"}
+				sx={{
+					display: "flex",
+					flexWrap: "wrap",
+					justifyContent: "space-around",
+				}}
+			>
 				{courseList.map((course) => (
 					<Course course={course} key={course.name} />
 				))}
-			</List>
-		</div>
+			</Box>
+		</Box>
 	);
 };
 
-function Course({ course }) {
-	return (
-		<>
-			<b>
-				<ListItem alignItems="flex-start">{course.name} </ListItem>
-			</b>
-			<ListItem alignItems="flex-start">{course.description} </ListItem>
-			<ListItem alignItems="flex-start">{course.Price}</ListItem>
-			<p>
-				<Divider />
-			</p>
-		</>
-	);
-}
 export default Courses;
