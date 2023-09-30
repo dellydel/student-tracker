@@ -9,9 +9,24 @@ const pages = [
 function Navigation() {
 	return (
 		<div>
-			<Box sx={{ flexGrow: 1 }}>
+			<Box>
 				<AppBar position="static">
 					<Toolbar>
+						<Box
+							sx={{
+								pl: 5,
+								flexGrow: 1,
+								display: "flex",
+								justifyContent: "flex-start",
+							}}
+						>
+							<Link
+								href={"/"}
+								sx={{ m: 1, p: 1, color: "white", textDecoration: "none" }}
+							>
+								NextByte [TEXT LOGO]
+							</Link>
+						</Box>
 						<Box
 							sx={{
 								flexGrow: 1,
@@ -21,7 +36,7 @@ function Navigation() {
 						>
 							{pages.map((page) => (
 								<Link
-									key={page}
+									key={page.name}
 									href={page.link}
 									sx={{ m: 1, p: 1, color: "white", textDecoration: "none" }}
 								>
