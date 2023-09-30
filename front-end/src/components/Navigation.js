@@ -10,7 +10,7 @@ function Navigation() {
 	return (
 		<div>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position="static">
+				<AppBar position="fixed" elevation={0} color="transparent">
 					<Toolbar>
 						<Box
 							sx={{

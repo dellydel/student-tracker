@@ -3,7 +3,8 @@ import { Box, Button, Typography } from "@mui/material";
 import { heroText } from "../data/homeContent";
 
 const heroStyle = {
-	backgroundImage: "url(https://picsum.photos/id/4/1600/500)",
+	//backgroundImage: "url(https://picsum.photos/id/4/1600/500)",
+	backgroundColor: "black",
 	backgroundRepeat: "no-repeat",
 	backgroundPositionX: "center",
 	backgroundPositionY: "top",
