@@ -1,5 +1,6 @@
 const testimonialData = [
 	{
+		id: 1,
 		avatarUrl: "https://i.pravatar.cc/150?img=59",
 		testimonial:
 			"The very Bootcamp every newbie needs to attend. It was a very nice experience learning React and Nodejs. AWS Cloudformation was a Bomb ! ..",
@@ -7,6 +8,7 @@ const testimonialData = [
 		LastInitial: "E",
 	},
 	{
+		id: 2,
 		avatarUrl: "https://i.pravatar.cc/150?img=57",
 		testimonial:
 			"This was a great mile stone attained. I recommend Next Byte trainings for any one looking for where to learn Advanced javascript and Front End Development..",
@@ -14,6 +16,7 @@ const testimonialData = [
 		LastInitial: "I",
 	},
 	{
+		id: 3,
 		avatarUrl: "https://i.pravatar.cc/150?img=44",
 		testimonial:
 			"This is the best thing that has ever happened to me in a decade..",

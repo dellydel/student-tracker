@@ -19,7 +19,7 @@ const Testimonials = () => {
 			>
 				{testimonialData.map((testimonial) => {
 					return (
-						<div style={{ flex: 1 }}>
+						<div key={testimonial.id} style={{ flex: 1 }}>
 							<span>
 								<Avatar src={testimonial.avatarUrl} atl="student"></Avatar>
 								<br />
