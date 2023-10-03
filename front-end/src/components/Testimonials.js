@@ -11,14 +11,15 @@ const Testimonials = () => {
 					display: "flex",
 					flexDirection: "row",
 					justifyItems: "center",
-					justifyContent: "space-between",
-					gap: "50px",
-					marginBottom: "20px",
+					AlignItems: "center",
+					marginBottom: "70px",
+					boxSizing: "borderBox",
+					gap: "30px",
 				}}
 			>
 				{testimonialData.map((testimonial) => {
 					return (
-						<div>
+						<div style={{ flex: 1 }}>
 							<span>
 								<Avatar src={testimonial.avatarUrl} atl="student"></Avatar>
 								<br />
@@ -28,9 +29,9 @@ const Testimonials = () => {
 								<p
 									style={{
 										textAlign: "right",
-										marginRight: 50,
 										color: "black",
 										fontWeight: 900,
+										marginRight: "70px",
 									}}
 								>
 									{testimonial.FirstName}&nbsp;{testimonial.LastInitial}.

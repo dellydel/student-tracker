@@ -9,14 +9,14 @@ const testimonialData = [
 	{
 		avatarUrl: "https://i.pravatar.cc/150?img=57",
 		testimonial:
-			"This was a great mile stone attained. I recommend Next Byte trainings for any one Looking for where to learn Advanced javascript and Front End Development..",
+			"This was a great mile stone attained. I recommend Next Byte trainings for any one looking for where to learn Advanced javascript and Front End Development..",
 		FirstName: "Henry",
 		LastInitial: "I",
 	},
 	{
 		avatarUrl: "https://i.pravatar.cc/150?img=44",
 		testimonial:
-			"This is the best thing that has ever hapened to me in a decade..",
+			"This is the best thing that has ever happened to me in a decade..",
 		FirstName: "Chidinma",
 		LastInitial: "I",
 	},
