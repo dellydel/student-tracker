@@ -21,21 +21,23 @@ const Testimonials = () => {
 					return (
 						<div key={testimonial.id} style={{ flex: 1 }}>
 							<span>
-								<Avatar src={testimonial.avatarUrl} atl="student"></Avatar>
-								<br />
 								<span
-									style={{ fontStyle: "italic" }}
-								>{`"${testimonial.testimonial}"`}</span>
-								<p
 									style={{
-										textAlign: "right",
-										color: "black",
-										fontWeight: 900,
-										marginRight: "70px",
+										display: "flex",
 									}}
 								>
-									{testimonial.FirstName}&nbsp;{testimonial.LastInitial}.
-								</p>
+									<Avatar src={testimonial.avatarUrl} atl="student"></Avatar>
+									<span
+										style={{
+											margin: "10px",
+										}}
+									>
+										{testimonial.FirstName}&nbsp;{testimonial.LastInitial}.
+									</span>
+								</span>
+								<p
+									style={{ fontStyle: "italic" }}
+								>{`"${testimonial.testimonial}"`}</p>
 							</span>
 						</div>
 					);
