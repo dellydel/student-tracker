@@ -16,12 +16,10 @@ const RegisterCourse = () => {
 	const [phoneNumber, setPhoneNumber] = useState("");
 	const [email, setEmail] = useState("");
 	const [street, setStreet] = useState("");
-	const [apartmentNo, setApartmentNo] = useState("");
 	const [city, setCity] = useState("");
 	const [state, setState] = useState("");
 	const [zip, setZip] = useState("");
 	const [dateOfBirth, setDateOfBirth] = useState("");
-
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [registerStatus, setRegisterStatus] = useState(null);
@@ -52,7 +50,6 @@ const RegisterCourse = () => {
 				phoneNumber,
 				email,
 				street,
-				apartmentNo,
 				city,
 				state,
 				zip,
@@ -171,18 +168,7 @@ const RegisterCourse = () => {
 									onChange={(event) => setStreet(event.target.value)}
 								/>
 							</Grid>
-							<Grid xs={12} sm={3} item>
-								<TextField
-									type="number"
-									label="Apt#"
-									name="apartmentNo"
-									placeholder="Enter house number"
-									variant="outlined"
-									fullWidth
-									required
-									onChange={(event) => setApartmentNo(event.target.value)}
-								/>
-							</Grid>
+
 							<Grid xs={12} sm={4} item>
 								<TextField
 									label="City"
