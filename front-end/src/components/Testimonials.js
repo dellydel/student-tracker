@@ -26,7 +26,7 @@ const Testimonials = () => {
 										display: "flex",
 									}}
 								>
-									<Avatar src={testimonial.avatarUrl} atl="student"></Avatar>
+									<Avatar src={testimonial.avatarUrl} alt="student"></Avatar>
 									<span
 										style={{
 											margin: "10px",
