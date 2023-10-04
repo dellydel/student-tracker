@@ -39,6 +39,33 @@ Resources:
       Role: !GetAtt IAMRole.Arn
     DependsOn:
       - DynamoDBTable
+  CoursesFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          const AWS = require('aws-sdk');
+          const docClient = new AWS.DynamoDB.DocumentClient();
+          const params = {
+           TableName: !Sub "next-byte-Courses-${Env}",
+           KeyConditionExpression: 'my-partition-key = :pk',
+           ExpressionAttributeValues: {
+            ':pk': 'my-partition-key-value'
+           }
+          };
+          docClient.query(params, function(err, data) {
+           if (err) {
+             console.log(err);
+           } else {
+             console.log(data.Items);
+           }
+          });
+      FunctionName: !Sub "Courses-lambda-${Env}"
+      Handler: index.handler
+      Runtime: nodejs14.x
+      Role: !GetAtt IAMRole.Arn
+    DependsOn:
+      - DynamoDBTable
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
