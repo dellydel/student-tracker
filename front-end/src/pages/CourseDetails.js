@@ -21,7 +21,7 @@ const CourseDetails = ({
 	const navigate = useNavigate();
 	const handleFormTitle = () => {
 		setFormTitle(formTitle);
-		navigate(generatePath("/register/:formTitle", { formTitle }));
+		formTitle && navigate(generatePath("/register/:formTitle", { formTitle }));
 	};
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
