@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
 	Card,
 	CardContent,
@@ -21,11 +22,10 @@ const RegisterCourse = () => {
 	const [state, setState] = useState("");
 	const [zip, setZip] = useState("");
 	const [dateOfBirth, setDateOfBirth] = useState("");
-
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [registerStatus, setRegisterStatus] = useState(null);
-
+	const { courseName } = useParams();
 	const resetForm = () => {
 		setFeedBackText("");
 		setRegisterStatus("");
@@ -100,7 +100,7 @@ const RegisterCourse = () => {
 			<Card style={{ maxWidth: 550, margin: "0 auto" }}>
 				<CardContent>
 					<Typography gutterBottom variant="h5">
-						Register for your online course
+						{courseName}
 					</Typography>
 					<Typography
 						gutterBottom
@@ -110,8 +110,6 @@ const RegisterCourse = () => {
 					>
 						All fields are compulsory, ensure all details are correct.
 					</Typography>
-
-					<p></p>
 					<form onSubmit={registerStudent}>
 						<Grid container spacing={2}>
 							<Grid xs={12} sm={6} item>
@@ -253,7 +251,7 @@ const RegisterCourse = () => {
 						</Grid>
 					</form>
 				</CardContent>
-			</Card>{" "}
+			</Card>
 		</Box>
 	);
 };

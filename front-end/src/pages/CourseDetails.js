@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, generatePath } from "react-router-dom";
 import {
 	Card,
 	CardContent,
@@ -17,11 +18,14 @@ const CourseDetails = ({
 	outline,
 }) => {
 	const navigate = useNavigate();
+	const handleFormTitle = (e) => {
+		courseName &&
+			navigate(generatePath("/register/:courseName", { courseName }));
+	};
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 			<Card
 				style={{
-					maxWidth: 700,
 					marginTop: "80px",
 					marginLeft: "auto",
 					marginRight: "auto",
@@ -118,9 +122,7 @@ const CourseDetails = ({
 									type="submit"
 									variant="contained"
 									fullWidth
-									onClick={() => {
-										navigate("/register");
-									}}
+									onClick={handleFormTitle}
 								>
 									Register Now
 								</Button>
