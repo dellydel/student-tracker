@@ -23,11 +23,11 @@ const Courses = () => {
 				sx={{
 					display: "flex",
 					flexWrap: "wrap",
-					justifyContent: "space-around",
+					justifyContent: "space-between",
 				}}
 			>
 				{courseList.map((course) => (
-					<Course course={course} key={course.name} />
+					<Course course={course} key={course.id} />
 				))}
 			</Box>
 		</Box>
