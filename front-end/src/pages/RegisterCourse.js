@@ -25,7 +25,7 @@ const RegisterCourse = () => {
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [registerStatus, setRegisterStatus] = useState(null);
-	const { courseName } = useParams();
+	const { formTitle } = useParams();
 	const resetForm = () => {
 		setFeedBackText("");
 		setRegisterStatus("");
@@ -100,7 +100,7 @@ const RegisterCourse = () => {
 			<Card style={{ maxWidth: 550, margin: "0 auto" }}>
 				<CardContent>
 					<Typography gutterBottom variant="h5">
-						{courseName}
+						{formTitle}
 					</Typography>
 					<Typography
 						gutterBottom

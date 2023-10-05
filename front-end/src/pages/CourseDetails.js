@@ -17,15 +17,17 @@ const CourseDetails = ({
 	price,
 	outline,
 }) => {
+	const [formTitle, setFormTitle] = useState(courseName);
 	const navigate = useNavigate();
-	const handleFormTitle = (e) => {
-		courseName &&
-			navigate(generatePath("/register/:courseName", { courseName }));
+	const handleFormTitle = () => {
+		setFormTitle(formTitle);
+		navigate(generatePath("/register/:formTitle", { formTitle }));
 	};
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 			<Card
 				style={{
+					maxWidth: 700,
 					marginTop: "80px",
 					marginLeft: "auto",
 					marginRight: "auto",
@@ -47,7 +49,7 @@ const CourseDetails = ({
 										color: "grey",
 									}}
 								>
-									Course name:{courseName}
+									Course name:{formTitle}
 								</span>
 							</Grid>
 							<Grid xs={6} item>
