@@ -20,25 +20,23 @@ const Testimonials = () => {
 				{testimonialData.map((testimonial) => {
 					return (
 						<div key={testimonial.id} style={{ flex: 1 }}>
-							<span>
+							<span
+								style={{
+									display: "flex",
+								}}
+							>
+								<Avatar src={testimonial.avatarUrl} alt="student"></Avatar>
 								<span
 									style={{
-										display: "flex",
+										margin: "10px",
 									}}
 								>
-									<Avatar src={testimonial.avatarUrl} alt="student"></Avatar>
-									<span
-										style={{
-											margin: "10px",
-										}}
-									>
-										{testimonial.FirstName}&nbsp;{testimonial.LastInitial}.
-									</span>
+									{testimonial.FirstName}&nbsp;{testimonial.LastInitial}
 								</span>
-								<p
-									style={{ fontStyle: "italic" }}
-								>{`"${testimonial.testimonial}"`}</p>
 							</span>
+							<p
+								style={{ fontStyle: "italic" }}
+							>{`"${testimonial.testimonial}"`}</p>
 						</div>
 					);
 				})}
