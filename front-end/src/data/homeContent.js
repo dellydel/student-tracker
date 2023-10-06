@@ -1,7 +1,14 @@
 export const heroText =
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio" +
-	"purus, blandit ac eleifend a, aliquam tempor neque. Aenean ex velit," +
-	"aliquam quis egestas sit amet, blandit id erat. Duis tempus dolor nec" +
-	"turpis placerat tempor. Praesent ante lorem, viverra ac purus a," +
-	"vulputate viverra odio. Vestibulum nec urna auctor urna elementum" +
-	"ultricies.";
+	"Welcome to the beginning of your web development journey! Whether you're a complete novice or have some experience, " +
+	"our courses are fully designed to empower beginners like you. " +
+	"We would love to see you in one of our upcomming courses!";
+
+export const heroCallToAction = [
+	{ id: 1, text: ["Embark on Your Web Development Journey.", "Enroll Now!"] },
+	{ id: 2, text: ["Begin Your Coding Adventure.", "Explore Our Courses!"] },
+	{
+		id: 3,
+		text: ["No Experience? No Problem!", "Dive into Web Development Now!"],
+	},
+	{ id: 4, text: ["Web Development for Beginners.", "Enroll Today!"] },
+];
