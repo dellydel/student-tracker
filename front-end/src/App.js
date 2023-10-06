@@ -24,7 +24,7 @@ const App = () => {
 						<Route index element={<Home />} />
 						<Route path="/courses" element={<Courses />} />
 						<Route path="/course-details" element={<CourseDetails />} />
-						<Route path="/register/:formTitle" element={<RegisterCourse />} />
+						<Route path="/register/:courseName" element={<RegisterCourse />} />
 						<Route path="/user" element={<UserInformationScreen />} />
 					</Route>
 				</Routes>

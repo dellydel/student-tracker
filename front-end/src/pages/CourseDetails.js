@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate, generatePath } from "react-router-dom";
 import {
 	Card,
@@ -17,11 +16,10 @@ const CourseDetails = ({
 	price,
 	outline,
 }) => {
-	const [formTitle, setFormTitle] = useState(courseName);
 	const navigate = useNavigate();
 	const handleFormTitle = () => {
-		setFormTitle(formTitle);
-		formTitle && navigate(generatePath("/register/:formTitle", { formTitle }));
+		courseName &&
+			navigate(generatePath("/register/:courseName", { courseName }));
 	};
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
@@ -49,7 +47,7 @@ const CourseDetails = ({
 										color: "grey",
 									}}
 								>
-									Course name:{formTitle}
+									Course name:{courseName}
 								</span>
 							</Grid>
 							<Grid xs={6} item>
