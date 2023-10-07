@@ -1,5 +1,10 @@
 import React from "react";
-import { Link, Card, Typography } from "@mui/material";
+import { Link, Card, Typography, Box, Chip, Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+const ListItem = styled("li")(({ theme }) => ({
+	margin: theme.spacing(0.3),
+}));
 
 const Course = ({ course }) => {
 	return (
@@ -7,18 +12,51 @@ const Course = ({ course }) => {
 			<Link href="/course-details" color="inherit" underline="none">
 				<Typography
 					variant="h5"
-					component="div"
-					sx={{ fontWeight: "bold", mb: 1, color: "#1976d2" }}
+					color="primary"
+					sx={{ fontWeight: "bold", mb: 1 }}
 				>
 					{course.name}
 				</Typography>
-				<Typography component="p" sx={{ mb: 1 }}>
-					{course.description}
-				</Typography>
-				<Typography component="p" sx={{ fontWeight: "bold" }}>
-					{course.Price}
-				</Typography>
 			</Link>
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "start",
+					flexWrap: "wrap",
+					listStyle: "none",
+					p: 0.5,
+					m: 0,
+					ml: -1,
+				}}
+				component="ul"
+			>
+				{course.technologies.slice(0, 3).map((tech) => {
+					return (
+						<ListItem>
+							<Chip
+								sx={{ p: 0.5 }}
+								label={tech}
+								style={{ backgroundColor: "light-grey" }}
+								size="small"
+							/>
+						</ListItem>
+					);
+				})}
+				{course.technologies.length > 4 && (
+					<Chip
+						sx={{ p: 0.5 }}
+						label={"..."}
+						style={{ backgroundColor: "light-grey" }}
+						size="small"
+					/>
+				)}
+			</Box>
+			<Typography component="p" sx={{ mb: 1 }}>
+				{course.description}
+			</Typography>
+			<Button href="/course-details" variant="text" color="primary">
+				MORE...
+			</Button>
 		</Card>
 	);
 };

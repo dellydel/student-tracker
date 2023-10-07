@@ -1,115 +1,208 @@
 const courseList = [
-  {
-    name: "CompTIA A+ Certification",
-    description:
-      "Covers foundational IT skills, including hardware, software, networking, and troubleshooting.",
-    Price: "$200",
-  },
-  {
-    name: "Cisco CCNA Certification",
-    description:
-      "Focuses on network fundamentals, routing and switching, and network security.",
-    Price: "$325",
-  },
-  {
-    name: "AWS Certified Solutions Architect",
-    description:
-      "Covers cloud architecture best practices and designing scalable, highly available systems on AWS.",
-    Price: "$150",
-  },
-  {
-    name: "Certified Information Systems Security Professional (CISSP)",
-    description:
-      "Emphasizes information security, risk management, and security architecture.",
-    Price: "$699",
-  },
-  {
-    name: "Certified Ethical Hacker (CEH)",
-    description:
-      "Teaches ethical hacking techniques to identify and fix security vulnerabilities.",
-    Price: "$950",
-  },
-  {
-    name: "Certified ScrumMaster (CSM)",
-    description: "Focuses on Scrum methodology for agile project management.",
-    Price: "$1,000",
-  },
-  {
-    name: "Certified Information Security Manager (CISM)",
-    description: "Emphasizes information risk management and governance.",
-    Price: "$625",
-  },
-  {
-    name: "Microsoft Certified Azure Administrator",
-    description: "Covers Azure cloud administration and management.",
-    Price: "$165",
-  },
-  {
-    name: "Certified Data Scientist (CDS)",
-    description:
-      "Teaches advanced data analysis and machine learning techniques.",
-    Price: "$500",
-  },
-  {
-    name: "Project Management Professional (PMP)",
-    description: "Focuses on project management principles and best practices.",
-    Price: "$555",
-  },
-  {
-    name: "Certified Kubernetes Administrator (CKA)",
-    description: "Covers Kubernetes container orchestration and management.",
-    Price: "$375",
-  },
-  {
-    name: "Certified Information Systems Auditor (CISA)",
-    description:
-      "Emphasizes auditing, control, assurance, and governance of information systems.",
-    Price: "$650",
-  },
-  {
-    name: "Google Cloud Professional Cloud Architect",
-    description:
-      "Covers designing and managing Google Cloud Platform solutions.",
-    Price: "$200",
-  },
-  {
-    name: "Certified DevOps Engineer (CDE)",
-    description:
-      "Focuses on DevOps practices for software delivery and automation.",
-    Price: "$450",
-  },
-  {
-    name: "Certified Machine Learning Engineer (CMLE)",
-    description:
-      "Teaches advanced machine learning techniques and model deployment.",
-    Price: "$350",
-  },
-  {
-    name: "Certified Blockchain Professional (CBP)",
-    description:
-      "Covers blockchain technology, use cases, and smart contracts.",
-    Price: "$300",
-  },
-  {
-    name: "Certified Cloud Security Professional (CCSP)",
-    description: "Emphasizes cloud security architecture and risk management.",
-    Price: "$599",
-  },
-  {
-    name: "Certified Artificial Intelligence Professional (CAIP)",
-    description: "Teaches AI principles, algorithms, and applications.",
-    Price: "$400",
-  },
-  {
-    name: "Certified Information Privacy Professional (CIPP)",
-    description: "Focuses on data privacy laws and regulations.",
-    Price: "$550",
-  },
-  {
-    name: "Certified Internet of Things (IoT) Specialist",
-    description: "Covers IoT concepts, technologies, and applications.",
-    Price: "$250",
-  },
+	{
+		id: "1",
+		description:
+			"This course provides a hands-on, in-depth exploration of the essential skills and knowledge needed to become a proficient cybersecurity professional. From mastering threat analysis and intrusion detection to developing robust security solutions.",
+		duration: "15 weeks",
+		name: "Cybersecurity Engineer/Analyst Training",
+		modules: [
+			"Introduction to CyberSecurity",
+			"Network Security",
+			"Cyber Threat Analysis",
+			"Security Operation and Monitoring",
+			"Identity and Access Management",
+			"Incident Response and Management",
+			"Attacks and Method of Cyber Attack",
+			"Cryptography and Data Protection",
+			"Cloud Security",
+			"Threat Intelligence and Analysis",
+			"Security, Architecture and Framework",
+			"Introduction to Security Tools",
+			"Cybersecurity Compliance and Regulation",
+		],
+		price: "$2500",
+		technologies: [
+			"Powershell for Scripting",
+			"Intrusion Detection System (IDS)",
+			"Intrusion Detection Protection System (IDPS)",
+			"Security Information and Event Management (SIEM) Tool",
+			"Scanning Tools",
+		],
+	},
+	{
+		id: "2",
+		description:
+			"Introduction to Front End Web development with a focus on creating user interfaces using React.",
+		duration: "15 weeks",
+		name: "Introduction to Web Development : Front End",
+		modules: [
+			"Introduction to Web Development",
+			"Development Environment Setup",
+			"Intro to HTML",
+			"Introduction to JavaScript",
+			"Introduction to React",
+			"React: Components",
+			"React: Components Lifecycle",
+			"React: Props and State",
+			"React: State Management",
+			"React: Hooks",
+			"React: Data Fetching",
+		],
+		price: "$1500",
+		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
+	},
+	{
+		id: "3",
+		description:
+			"Introduction to Front End Web development with a focus on creating a small web site.",
+		duration: "4 weeks",
+		name: "Introduction to Web Development : Boot Camp",
+		modules: [
+			"Introduction to Web Development",
+			"Development Environment Setup",
+			"Intro to HTML",
+			"Introduction to JavaScript",
+			"Introduction to React",
+		],
+		price: "$750",
+		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
+	},
+	{
+		id: "4",
+		description:
+			"This course provides a hands-on, in-depth exploration of the essential skills and knowledge needed to become a proficient cybersecurity professional. From mastering threat analysis and intrusion detection to developing robust security solutions.",
+		duration: "15 weeks",
+		name: "Cybersecurity Engineer/Analyst Training",
+		modules: [
+			"Introduction to CyberSecurity",
+			"Network Security",
+			"Cyber Threat Analysis",
+			"Security Operation and Monitoring",
+			"Identity and Access Management",
+			"Incident Response and Management",
+			"Attacks and Method of Cyber Attack",
+			"Cryptography and Data Protection",
+			"Cloud Security",
+			"Threat Intelligence and Analysis",
+			"Security, Architecture and Framework",
+			"Introduction to Security Tools",
+			"Cybersecurity Compliance and Regulation",
+		],
+		price: "$2500",
+		technologies: [
+			"Powershell for Scripting",
+			"Intrusion Detection System (IDS)",
+			"Intrusion Detection Protection System (IDPS)",
+			"Security Information and Event Management (SIEM) Tool",
+			"Scanning Tools",
+		],
+	},
+	{
+		id: "5",
+		description:
+			"Introduction to Front End Web development with a focus on creating user interfaces using React.",
+		duration: "15 weeks",
+		name: "Introduction to Web Development : Front End",
+		modules: [
+			"Introduction to Web Development",
+			"Development Environment Setup",
+			"Intro to HTML",
+			"Introduction to JavaScript",
+			"Introduction to React",
+			"React: Components",
+			"React: Components Lifecycle",
+			"React: Props and State",
+			"React: State Management",
+			"React: Hooks",
+			"React: Data Fetching",
+		],
+		price: "$1500",
+		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
+	},
+	{
+		id: "6",
+		description:
+			"Introduction to Front End Web development with a focus on creating a small web site.",
+		duration: "4 weeks",
+		name: "Introduction to Web Development : Boot Camp",
+		modules: [
+			"Introduction to Web Development",
+			"Development Environment Setup",
+			"Intro to HTML",
+			"Introduction to JavaScript",
+			"Introduction to React",
+		],
+		price: "$750",
+		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
+	},
+	{
+		id: "7",
+		description:
+			"This course provides a hands-on, in-depth exploration of the essential skills and knowledge needed to become a proficient cybersecurity professional. From mastering threat analysis and intrusion detection to developing robust security solutions.",
+		duration: "15 weeks",
+		name: "Cybersecurity Engineer/Analyst Training",
+		modules: [
+			"Introduction to CyberSecurity",
+			"Network Security",
+			"Cyber Threat Analysis",
+			"Security Operation and Monitoring",
+			"Identity and Access Management",
+			"Incident Response and Management",
+			"Attacks and Method of Cyber Attack",
+			"Cryptography and Data Protection",
+			"Cloud Security",
+			"Threat Intelligence and Analysis",
+			"Security, Architecture and Framework",
+			"Introduction to Security Tools",
+			"Cybersecurity Compliance and Regulation",
+		],
+		price: "$2500",
+		technologies: [
+			"Powershell for Scripting",
+			"Intrusion Detection System (IDS)",
+			"Intrusion Detection Protection System (IDPS)",
+			"Security Information and Event Management (SIEM) Tool",
+			"Scanning Tools",
+		],
+	},
+	{
+		id: "8",
+		description:
+			"Introduction to Front End Web development with a focus on creating user interfaces using React.",
+		duration: "15 weeks",
+		name: "Introduction to Web Development : Front End",
+		modules: [
+			"Introduction to Web Development",
+			"Development Environment Setup",
+			"Intro to HTML",
+			"Introduction to JavaScript",
+			"Introduction to React",
+			"React: Components",
+			"React: Components Lifecycle",
+			"React: Props and State",
+			"React: State Management",
+			"React: Hooks",
+			"React: Data Fetching",
+		],
+		price: "$1500",
+		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
+	},
+	{
+		id: "9",
+		description:
+			"Introduction to Front End Web development with a focus on creating a small web site.",
+		duration: "4 weeks",
+		name: "Introduction to Web Development : Boot Camp",
+		modules: [
+			"Introduction to Web Development",
+			"Development Environment Setup",
+			"Intro to HTML",
+			"Introduction to JavaScript",
+			"Introduction to React",
+		],
+		price: "$750",
+		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
+	},
 ];
 
 export default courseList;
