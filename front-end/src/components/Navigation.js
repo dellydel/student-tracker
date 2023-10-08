@@ -6,6 +6,7 @@ const pages = [
 	{ name: "HOME", link: "/" },
 	{ name: "COURSES", link: "/courses" },
 ];
+
 function Navigation({ isLogin = true }) {
 	return (
 		<AppBar
