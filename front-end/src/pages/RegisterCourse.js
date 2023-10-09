@@ -10,6 +10,7 @@ import {
 	Box,
 } from "@mui/material";
 import axios from "axios";
+import SuccessPopup from "../components/SuccessPopup";
 
 const RegisterCourse = () => {
 	const [firstName, setFirstName] = useState("");
@@ -229,14 +230,7 @@ const RegisterCourse = () => {
 								<div>{isLoading ? "Loading..." : feedBackText}</div>
 							</Grid>
 							<Grid xs={12} sm={6} item>
-								<Button
-									type="submit"
-									variant="contained"
-									style={{ backgroundColor: "green" }}
-									fullWidth
-								>
-									Submit
-								</Button>
+								<SuccessPopup />
 							</Grid>
 							<Grid xs={12} sm={6} item>
 								<Button
