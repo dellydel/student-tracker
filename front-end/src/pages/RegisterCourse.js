@@ -156,7 +156,7 @@ const RegisterCourse = () => {
 									onChange={(event) => setEmail(event.target.value)}
 								/>
 							</Grid>
-							<Grid xs={12} sm={9} item>
+							<Grid xs={12} item>
 								<TextField
 									label="Street"
 									name="street"
