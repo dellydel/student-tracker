@@ -10,9 +10,8 @@ const Courses = () => {
 				variant="h6"
 				gutterBottom
 				sx={{
-					background: "green",
 					fontSize: 30,
-					color: "white",
+					color: "black",
 					fontWeight: 600,
 				}}
 			>
