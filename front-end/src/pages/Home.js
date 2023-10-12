@@ -4,6 +4,7 @@ import Features from "../components/Features";
 import Footer from "../components/Footer";
 import MainHero from "../components/MainHero";
 import Pricing from "../components/Pricing";
+import SectionDivider from "../components/SectionDivider";
 import Testimonials from "../components/Testimonials";
 
 const Home = () => {
@@ -12,10 +13,11 @@ const Home = () => {
 			<MainHero />
 			<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 				<Features />
+				<SectionDivider SectionTitle="Testimonials" />
 				<Testimonials />
+				<SectionDivider SectionTitle="Upcoming Courses" />
 				<Pricing />
 			</Box>
-			<Footer />
 		</>
 	);
 };
