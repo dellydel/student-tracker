@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate, generatePath } from "react-router-dom";
 import {
 	Card,
@@ -18,7 +17,7 @@ const CourseDetails = ({
 	outline,
 }) => {
 	const navigate = useNavigate();
-	const handleFormTitle = (e) => {
+	const handleFormTitle = () => {
 		courseName &&
 			navigate(generatePath("/register/:courseName", { courseName }));
 	};
@@ -26,6 +25,7 @@ const CourseDetails = ({
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 			<Card
 				style={{
+					maxWidth: 700,
 					marginTop: "80px",
 					marginLeft: "auto",
 					marginRight: "auto",

@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, Link, Box } from "@mui/material";
+import { Toolbar, Link, Box } from "@mui/material";
 
 const pages = [
 	{ name: "HOME", link: "/" },
@@ -8,10 +8,7 @@ const pages = [
 
 function Navigation() {
 	return (
-		<AppBar
-			position="fixed"
-			sx={{ background: "transparent", boxShadow: "none" }}
-		>
+		<Box sx={{ backgroundColor: "black", boxShadow: "none" }}>
 			<Toolbar>
 				<Box
 					sx={{
@@ -58,7 +55,7 @@ function Navigation() {
 					))}
 				</Box>
 			</Toolbar>
-		</AppBar>
+		</Box>
 	);
 }
 
