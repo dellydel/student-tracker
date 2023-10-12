@@ -1,7 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
 import Features from "../components/Features";
-import Footer from "../components/Footer";
 import MainHero from "../components/MainHero";
 import Pricing from "../components/Pricing";
 import SectionDivider from "../components/SectionDivider";
