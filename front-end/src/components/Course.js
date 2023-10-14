@@ -8,7 +8,9 @@ const ListItem = styled("li")(({ theme }) => ({
 
 const Course = ({ course }) => {
 	return (
-		<Card sx={{ maxWidth: 425, p: 3, m: 3, backgroundColor: "#f5f5f5" }}>
+		<Card
+			sx={{ maxWidth: "450px", p: 3, mb: 3, mr: 3, backgroundColor: "#f5f5f5" }}
+		>
 			<Link href="/course-details" color="inherit" underline="none">
 				<Typography
 					variant="h5"

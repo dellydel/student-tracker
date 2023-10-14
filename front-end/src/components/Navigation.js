@@ -1,6 +1,7 @@
 import React from "react";
 import { AppBar, Toolbar, Link, Box, Stack } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+import { Toolbar, Link, Box } from "@mui/material";
 
 const pages = [
 	{ name: "HOME", link: "/" },
@@ -9,10 +10,7 @@ const pages = [
 
 function Navigation({ isLogin = true }) {
 	return (
-		<AppBar
-			position="fixed"
-			sx={{ background: "transparent", boxShadow: "none" }}
-		>
+		<Box sx={{ backgroundColor: "black", boxShadow: "none" }}>
 			<Toolbar>
 				<Box
 					sx={{
@@ -83,7 +81,7 @@ function Navigation({ isLogin = true }) {
 					</Box>
 				</Box>
 			</Toolbar>
-		</AppBar>
+		</Box>
 	);
 }
 export default Navigation;

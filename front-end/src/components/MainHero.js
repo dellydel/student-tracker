@@ -11,7 +11,7 @@ const heroStyle = {
 	backgroundPositionY: "top",
 	backgroundSize: "cover",
 	p: 15,
-	pt: 25,
+	pt: 10,
 	marginBottom: 5,
 };
 

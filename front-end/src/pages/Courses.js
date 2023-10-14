@@ -7,13 +7,10 @@ const Courses = () => {
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 			<Typography
-				variant="h6"
-				gutterBottom
+				variant="h4"
 				sx={{
-					background: "green",
-					fontSize: 30,
-					color: "white",
 					fontWeight: 600,
+					my: 3,
 				}}
 			>
 				Course List
@@ -23,7 +20,7 @@ const Courses = () => {
 				sx={{
 					display: "flex",
 					flexWrap: "wrap",
-					justifyContent: "space-between",
+					justifyContent: "flex-start",
 				}}
 			>
 				{courseList.map((course) => (
