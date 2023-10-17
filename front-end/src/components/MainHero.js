@@ -1,5 +1,7 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { heroText, heroCallToAction } from "../data/homeContent";
 
 const heroStyle = {
@@ -12,12 +14,13 @@ const heroStyle = {
 	backgroundSize: "cover",
 	p: 15,
 	pt: 10,
-	marginBottom: 5,
 };
 
 const MainHero = () => {
 	const random = Math.floor(Math.random() * heroCallToAction.length);
 	const callToAction = heroCallToAction[random];
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.down("md"));
 
 	return (
 		<Box sx={heroStyle}>
@@ -28,27 +31,30 @@ const MainHero = () => {
 					margin: "0 auto",
 				}}
 			>
-				<Typography
-					variant="h2"
-					color="white"
-					sx={{
-						display: "inline",
-						fontWeight: "bold",
-					}}
-				>
-					{callToAction.text[0]}
-				</Typography>
+				{!matches && (
+					<Typography
+						variant="h2"
+						color="white"
+						sx={{
+							display: "inline",
+							fontWeight: "bold",
+							mr: 3,
+						}}
+					>
+						{callToAction.text[0]}
+					</Typography>
+				)}
 				<Typography
 					variant="h2"
 					color="primary"
 					sx={{
 						display: "inline",
 						fontWeight: "bold",
-						ml: 3,
 					}}
 				>
 					{callToAction.text[1]}
 				</Typography>
+
 				<Typography
 					sx={{
 						fontSize: 18,
@@ -60,11 +66,26 @@ const MainHero = () => {
 					{heroText}
 				</Typography>
 				<Box sx={{ mt: 3, display: "flex", justifyContent: "flex-start" }}>
-					<Button variant="contained" size="medium" href="/courses">
+					<Button
+						variant="contained"
+						size="medium"
+						href="/courses"
+						sx={{
+							my: 1,
+							p: 2,
+							color: "white",
+							fullWidth: matches,
+						}}
+					>
 						BROWSE COURSES
 					</Button>
 					<Button
-						sx={{ m: 1, p: 2, color: "white" }}
+						sx={{
+							m: 1,
+							p: 2,
+							color: "white",
+							fullWidth: matches,
+						}}
 						variant="text"
 						size="medium"
 					>

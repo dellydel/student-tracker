@@ -1,5 +1,7 @@
 import React from "react";
 import { Toolbar, Link, Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const pages = [
 	{ name: "HOME", link: "/" },
@@ -7,6 +9,9 @@ const pages = [
 ];
 
 function Navigation() {
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.down("md"));
+
 	return (
 		<Box sx={{ backgroundColor: "black", boxShadow: "none" }}>
 			<Toolbar>
@@ -37,22 +42,23 @@ function Navigation() {
 						justifyContent: "flex-end",
 					}}
 				>
-					{pages.map((page) => (
-						<Link
-							key={page.name}
-							href={page.link}
-							sx={{
-								m: 1,
-								p: 2,
-								color: "white",
-								textDecoration: "none",
-								fontWeight: "bold",
-								fontSize: "1.2rem",
-							}}
-						>
-							{page.name}
-						</Link>
-					))}
+					{!matches &&
+						pages.map((page) => (
+							<Link
+								key={page.name}
+								href={page.link}
+								sx={{
+									m: 1,
+									p: 2,
+									color: "white",
+									textDecoration: "none",
+									fontWeight: "bold",
+									fontSize: "1.2rem",
+								}}
+							>
+								{page.name}
+							</Link>
+						))}
 				</Box>
 			</Toolbar>
 		</Box>
