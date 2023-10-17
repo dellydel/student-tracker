@@ -20,10 +20,11 @@ const MainHero = () => {
 	const random = Math.floor(Math.random() * heroCallToAction.length);
 	const callToAction = heroCallToAction[random];
 	const theme = useTheme();
-	const matches = useMediaQuery(theme.breakpoints.down("md"));
+	const matchesMedium = useMediaQuery(theme.breakpoints.down("md"));
+	const matchesSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
 	return (
-		<Box sx={heroStyle}>
+		<Box sx={{ ...heroStyle, p: matchesSmall ? 5 : 15 }}>
 			<Box
 				sx={{
 					textAlign: "left",
@@ -31,7 +32,7 @@ const MainHero = () => {
 					margin: "0 auto",
 				}}
 			>
-				{!matches && (
+				{!matchesMedium && (
 					<Typography
 						variant="h2"
 						color="white"
@@ -74,7 +75,6 @@ const MainHero = () => {
 							my: 1,
 							p: 2,
 							color: "white",
-							fullWidth: matches,
 						}}
 					>
 						BROWSE COURSES
@@ -84,7 +84,6 @@ const MainHero = () => {
 							m: 1,
 							p: 2,
 							color: "white",
-							fullWidth: matches,
 						}}
 						variant="text"
 						size="medium"
