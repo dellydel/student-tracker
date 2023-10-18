@@ -20,11 +20,10 @@ const MainHero = () => {
 	const random = Math.floor(Math.random() * heroCallToAction.length);
 	const callToAction = heroCallToAction[random];
 	const theme = useTheme();
-	const matchesMedium = useMediaQuery(theme.breakpoints.down("md"));
-	const matchesSmall = useMediaQuery(theme.breakpoints.down("sm"));
+	const matches = useMediaQuery(theme.breakpoints.down("md"));
 
 	return (
-		<Box sx={{ ...heroStyle, p: matchesSmall ? 5 : 15 }}>
+		<Box sx={{ ...heroStyle, p: { xs: 5, md: 15 } }}>
 			<Box
 				sx={{
 					textAlign: "left",
@@ -32,7 +31,7 @@ const MainHero = () => {
 					margin: "0 auto",
 				}}
 			>
-				{!matchesMedium && (
+				{!matches && (
 					<Typography
 						variant="h2"
 						color="white"

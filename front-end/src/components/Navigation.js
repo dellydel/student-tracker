@@ -17,7 +17,7 @@ function Navigation() {
 			<Toolbar>
 				<Box
 					sx={{
-						pl: 5,
+						pl: { xs: 0, sm: 0, md: 8 },
 						flexGrow: 1,
 						display: "flex",
 						justifyContent: "flex-start",

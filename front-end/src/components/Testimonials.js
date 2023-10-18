@@ -1,27 +1,27 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import testimonialData from "../test-data/testimonials";
+import testimonials from "../data/testimonialsContent";
 
 const Testimonials = () => {
 	return (
 		<Box
 			sx={{
 				display: "flex",
-				flexDirection: "row",
 				justifyItems: "center",
-				justifyContent: "space-between",
+				justifyContent: "center",
 				my: 2,
+				flexDirection: { xs: "column", md: "row" },
 			}}
 		>
-			{testimonialData.map((testimonial) => {
+			{testimonials.map((testimonial) => {
 				return (
 					<Box
 						key={testimonial.id}
 						sx={{
-							width: "325px",
-							alignItems: "center",
-							mb: 4,
+							m: { xs: "auto", md: 2 },
+							pb: 8,
+							width: { xs: "100%", lg: "30%" },
 						}}
 					>
 						<Box
@@ -33,14 +33,14 @@ const Testimonials = () => {
 							<Avatar
 								sx={{ height: "75px", width: "75px", mr: 2, mb: 2 }}
 								src={testimonial.avatarUrl}
-								alt="student avatar"
+								alt="testimonial avatar"
 							></Avatar>
 							<Typography variant="span" sx={{ mb: 2 }}>
 								{testimonial.FirstName} {testimonial.LastInitial}.
 							</Typography>
 						</Box>
 						<Typography variant="p" sx={{ fontStyle: "italic" }}>
-							{testimonial.testimonial}
+							"{testimonial.testimonial}"
 						</Typography>
 					</Box>
 				);

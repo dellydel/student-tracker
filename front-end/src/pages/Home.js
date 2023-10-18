@@ -1,7 +1,5 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Features from "../components/Features";
 import MainHero from "../components/MainHero";
 import Pricing from "../components/Pricing";
@@ -9,25 +7,22 @@ import SectionDivider from "../components/SectionDivider";
 import Testimonials from "../components/Testimonials";
 
 const Home = () => {
-	const theme = useTheme();
-	const matches = useMediaQuery(theme.breakpoints.down("sm"));
+	const container = {
+		maxWidth: "1050px",
+		p: { xs: 5, md: 15 },
+		pt: 5,
+		m: { xs: 0, md: "0 auto" },
+		marginBottom: 5,
+	};
 
 	return (
 		<>
 			<MainHero />
-			<Box
-				sx={{
-					marginBottom: 5,
-					maxWidth: "1050px",
-					p: matches ? 5 : 15,
-					pt: 5,
-					m: matches ? 0 : "0 auto",
-				}}
-			>
+			<Box sx={container}>
 				<SectionDivider SectionTitle="Why NextByte?" />
 				<Features />
-				<SectionDivider SectionTitle="Upcoming Courses" />
-				<Pricing />
+				{/* <SectionDivider SectionTitle="Upcoming Courses" /> */}
+				{/* <Pricing /> */}
 				<SectionDivider SectionTitle="Testimonials" />
 				<Testimonials />
 			</Box>

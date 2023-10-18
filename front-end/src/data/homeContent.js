@@ -8,7 +8,7 @@ export const heroCallToAction = [
 	{ id: 2, text: ["Begin Your Coding Adventure.", "Explore Our Courses!"] },
 	{
 		id: 3,
-		text: ["No Experience? No Problem!", "Dive into Web Development Now!"],
+		text: ["No Experience? No Problem!", "Dive in Now!"],
 	},
 	{ id: 4, text: ["Web Development for Beginners.", "Enroll Today!"] },
 ];
