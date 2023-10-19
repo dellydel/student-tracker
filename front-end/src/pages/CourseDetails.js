@@ -17,10 +17,11 @@ const CourseDetails = ({
 	outline,
 }) => {
 	const navigate = useNavigate();
+
 	const handleFormTitle = () => {
-		courseName &&
-			navigate(generatePath("/register/:courseName", { courseName }));
+		navigate("/register");
 	};
+
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 			<Card

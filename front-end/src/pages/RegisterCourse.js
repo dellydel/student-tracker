@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
 	Card,
 	CardContent,
@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 
 const RegisterCourse = () => {
+	const navigate = useNavigate();
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -61,22 +62,23 @@ const RegisterCourse = () => {
 		return formData;
 	};
 	const registerStudent = (event) => {
-		setFeedBackText("");
-		const jsonData = revalidateEmailAndBuildJsonData();
-		if (!jsonData) {
-			event.preventDefault();
-		} else {
-			event.preventDefault();
-			const url =
-				"https://xj1tbr7we0.execute-api.us-east-1.amazonaws.com/test/course-reg-lambda-2023";
-			functionPost(url, jsonData);
-			console.log(registerStatus);
-			if (registerStatus) {
-				setFeedBackText("Congratulations! You have successfully registered.");
-			} else {
-				setFeedBackText("Something went wrong! Please try again later.");
-			}
-		}
+		navigate("/checkout");
+		// setFeedBackText("");
+		// const jsonData = revalidateEmailAndBuildJsonData();
+		// if (!jsonData) {
+		// 	event.preventDefault();
+		// } else {
+		// 	event.preventDefault();
+		// 	const url =
+		// 		"https://xj1tbr7we0.execute-api.us-east-1.amazonaws.com/test/course-reg-lambda-2023";
+		// 	functionPost(url, jsonData);
+		// 	console.log(registerStatus);
+		// 	if (registerStatus) {
+		// 		setFeedBackText("Congratulations! You have successfully registered.");
+		// 	} else {
+		// 		setFeedBackText("Something went wrong! Please try again later.");
+		// 	}
+		// }
 	};
 	const functionPost = async (url, jsonData) => {
 		setIsLoading(true);
