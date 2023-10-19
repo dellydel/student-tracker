@@ -26,10 +26,12 @@ const RegisterCourse = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	//const [registerStatus, setRegisterStatus] = useState(null);
 	const { courseName } = useParams();
+
 	const resetForm = () => {
 		setFeedBackText("");
-		setRegisterStatus("");
+		//setRegisterStatus("");
 	};
+
 	// const revalidateEmailAndBuildJsonData = () => {
 	// 	if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
 	// 		document.forms[0].email.focus();
