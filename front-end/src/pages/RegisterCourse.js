@@ -9,21 +9,22 @@ import {
 	Button,
 	Box,
 } from "@mui/material";
-import axios from "axios";
+
+//import axios from "axios";
 
 const RegisterCourse = () => {
 	const navigate = useNavigate();
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [phoneNumber, setPhoneNumber] = useState("");
-	const [email, setEmail] = useState("");
-	const [street, setStreet] = useState("");
-	const [city, setCity] = useState("");
-	const [state, setState] = useState("");
-	const [zip, setZip] = useState("");
-	const [dateOfBirth, setDateOfBirth] = useState("");
+	const [setFirstName] = useState("");
+	const [setLastName] = useState("");
+	const [setPhoneNumber] = useState("");
+	const [setEmail] = useState("");
+	const [setStreet] = useState("");
+	const [setCity] = useState("");
+	const [setState] = useState("");
+	const [setZip] = useState("");
+	const [setDateOfBirth] = useState("");
 	const [feedBackText, setFeedBackText] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading] = useState(false);
 	//const [registerStatus, setRegisterStatus] = useState(null);
 	const { courseName } = useParams();
 
