@@ -24,43 +24,44 @@ const RegisterCourse = () => {
 	const [dateOfBirth, setDateOfBirth] = useState("");
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-	const [registerStatus, setRegisterStatus] = useState(null);
+	//const [registerStatus, setRegisterStatus] = useState(null);
 	const { courseName } = useParams();
 	const resetForm = () => {
 		setFeedBackText("");
 		setRegisterStatus("");
 	};
-	const revalidateEmailAndBuildJsonData = () => {
-		if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-			document.forms[0].email.focus();
-			setFeedBackText("Enter a valid Email..");
-			return false;
-		}
-		const thisYear = new Date().getFullYear();
-		const birthYear = new Date(dateOfBirth).getFullYear();
-		if (parseInt(thisYear - birthYear) < 10) {
-			setFeedBackText("Student must be more than 10 years old..");
-			document.forms[0].dateOfBirth.focus();
-			return false;
-		}
-		const id = email + new Date().getTime();
-		const formData = {
-			Item: {
-				id,
-				firstName,
-				lastName,
-				phoneNumber,
-				email,
-				street,
-				city,
-				state,
-				zip,
-				dateOfBirth,
-			},
-			TableName: "course-reg-dynamodb-2023",
-		};
-		return formData;
-	};
+	// const revalidateEmailAndBuildJsonData = () => {
+	// 	if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+	// 		document.forms[0].email.focus();
+	// 		setFeedBackText("Enter a valid Email..");
+	// 		return false;
+	// 	}
+	// 	const thisYear = new Date().getFullYear();
+	// 	const birthYear = new Date(dateOfBirth).getFullYear();
+	// 	if (parseInt(thisYear - birthYear) < 10) {
+	// 		setFeedBackText("Student must be more than 10 years old..");
+	// 		document.forms[0].dateOfBirth.focus();
+	// 		return false;
+	// 	}
+	// 	const id = email + new Date().getTime();
+	// 	const formData = {
+	// 		Item: {
+	// 			id,
+	// 			firstName,
+	// 			lastName,
+	// 			phoneNumber,
+	// 			email,
+	// 			street,
+	// 			city,
+	// 			state,
+	// 			zip,
+	// 			dateOfBirth,
+	// 		},
+	// 		TableName: "course-reg-dynamodb-2023",
+	// 	};
+	// 	return formData;
+	// };
+
 	const registerStudent = (event) => {
 		navigate("/checkout");
 		// setFeedBackText("");
@@ -80,21 +81,22 @@ const RegisterCourse = () => {
 		// 	}
 		// }
 	};
-	const functionPost = async (url, jsonData) => {
-		setIsLoading(true);
-		axios
-			.post(url, jsonData)
-			.then((response) => {
-				setIsLoading(false);
-				setRegisterStatus(true);
-				console.log(response);
-			})
-			.catch((error) => {
-				setIsLoading(false);
-				setRegisterStatus(false);
-				console.log(error);
-			});
-	};
+
+	// const functionPost = async (url, jsonData) => {
+	// 	setIsLoading(true);
+	// 	axios
+	// 		.post(url, jsonData)
+	// 		.then((response) => {
+	// 			setIsLoading(false);
+	// 			setRegisterStatus(true);
+	// 			console.log(response);
+	// 		})
+	// 		.catch((error) => {
+	// 			setIsLoading(false);
+	// 			setRegisterStatus(false);
+	// 			console.log(error);
+	// 		});
+	// };
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 			<Card style={{ maxWidth: 550, margin: "0 auto" }}>
