@@ -78,6 +78,19 @@ Resources:
       BillingMode: PAY_PER_REQUEST
     DependsOn:
       - IAMRole
+  DynamoDBTestimonials:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "next-byte-Testimonials-${Env}"
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+    DependsOn:
+      - IAMRole
   APIGatewayRestAPI:
     Type: "AWS::ApiGateway::RestApi"
     Properties:
