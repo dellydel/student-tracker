@@ -3,6 +3,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./App.css";
 import CheckoutForm from "./pages/CheckoutForm";
 import CourseDetails from "./pages/CourseDetails";
+import CourseMaterals from "./pages/CourseMaterals";
 import Courses from "./pages/Courses";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
@@ -31,6 +32,7 @@ const App = () => {
 						<Route path="/user" element={<UserInformationScreen />} />
 						<Route path="/checkout" element={<CheckoutForm />} />
 						<Route path="/payment-complete" element={<PaymentSuccessful />} />
+						<Route path="/course-materials" element={<CourseMaterals />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

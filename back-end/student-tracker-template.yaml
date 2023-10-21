@@ -39,6 +39,39 @@ Resources:
       Role: !GetAtt IAMRole.Arn
     DependsOn:
       - DynamoDBTable
+  CoursesLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          const AWS = require('aws-sdk');
+          exports.handler = async (event) => {
+ 
+          const docClient = new AWS.DynamoDB.DocumentClient();
+          const params = {
+              TableName: "next-byte-Courses-development",
+          };
+
+          let body;
+          let statusCode = 200;
+
+          try {
+              body = await docClient.scan(params).promise();
+          }
+          catch (err) {
+              statusCode = err.statusCode;
+              body = err.message;
+          }
+          return {
+              statusCode,
+              body
+          };
+      FunctionName: !Sub "courses-lambda-${Env}"
+      Handler: index.handler
+      Runtime: nodejs14.x
+      Role: !GetAtt IAMRole.Arn
+    DependsOn:
+      - DynamoDBTable
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
