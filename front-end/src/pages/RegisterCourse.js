@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
 	Card,
 	CardContent,
@@ -9,92 +9,97 @@ import {
 	Button,
 	Box,
 } from "@mui/material";
-import axios from "axios";
+
+//import axios from "axios";
 
 const RegisterCourse = () => {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [phoneNumber, setPhoneNumber] = useState("");
-	const [email, setEmail] = useState("");
-	const [street, setStreet] = useState("");
-	const [apartmentNo, setApartmentNo] = useState("");
-	const [city, setCity] = useState("");
-	const [state, setState] = useState("");
-	const [zip, setZip] = useState("");
-	const [dateOfBirth, setDateOfBirth] = useState("");
+	const navigate = useNavigate();
+	const [setFirstName] = useState("");
+	const [setLastName] = useState("");
+	const [setPhoneNumber] = useState("");
+	const [setEmail] = useState("");
+	const [setStreet] = useState("");
+	const [setCity] = useState("");
+	const [setState] = useState("");
+	const [setZip] = useState("");
+	const [setDateOfBirth] = useState("");
 	const [feedBackText, setFeedBackText] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
-	const [registerStatus, setRegisterStatus] = useState(null);
+	const [isLoading] = useState(false);
+	//const [registerStatus, setRegisterStatus] = useState(null);
 	const { courseName } = useParams();
+
 	const resetForm = () => {
 		setFeedBackText("");
-		setRegisterStatus("");
+		//setRegisterStatus("");
 	};
-	const revalidateEmailAndBuildJsonData = () => {
-		if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-			document.forms[0].email.focus();
-			setFeedBackText("Enter a valid Email..");
-			return false;
-		}
-		const thisYear = new Date().getFullYear();
-		const birthYear = new Date(dateOfBirth).getFullYear();
-		if (parseInt(thisYear - birthYear) < 10) {
-			setFeedBackText("Student must be more than 10 years old..");
-			document.forms[0].dateOfBirth.focus();
-			return false;
-		}
-		const id = email + new Date().getTime();
-		const formData = {
-			Item: {
-				id,
-				firstName,
-				lastName,
-				phoneNumber,
-				email,
-				street,
-				apartmentNo,
-				city,
-				state,
-				zip,
-				dateOfBirth,
-			},
-			TableName: "course-reg-dynamodb-2023",
-		};
-		return formData;
-	};
+
+	// const revalidateEmailAndBuildJsonData = () => {
+	// 	if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+	// 		document.forms[0].email.focus();
+	// 		setFeedBackText("Enter a valid Email..");
+	// 		return false;
+	// 	}
+	// 	const thisYear = new Date().getFullYear();
+	// 	const birthYear = new Date(dateOfBirth).getFullYear();
+	// 	if (parseInt(thisYear - birthYear) < 10) {
+	// 		setFeedBackText("Student must be more than 10 years old..");
+	// 		document.forms[0].dateOfBirth.focus();
+	// 		return false;
+	// 	}
+	// 	const id = email + new Date().getTime();
+	// 	const formData = {
+	// 		Item: {
+	// 			id,
+	// 			firstName,
+	// 			lastName,
+	// 			phoneNumber,
+	// 			email,
+	// 			street,
+	// 			city,
+	// 			state,
+	// 			zip,
+	// 			dateOfBirth,
+	// 		},
+	// 		TableName: "course-reg-dynamodb-2023",
+	// 	};
+	// 	return formData;
+	// };
+
 	const registerStudent = (event) => {
-		setFeedBackText("");
-		const jsonData = revalidateEmailAndBuildJsonData();
-		if (!jsonData) {
-			event.preventDefault();
-		} else {
-			event.preventDefault();
-			const url =
-				"https://xj1tbr7we0.execute-api.us-east-1.amazonaws.com/test/course-reg-lambda-2023";
-			functionPost(url, jsonData);
-			console.log(registerStatus);
-			if (registerStatus) {
-				setFeedBackText("Congratulations! You have successfully registered.");
-			} else {
-				setFeedBackText("Something went wrong! Please try again later.");
-			}
-		}
+		navigate("/checkout");
+		// setFeedBackText("");
+		// const jsonData = revalidateEmailAndBuildJsonData();
+		// if (!jsonData) {
+		// 	event.preventDefault();
+		// } else {
+		// 	event.preventDefault();
+		// 	const url =
+		// 		"https://xj1tbr7we0.execute-api.us-east-1.amazonaws.com/test/course-reg-lambda-2023";
+		// 	functionPost(url, jsonData);
+		// 	console.log(registerStatus);
+		// 	if (registerStatus) {
+		// 		setFeedBackText("Congratulations! You have successfully registered.");
+		// 	} else {
+		// 		setFeedBackText("Something went wrong! Please try again later.");
+		// 	}
+		// }
 	};
-	const functionPost = async (url, jsonData) => {
-		setIsLoading(true);
-		axios
-			.post(url, jsonData)
-			.then((response) => {
-				setIsLoading(false);
-				setRegisterStatus(true);
-				console.log(response);
-			})
-			.catch((error) => {
-				setIsLoading(false);
-				setRegisterStatus(false);
-				console.log(error);
-			});
-	};
+
+	// const functionPost = async (url, jsonData) => {
+	// 	setIsLoading(true);
+	// 	axios
+	// 		.post(url, jsonData)
+	// 		.then((response) => {
+	// 			setIsLoading(false);
+	// 			setRegisterStatus(true);
+	// 			console.log(response);
+	// 		})
+	// 		.catch((error) => {
+	// 			setIsLoading(false);
+	// 			setRegisterStatus(false);
+	// 			console.log(error);
+	// 		});
+	// };
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
 			<Card style={{ maxWidth: 550, margin: "0 auto" }}>
@@ -158,7 +163,7 @@ const RegisterCourse = () => {
 									onChange={(event) => setEmail(event.target.value)}
 								/>
 							</Grid>
-							<Grid xs={12} sm={9} item>
+							<Grid xs={12} item>
 								<TextField
 									label="Street"
 									name="street"
@@ -167,18 +172,6 @@ const RegisterCourse = () => {
 									fullWidth
 									required
 									onChange={(event) => setStreet(event.target.value)}
-								/>
-							</Grid>
-							<Grid xs={12} sm={3} item>
-								<TextField
-									type="number"
-									label="Apt#"
-									name="apartmentNo"
-									placeholder="Enter house number"
-									variant="outlined"
-									fullWidth
-									required
-									onChange={(event) => setApartmentNo(event.target.value)}
 								/>
 							</Grid>
 							<Grid xs={12} sm={4} item>

@@ -1,7 +1,8 @@
 import React from "react";
 import { AppBar, Toolbar, Link, Box, Stack } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import { Toolbar, Link, Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const pages = [
 	{ name: "HOME", link: "/" },
@@ -9,12 +10,15 @@ const pages = [
 ];
 
 function Navigation({ isLogin = true }) {
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.down("md"));
+
 	return (
 		<Box sx={{ backgroundColor: "black", boxShadow: "none" }}>
 			<Toolbar>
 				<Box
 					sx={{
-						pl: 5,
+						pl: { xs: 0, sm: 0, md: 8 },
 						flexGrow: 1,
 						display: "flex",
 						justifyContent: "flex-start",
@@ -39,22 +43,24 @@ function Navigation({ isLogin = true }) {
 						justifyContent: "flex-end",
 					}}
 				>
-					{pages.map((page) => (
-						<Link
-							key={page.name}
-							href={page.link}
-							sx={{
-								m: 1,
-								p: 2,
-								color: "white",
-								textDecoration: "none",
-								fontWeight: "bold",
-								fontSize: "1.2rem",
-							}}
-						>
-							{page.name}
-						</Link>
-					))}
+					{!matches &&
+						pages.map((page) => (
+							<Link
+								key={page.name}
+								href={page.link}
+								sx={{
+									m: 1,
+									p: 2,
+									color: "white",
+									textDecoration: "none",
+									fontWeight: "bold",
+									fontSize: "1.2rem",
+								}}
+							>
+								{page.name}
+							</Link>
+						))
+					}
 					<Box
 						sx={{
 							m: 1,
@@ -84,4 +90,5 @@ function Navigation({ isLogin = true }) {
 		</Box>
 	);
 }
+
 export default Navigation;
