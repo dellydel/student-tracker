@@ -22,6 +22,7 @@ const RegisterCourse = () => {
 	const [setCity] = useState("");
 	const [setState] = useState("");
 	const [setZip] = useState("");
+	const [setCountry] = useState("");
 	const [setDateOfBirth] = useState("");
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading] = useState(false);
@@ -58,6 +59,7 @@ const RegisterCourse = () => {
 	// 			city,
 	// 			state,
 	// 			zip,
+
 	// 			dateOfBirth,
 	// 		},
 	// 		TableName: "course-reg-dynamodb-2023",
@@ -205,6 +207,17 @@ const RegisterCourse = () => {
 									fullWidth
 									required
 									onChange={(event) => setZip(event.target.value)}
+								/>
+							</Grid>
+							<Grid type="number" xs={12} item>
+								<TextField
+									label="Country"
+									name="Country"
+									placeholder="Enter Your Country"
+									variant="outlined"
+									fullWidth
+									required
+									onChange={(event) => setCountry(event.target.value)}
 								/>
 							</Grid>
 							<Grid xs={12} item>
