@@ -209,11 +209,11 @@ const RegisterCourse = () => {
 									onChange={(event) => setZip(event.target.value)}
 								/>
 							</Grid>
-							<Grid type="number" xs={12} item>
+							<Grid xs={12} item>
 								<TextField
 									label="Country"
 									name="Country"
-									placeholder="Enter Your Country"
+									placeholder="Enter Country"
 									variant="outlined"
 									fullWidth
 									required
