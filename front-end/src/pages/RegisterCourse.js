@@ -127,7 +127,7 @@ const RegisterCourse = () => {
 							onChange={(event) => setState(event.target.value)}
 						/>
 					</Grid>
-					<Grid type="number" xs={12} sm={4} item>
+					<Grid type="number" sm={4} xs={12} item>
 						<TextField
 							label="Zip"
 							name="zip"
