@@ -46,7 +46,7 @@ Resources:
         ZipFile: |
           const AWS = require('aws-sdk');
           exports.handler = async (event) => {
- 
+
           const docClient = new AWS.DynamoDB.DocumentClient();
           const params = {
               TableName: "next-byte-Courses-development",
@@ -140,6 +140,16 @@ Resources:
       PathPart: registration
     DependsOn:
       - APIGatewayRestAPI
+  APIGatewayCoursesResource:
+    Type: "AWS::ApiGateway::Resource"
+    Properties:
+      RestApiId: !Ref APIGatewayRestAPI
+      ParentId: !GetAtt
+        - APIGatewayRestAPI
+        - RootResourceId
+      PathPart: Courses
+    DependsOn:
+      - APIGatewayRestAPI
   APIGatewayOptionsMethod:
     Type: AWS::ApiGateway::Method
     Properties:
@@ -198,6 +208,34 @@ Resources:
           - LambdaFuncNameArn: !GetAtt LambdaFunction.Arn
     DependsOn:
       - APIGatewayResource
+  APIGatewayCoursesGetMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref APIGatewayRestAPI
+      ResourceId: !Ref APIGatewayCoursesResource
+      HttpMethod: GET
+      AuthorizationType: NONE
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels: { "application/json": "Empty" }
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+      Integration:
+        Type: AWS
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseTemplates:
+              application/json: ""
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        PassthroughBehavior: WHEN_NO_MATCH
+        IntegrationHttpMethod: GET
+        Uri: !Sub
+          - >-
+            arn:aws:lambda:us-east-1:893303684985:function:courses-lambda-development
+          - LambdaFuncNameArn: !GetAtt LambdaFunction.Arn
+    DependsOn:
+      - APIGatewayCoursesResource
   APIGatewayDeployment:
     Type: AWS::ApiGateway::Deployment
     Properties:
