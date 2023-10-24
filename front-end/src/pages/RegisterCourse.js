@@ -229,6 +229,9 @@ const RegisterCourse = () => {
 									fullWidth
 									required
 									onChange={(event) => setDateOfBirth(event.target.value)}
+									InputLabelProps={{
+										shrink: true,
+									}}
 								/>
 							</Grid>
 							<Grid xs={12} item>
