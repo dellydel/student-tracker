@@ -21,6 +21,7 @@ const courseList = [
 			"Cybersecurity Compliance and Regulation",
 		],
 		price: "$2500",
+		priceLink: "",
 		technologies: [
 			"Powershell for Scripting",
 			"Intrusion Detection System (IDS)",
@@ -65,6 +66,7 @@ const courseList = [
 			"Introduction to React",
 		],
 		price: "$750",
+		priceLink: "",
 		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
 	},
 	{
@@ -133,6 +135,7 @@ const courseList = [
 			"Introduction to React",
 		],
 		price: "$750",
+		priceLink: "",
 		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
 	},
 	{
@@ -157,6 +160,7 @@ const courseList = [
 			"Cybersecurity Compliance and Regulation",
 		],
 		price: "$2500",
+		priceLink: "",
 		technologies: [
 			"Powershell for Scripting",
 			"Intrusion Detection System (IDS)",
@@ -185,6 +189,7 @@ const courseList = [
 			"React: Data Fetching",
 		],
 		price: "$1500",
+		priceLink: "",
 		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
 	},
 	{
@@ -201,6 +206,7 @@ const courseList = [
 			"Introduction to React",
 		],
 		price: "$750",
+		priceLink: "",
 		technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
 	},
 ];

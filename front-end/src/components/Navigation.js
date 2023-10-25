@@ -59,7 +59,8 @@ function Navigation({ isLogin = true }) {
 							>
 								{page.name}
 							</Link>
-						))}
+						))
+					}
 					<Box
 						sx={{
 							m: 1,
