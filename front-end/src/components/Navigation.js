@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, Link, Box, Stack } from "@mui/material";
+import { Toolbar, Link, Box, Stack } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
