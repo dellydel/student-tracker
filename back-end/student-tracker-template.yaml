@@ -85,8 +85,8 @@ Resources:
         - AttributeName: id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
-    DependsOn:
-      - IAMRole
+    # DependsOn:
+    #   - IAMRole
   DynamoDBCourses:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -98,8 +98,8 @@ Resources:
         - AttributeName: id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
-    DependsOn:
-      - IAMRole
+    # DependsOn:
+    #   - IAMRole
   DynamoDBRegistrations:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -111,8 +111,8 @@ Resources:
         - AttributeName: id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
-    DependsOn:
-      - IAMRole
+    # DependsOn:
+    #   - IAMRole
   DynamoDBTestimonials:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -124,8 +124,8 @@ Resources:
         - AttributeName: id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
-    DependsOn:
-      - IAMRole
+    # DependsOn:
+    #   - IAMRole
   
   APIGatewayRestAPI:
     Type: "AWS::ApiGateway::RestApi"
