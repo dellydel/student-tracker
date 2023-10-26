@@ -13,7 +13,7 @@ const SectionDivider = ({ SectionTitle }) => {
 				padding: "20px",
 			}}
 		>
-			<Typography variant="h4" color="primary" sx={{ fontWeight: 600 }}>
+			<Typography variant="h4" sx={{ fontWeight: 600 }}>
 				{SectionTitle}
 			</Typography>
 		</Box>
