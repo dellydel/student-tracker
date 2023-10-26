@@ -46,7 +46,7 @@ const Feature = ({ textPosition, content }) => {
 					mr: textPosition === "left" ? 0 : 5,
 				}}
 			>
-				<img src={"https://placehold.co/350x250/png"} alt="Placeholder" />
+				{content.icon}
 			</Box>
 		</Box>
 	);

@@ -66,6 +66,7 @@ Resources:
               statusCode,
               body
           };
+          }
       FunctionName: !Sub "courses-lambda-${Env}"
       Handler: index.handler
       Runtime: nodejs14.x

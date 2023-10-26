@@ -5,7 +5,7 @@ import Feature from "./Feature";
 
 const Features = () => {
 	return (
-		<Box sx={{ mb: 5 }}>
+		<Box sx={{ mb: 10 }}>
 			<Feature textPosition="left" content={ourTrainingContent} />
 			<Feature textPosition="right" content={ourPricingContent} />
 		</Box>

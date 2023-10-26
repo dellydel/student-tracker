@@ -9,10 +9,9 @@ import Testimonials from "../components/Testimonials";
 const Home = () => {
 	const container = {
 		maxWidth: "1050px",
-		p: { xs: 5, md: 15 },
+		px: { xs: 5, md: 15 },
 		pt: 5,
 		m: { xs: 0, md: "0 auto" },
-		marginBottom: 5,
 	};
 
 	return (
@@ -21,6 +20,7 @@ const Home = () => {
 			<Box sx={container}>
 				<SectionDivider SectionTitle="Why NextByte?" />
 				<Features />
+				<br />
 				{/* <SectionDivider SectionTitle="Upcoming Courses" /> */}
 				{/* <Pricing /> */}
 				<SectionDivider SectionTitle="Testimonials" />
