@@ -9,8 +9,9 @@ Parameters:
     Description: The deployment environment
 
 Conditions:
-  IsDev: !Equals [!Ref Env, development]
-
+  IsDev: !Equals 
+    - !Ref Env
+    - development
 Resources:
   RegistrationLambdaFunction:
     Type: AWS::Lambda::Function
@@ -38,7 +39,7 @@ Resources:
       Runtime: nodejs14.x
       Role: !GetAtt IAMRole.Arn
     DependsOn:
-      - DynamoDBTable
+      - DynamoDBRegistrations
   CoursesLambdaFunction:
     Type: AWS::Lambda::Function
     Properties:
@@ -72,8 +73,8 @@ Resources:
       Runtime: nodejs14.x
       Role: !GetAtt IAMRole.Arn
     DependsOn:
-      - DynamoDBTable
-  DynamoDBTable:
+      - DynamoDBCourses
+  DynamoDBStudents:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: !Sub "next-byte-Students-${Env}"
@@ -125,6 +126,7 @@ Resources:
       BillingMode: PAY_PER_REQUEST
     DependsOn:
       - IAMRole
+  
   APIGatewayRestAPI:
     Type: "AWS::ApiGateway::RestApi"
     Properties:
@@ -132,13 +134,11 @@ Resources:
     DependsOn:
       - RegistrationLambdaFunction
       - CoursesLambdaFunction
-  APIGatewayResource:
+  APIGatewayRegistrationResource:
     Type: "AWS::ApiGateway::Resource"
     Properties:
       RestApiId: !Ref APIGatewayRestAPI
-      ParentId: !GetAtt
-        - APIGatewayRestAPI
-        - RootResourceId
+      ParentId: !GetAtt APIGatewayRestAPI.RootResourceId
       PathPart: registration
     DependsOn:
       - APIGatewayRestAPI
@@ -146,58 +146,56 @@ Resources:
     Type: "AWS::ApiGateway::Resource"
     Properties:
       RestApiId: !Ref APIGatewayRestAPI
-      ParentId: !GetAtt
-        - APIGatewayRestAPI
-        - RootResourceId
+      ParentId: !GetAtt APIGatewayRestAPI.RootResourceId
       PathPart: Courses
     DependsOn:
       - APIGatewayRestAPI
-  APIGatewayOptionsMethod:
-    Type: AWS::ApiGateway::Method
-    Properties:
-      AuthorizationType: NONE
-      RestApiId: !Ref APIGatewayRestAPI
-      ResourceId: !Ref APIGatewayResource
-      HttpMethod: OPTIONS
-      Integration:
-        Type: MOCK
-        IntegrationResponses:
-          - StatusCode: 200
-            ResponseParameters:
-              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
-              method.response.header.Access-Control-Allow-Origin: "'*'"
-            ResponseTemplates:
-              application/json: ""
-        PassthroughBehavior: WHEN_NO_MATCH
-        RequestTemplates:
-          application/json: '{"statusCode": 200}'
-      MethodResponses:
-        - StatusCode: 200
-          ResponseModels:
-            application/json: "Empty"
-          ResponseParameters:
-            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-            method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
-            method.response.header.Access-Control-Allow-Origin: "'*'"
-    DependsOn:
-      - APIGatewayResource
+  # APIGatewayOptionsMethod:
+  #   Type: AWS::ApiGateway::Method
+  #   Properties:
+  #     AuthorizationType: NONE
+  #     RestApiId: !Ref APIGatewayRestAPI
+  #     ResourceId: !Ref APIGatewayResource
+  #     HttpMethod: OPTIONS
+  #     Integration:
+  #       Type: MOCK
+  #       IntegrationResponses:
+  #         - StatusCode: 200
+  #           ResponseParameters:
+  #             method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+  #             method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+  #             method.response.header.Access-Control-Allow-Origin: "'*'"
+  #           ResponseTemplates:
+  #             application/json: ""
+  #       PassthroughBehavior: WHEN_NO_MATCH
+  #       RequestTemplates:
+  #         application/json: '{"statusCode": 200}'
+  #     MethodResponses:
+  #       - StatusCode: 200
+  #         ResponseModels:
+  #           application/json: "Empty"
+  #         ResponseParameters:
+  #           method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+  #           method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+  #           method.response.header.Access-Control-Allow-Origin: "'*'"
+  #   DependsOn:
+  #     - APIGatewayResource
   APIGatewayPostMethod:
     Type: AWS::ApiGateway::Method
     Properties:
       RestApiId: !Ref APIGatewayRestAPI
-      ResourceId: !Ref APIGatewayResource
+      ResourceId: !Ref APIGatewayRegistrationResource
       HttpMethod: POST
       AuthorizationType: NONE
       MethodResponses:
-        - StatusCode: 200
+        - StatusCode: "200"
           ResponseModels: { "application/json": "Empty" }
           ResponseParameters:
             method.response.header.Access-Control-Allow-Origin: "'*'"
       Integration:
         Type: AWS
         IntegrationResponses:
-          - StatusCode: 200
+          - StatusCode: "200"
             ResponseTemplates:
               application/json: ""
             ResponseParameters:
@@ -205,11 +203,10 @@ Resources:
         PassthroughBehavior: WHEN_NO_MATCH
         IntegrationHttpMethod: POST
         Uri: !Sub
-          - >-
-            arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFuncNameArn}/invocations
+          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFuncNameArn}/invocations"
           - LambdaFuncNameArn: !GetAtt RegistrationLambdaFunction.Arn
     DependsOn:
-      - APIGatewayResource
+      - APIGatewayRegistrationResource
   APIGatewayCoursesGetMethod:
     Type: AWS::ApiGateway::Method
     Properties:
@@ -292,7 +289,7 @@ Resources:
                   - "dynamodb:Query"
                   - "dynamodb:UpdateItem"
                 Resource: 
-                  - !GetAtt DynamoDBTable.Arn
+                  - !GetAtt DynamoDBStudents.Arn
                   - !GetAtt DynamoDBCourses.Arn
                   - !GetAtt DynamoDBRegistrations.Arn
               - Effect: Allow
@@ -305,7 +302,6 @@ Resources:
   MyS3Bucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
-    Description: S3 Bucket on which we will deploy Next Byte Web
     Properties:
       BucketName: !If [IsDev, dev.nextbyteweb.com, www.nextbyteweb.com]
       PublicAccessBlockConfiguration:
@@ -326,7 +322,6 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: error.html
-
   MyS3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
