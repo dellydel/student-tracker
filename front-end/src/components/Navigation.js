@@ -9,7 +9,7 @@ const pages = [
 	{ name: "COURSES", link: "/courses" },
 ];
 
-function Navigation({ isLogin = true }) {
+function Navigation({ isLogin = false }) {
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -50,6 +50,7 @@ function Navigation({ isLogin = true }) {
 								href={page.link}
 								sx={{
 									m: 1,
+									mr: 0,
 									p: 2,
 									color: "white",
 									textDecoration: "none",
@@ -59,8 +60,7 @@ function Navigation({ isLogin = true }) {
 							>
 								{page.name}
 							</Link>
-						))
-					}
+						))}
 					<Box
 						sx={{
 							m: 1,
@@ -71,17 +71,25 @@ function Navigation({ isLogin = true }) {
 							fontSize: "1.2rem",
 						}}
 					>
+						{" "}
+						|
 						{isLogin ? (
-							<Stack direction="row">
+							<Stack sx={{ ml: 5 }} direction="row">
 								<Avatar sx={{ width: 25, height: 25, mb: 2, mr: 1 }}>ID</Avatar>
 								<Box sx={{ color: "white" }}>USER NAME</Box>
 							</Stack>
 						) : (
 							<Link
-								href={"/Login"}
-								sx={{ m: 1, p: 1, color: "white", textDecoration: "none" }}
+								href={"#"}
+								sx={{
+									m: 1,
+									ml: 5,
+									p: 1,
+									color: "white",
+									textDecoration: "none",
+								}}
 							>
-								LOGIN
+								LOGIN / REGISTER
 							</Link>
 						)}
 					</Box>

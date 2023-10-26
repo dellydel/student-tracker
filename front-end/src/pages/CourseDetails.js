@@ -15,10 +15,15 @@ const CourseDetails = ({
 	};
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
-			<Typography gutterBottom variant="h6" sx={{ mt: "50px", mb: "50px" }}>
+			<Typography
+				variant="h4"
+				sx={{
+					fontWeight: 600,
+					my: 3,
+				}}
+			>
 				Course Detail
 			</Typography>
-			<p></p>
 			<form>
 				<Grid container spacing={2}>
 					<Grid xs={6} item style={{ display: "flex" }}>
