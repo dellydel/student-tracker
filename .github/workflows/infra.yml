@@ -27,7 +27,7 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: next-byte-${{ github.event.inputs.environment}}
-          template: ./back-end/student-tracker-template.yaml
+          template: ./back-end/CloudFormation/student-tracker-template.yaml
           parameter-overrides:
             Env=${{ github.event.inputs.environment}}
   Deploy_Lambdas:
