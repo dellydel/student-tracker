@@ -63,9 +63,9 @@ resources:
                   - "dynamodb:Query"
                   - "dynamodb:UpdateItem"
                 Resource: 
-                  - !GetAtt DynamoDBStudents.Arn
-                  - !GetAtt DynamoDBCourses.Arn
-                  - !GetAtt DynamoDBRegistrations.Arn
+                  - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-development
+                  - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-development
+                  - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-development
               - Effect: Allow
                 Action:
                   - "logs:CreateLogStream"
