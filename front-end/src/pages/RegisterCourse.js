@@ -30,6 +30,7 @@ const RegisterCourse = () => {
 				margin: "0 auto",
 				padding: "0 20px",
 				bottomPadding: "50px",
+				minHeight: 1000,
 			}}
 		>
 			<Typography gutterBottom variant="h5" style={{ marginBottom: "50px" }}>

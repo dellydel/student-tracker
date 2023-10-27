@@ -31,7 +31,7 @@ const CheckoutForm = () => {
 	}, []);
 
 	return (
-		<Box sx={{ m: 5 }}>
+		<Box sx={{ m: 5, minHeight: 1000 }}>
 			{clientSecret && (
 				<EmbeddedCheckoutProvider
 					stripe={stripePromise}

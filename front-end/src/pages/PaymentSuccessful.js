@@ -28,7 +28,14 @@ const PaymentSuccessful = () => {
 
 	if (status === "complete") {
 		return (
-			<Box sx={{ maxWidth: "1050px", margin: "50px auto", padding: "0 20px" }}>
+			<Box
+				sx={{
+					maxWidth: "1050px",
+					margin: "50px auto",
+					padding: "0 20px",
+					minHeight: 1000,
+				}}
+			>
 				<Typography variant="p">
 					We appreciate your business! A confirmation email will be sent to{" "}
 					{customerEmail}. If you have any questions, please email{" "}

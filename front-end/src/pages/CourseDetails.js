@@ -14,7 +14,14 @@ const CourseDetails = ({
 		navigate("/register");
 	};
 	return (
-		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
+		<Box
+			sx={{
+				maxWidth: "1050px",
+				margin: "0 auto",
+				padding: "0 20px",
+				minHeight: 1000,
+			}}
+		>
 			<Typography
 				variant="h4"
 				sx={{

@@ -2,7 +2,6 @@ import React from "react";
 import { Box } from "@mui/material";
 import Features from "../components/Features";
 import MainHero from "../components/MainHero";
-//import Pricing from "../components/Pricing";
 import SectionDivider from "../components/SectionDivider";
 import Testimonials from "../components/Testimonials";
 
@@ -21,8 +20,6 @@ const Home = () => {
 				<SectionDivider SectionTitle="Why NextByte?" />
 				<Features />
 				<br />
-				{/* <SectionDivider SectionTitle="Upcoming Courses" /> */}
-				{/* <Pricing /> */}
 				<SectionDivider SectionTitle="Testimonials" />
 				<Testimonials />
 			</Box>
