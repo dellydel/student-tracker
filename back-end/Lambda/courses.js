@@ -19,7 +19,7 @@ exports.handler = async (event) => {
     body = err.message;
   }
   return {
-    statusCode,
-    body,
+    statusCode: statusCode,
+    body: JSON.stringify(body),
   };
 };
