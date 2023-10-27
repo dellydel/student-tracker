@@ -2,18 +2,22 @@ import React, { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import Course from "../components/Course";
-import courseList from "../test-data/courseList";
 
 const Courses = () => {
+	const [courses, setCourses] = React.useState([]);
+
 	useEffect(() => {
 		axios
 			.get(
 				"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/Courses",
 			)
 			.then((res) => {
-				console.log(res.data);
+				setCourses(res.data.Items);
+			})
+			.catch((err) => {
+				console.log(err);
 			});
-	});
+	}, []);
 
 	return (
 		<Box sx={{ maxWidth: "1050px", margin: "0 auto", padding: "0 20px" }}>
@@ -34,7 +38,7 @@ const Courses = () => {
 					justifyContent: "flex-start",
 				}}
 			>
-				{courseList.map((course) => (
+				{courses.map((course) => (
 					<Course course={course} key={course.id} />
 				))}
 			</Box>
