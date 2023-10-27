@@ -30,7 +30,7 @@ functions:
          path: /ping
          method: get
   courses-lambda:
-    name: coursesHandler
+    name: courses-lambda-development
     handler: courses.handler
     events:
      - http:
