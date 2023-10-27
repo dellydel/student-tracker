@@ -41,7 +41,7 @@ jobs:
           node-version: '16'
       - name: Install Dependencies
         run: npm install
-        working-directory: ./back-end
+        working-directory: ./back-end/Lambda
       - name: Configure AWS Creds
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -50,6 +50,5 @@ jobs:
           aws-region: us-east-1
       - name: Deploy
         run: |
-          npx ncc build courses.js
-          zip -j deploy.zip ./dist/*
+          zip -j deploy.zip ./*
           aws lambda update-function-code --function-name=courses-lambda-development --zip-file=fileb://deploy.zip
