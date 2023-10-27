@@ -9,7 +9,7 @@ const Home = () => {
 	const container = {
 		maxWidth: "1050px",
 		px: { xs: 5, md: 15 },
-		pt: 5,
+		pt: { xs: 0, md: 5 },
 		m: { xs: 0, md: "0 auto" },
 	};
 

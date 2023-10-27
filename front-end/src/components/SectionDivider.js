@@ -5,7 +5,7 @@ const SectionDivider = ({ SectionTitle }) => {
 	return (
 		<Box
 			sx={{
-				mt: 10,
+				my: { xs: 5, md: 5 },
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
