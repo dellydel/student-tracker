@@ -50,5 +50,5 @@ jobs:
           aws-region: us-east-1
       - name: Deploy
         run: |
-          zip -j deploy.zip ./*
+          zip -j deploy.zip ./back-end/Lambda/*
           aws lambda update-function-code --function-name=courses-lambda-development --zip-file=fileb://deploy.zip
