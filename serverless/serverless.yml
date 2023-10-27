@@ -4,7 +4,7 @@ frameworkVersion: "3"
 provider:
   name: aws
   runtime: nodejs18.x
-  stackName: serverless-${env}
+  stackName: serverless-development
   apiGateway:
     restApiId: ${ssm:nextbyte-api-restApiId-development}
     restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-development}
