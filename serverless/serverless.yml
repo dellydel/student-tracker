@@ -70,4 +70,4 @@ resources:
                       - "logs:CreateLogStream"
                       - "logs:CreateLogGroup"
                       - "logs:PutLogEvents"
-                    servResource: "*"
+                    Resource: "*"
