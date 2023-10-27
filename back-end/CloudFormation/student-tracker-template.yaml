@@ -136,7 +136,7 @@ Resources:
       RestApiId: !Ref APIGatewayRestAPI
       StageName:
         Ref: Env
-    DependsOn: [APIGatewayPostMethod, APIGatewayCoursesGetMethod]
+    DependsOn: [APIGatewayPostMethod]
   APIGatewayPermissionRegistration:
     Type: "AWS::Lambda::Permission"
     Properties:
