@@ -31,44 +31,43 @@ functions:
          method: get
 
 resources:
-  Resources:
-    IAMRole:
-      Type: AWS::IAM::Role
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service:
-                  - lambda.amazonaws.com
-              Action:
-                - "sts:AssumeRole"
-        Path: /
-        Policies:
-        - PolicyName: Policy_api-lambda-db
-          PolicyDocument:
-            Version: 2012-10-17
+  - Resources:
+      IAMServerlessRole:
+        Type: AWS::IAM::Role
+        Properties:
+          AssumeRolePolicyDocument:
+            Version: "2012-10-17"
             Statement:
               - Effect: Allow
+                Principal:
+                  Service:
+                    - lambda.amazonaws.com
                 Action:
-                  - "dynamodb:BatchGetItem"
-                  - "dynamodb:BatchWriteItem"
-                  - "dynamodb:TagResource"
-                  - "dynamodb:UntagResource"
-                  - "dynamodb:PutItem"
-                  - "dynamodb:DeleteItem"
-                  - "dynamodb:GetItem"
-                  - "dynamodb:Scan"
-                  - "dynamodb:Query"
-                  - "dynamodb:UpdateItem"
-                Resource: 
-                  - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-development
-                  - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-development
-                  - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-development
-              - Effect: Allow
-                Action:
-                  - "logs:CreateLogStream"
-                  - "logs:CreateLogGroup"
-                  - "logs:PutLogEvents"
-                Resource: "*"
+                  - "sts:AssumeRole"
+          Policies:
+            - PolicyName: Policy_api-lambda-db
+              PolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  - Effect: Allow
+                    Action:
+                      - "dynamodb:BatchGetItem"
+                      - "dynamodb:BatchWriteItem"
+                      - "dynamodb:TagResource"
+                      - "dynamodb:UntagResource"
+                      - "dynamodb:PutItem"
+                      - "dynamodb:DeleteItem"
+                      - "dynamodb:GetItem"
+                      - "dynamodb:Scan"
+                      - "dynamodb:Query"
+                      - "dynamodb:UpdateItem"
+                    Resource: 
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-development
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-development
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-development
+                  - Effect: Allow
+                    Action:
+                      - "logs:CreateLogStream"
+                      - "logs:CreateLogGroup"
+                      - "logs:PutLogEvents"
+                    servResource: "*"
