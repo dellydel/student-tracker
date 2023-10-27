@@ -8,6 +8,8 @@ provider:
   apiGateway:
     restApiId: ${ssm:nextbyte-api-restApiId-development}
     restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-development}
+  iam:
+    role: IAMServerlessRole
 
 # you can define service wide environment variables here
 #  environment:
