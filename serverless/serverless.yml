@@ -24,10 +24,17 @@ provider:
 functions:
   hello:
     name: pingHandler
-    handler: handler.ping
+    handler: ping.handler
     events:
      - http:
          path: /ping
+         method: get
+  courses-lambda:
+    name: coursesHandler
+    handler: courses.handler
+    events:
+     - http:
+         path: /courses
          method: get
 
 resources:
