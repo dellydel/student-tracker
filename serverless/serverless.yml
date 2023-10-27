@@ -29,8 +29,6 @@ functions:
      - httpApi:
          path: /ping
          method: get
-         cors:
-          origin: '*'
 
 resources:
   Resources:
