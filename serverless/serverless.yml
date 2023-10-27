@@ -26,7 +26,7 @@ functions:
     name: pingHandler
     handler: handler.ping
     events:
-     - httpApi:
+     - http:
          path: /ping
          method: get
 
@@ -70,4 +70,4 @@ resources:
                       - "logs:CreateLogStream"
                       - "logs:CreateLogGroup"
                       - "logs:PutLogEvents"
-                    servResource: "*"
+                    Resource: "*"
