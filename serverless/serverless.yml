@@ -3,7 +3,7 @@ frameworkVersion: "3"
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs16.x
   stackName: serverless-development
   apiGateway:
     restApiId: ${ssm:nextbyte-api-restApiId-development}
