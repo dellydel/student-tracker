@@ -22,7 +22,7 @@ jobs:
       - name: serverless deploy        
         uses: serverless/github-action@master
         with:
-            args: -c "cd ./serverless && serverless deploy
+            args: -c "cd ./serverless && serverless deploy"
             entrypoint: /bin/sh
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
