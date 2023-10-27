@@ -102,6 +102,9 @@ Resources:
     Type: "AWS::ApiGateway::RestApi"
     Properties:
       Name: !Sub "next-byte-api-${Env}"
+      EndpointConfiguration: 
+        types: 
+          - REGIONAL
   APIGatewayRegistrationResource:
     Type: "AWS::ApiGateway::Resource"
     DeletionPolicy: Retain

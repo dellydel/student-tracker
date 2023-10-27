@@ -34,7 +34,7 @@ const Course = ({ course }) => {
 			>
 				{course.technologies.slice(0, 3).map((tech) => {
 					return (
-						<ListItem>
+						<ListItem key={tech}>
 							<Chip
 								sx={{ p: 0.5 }}
 								label={tech}
