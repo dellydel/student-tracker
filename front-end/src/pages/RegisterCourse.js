@@ -14,6 +14,8 @@ const RegisterCourse = () => {
 	const [setZip] = useState("");
 	const [setCountry] = useState("");
 	const [setDateOfBirth] = useState("");
+	const [setPassword] = useState("");
+	const [setConfirmPassword] = useState("");
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading] = useState(false);
 	const { courseName } = useParams();
@@ -159,6 +161,45 @@ const RegisterCourse = () => {
 							InputLabelProps={{
 								shrink: true,
 							}}
+						/>
+					</Grid>
+					<Grid xs={6} item>
+						<TextField
+							label="Password"
+							type="password"
+							name="Password"
+							placeholder="Enter your password"
+							variant="outlined"
+							fullWidth
+							required
+							onChange={(event) => setPassword(event.target.value)}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment position="end">
+										<Tooltip
+											title="Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+											placement="right"
+											arrow
+										>
+											<Avatar>
+												<HelpOutlineIcon />
+											</Avatar>
+										</Tooltip>
+									</InputAdornment>
+								),
+							}}
+						/>
+					</Grid>
+					<Grid xs={6} item>
+						<TextField
+							label="Confirm Password"
+							name="Confirm Password"
+							type="password"
+							placeholder="Enter your password"
+							variant="outlined"
+							fullWidth
+							required
+							onChange={(event) => setConfirmPassword(event.target.value)}
 						/>
 					</Grid>
 					<Grid xs={12} item>
