@@ -19,6 +19,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
          node-version: '16'
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./serverless
       - name: serverless deploy        
         uses: serverless/github-action@master
         with:
