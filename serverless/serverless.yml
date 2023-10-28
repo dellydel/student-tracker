@@ -29,6 +29,7 @@ functions:
      - http:
          path: /ping
          method: get
+  
   courses-lambda:
     name: courses-lambda-development
     package: 
@@ -39,6 +40,7 @@ functions:
      - http:
          path: /courses
          method: get
+  
   registration-lambda:
     name: registration-lambda-development
     package: 
@@ -49,6 +51,17 @@ functions:
      - http:
          path: /registration
          method: post
+  
+  payments-lambda:
+      name: payments-lambda-development
+      package: 
+        include:
+          - payments.js
+      handler: payments.handler
+      events:
+      - http:
+          path: /pay
+          method: post
 
 resources:
   - Resources:
