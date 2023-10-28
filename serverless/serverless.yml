@@ -17,6 +17,7 @@ package:
     - ./**
   include:
     - node_modules/**
+    - package.json
 
 functions:
   ping:
