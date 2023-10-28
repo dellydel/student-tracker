@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Typography, Grid, TextField, Button, Box } from "@mui/material";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import {
+	Typography,
+	Grid,
+	TextField,
+	Button,
+	InputAdornment,
+	Tooltip,
+	Avatar,
+	Box,
+} from "@mui/material";
 
 const RegisterCourse = () => {
 	const navigate = useNavigate();
