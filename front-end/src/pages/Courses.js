@@ -9,7 +9,7 @@ const Courses = () => {
 	useEffect(() => {
 		axios
 			.get(
-				"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/Courses",
+				"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/courses",
 			)
 			.then((res) => {
 				setCourses(res.data.Items);

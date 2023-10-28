@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   const docClient = new AWS.DynamoDB.DocumentClient();
 
   const params = {
