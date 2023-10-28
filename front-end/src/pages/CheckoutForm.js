@@ -15,7 +15,7 @@ const CheckoutForm = () => {
 
 	useEffect(() => {
 		fetch(
-			"https://vyif56gr4u3kffmw5oewytyxra0byukl.lambda-url.us-east-1.on.aws/",
+			"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/pay",
 			{
 				method: "POST",
 			},
