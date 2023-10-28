@@ -13,34 +13,6 @@ Conditions:
     - !Ref Env
     - development
 Resources:
-  RegistrationLambdaFunction:
-    DeletionPolicy: Retain
-    Type: AWS::Lambda::Function
-    Properties:
-      Code:
-        ZipFile: |
-          const AWS = require('aws-sdk')
-          const dbClient = new AWS.DynamoDB.DocumentClient()
-          exports.handler = async(event)=>{
-            let body;
-            let statusCode = 200;
-            try{
-              body = await dbClient.put(event).promise();
-            }catch(err){
-              statusCode = err.statusCode;
-              body = err.message;
-            }
-            return{
-              statusCode,
-              body
-            }
-          }
-      FunctionName: !Sub "registration-lambda-${Env}"
-      Handler: index.handler
-      Runtime: nodejs14.x
-      Role: !GetAtt IAMRole.Arn
-    DependsOn:
-      - DynamoDBRegistrations
   DynamoDBStudents:
     Type: AWS::DynamoDB::Table
     DeletionPolicy: Retain
@@ -94,96 +66,7 @@ Resources:
       EndpointConfiguration: 
         Types: 
           - REGIONAL
-  APIGatewayRegistrationResource:
-    Type: "AWS::ApiGateway::Resource"
-    DeletionPolicy: Retain
-    Properties:
-      RestApiId: !Ref APIGatewayRestAPI
-      ParentId: !GetAtt APIGatewayRestAPI.RootResourceId
-      PathPart: registration
-    DependsOn:
-      - APIGatewayRestAPI
-  APIGatewayPostMethod:
-    Type: AWS::ApiGateway::Method
-    Properties:
-      RestApiId: !Ref APIGatewayRestAPI
-      ResourceId: !Ref APIGatewayRegistrationResource
-      HttpMethod: POST
-      AuthorizationType: NONE
-      MethodResponses:
-        - StatusCode: "200"
-          ResponseModels: { "application/json": "Empty" }
-          ResponseParameters:
-            method.response.header.Access-Control-Allow-Origin: "'*'"
-      Integration:
-        Type: AWS
-        IntegrationResponses:
-          - StatusCode: "200"
-            ResponseTemplates:
-              application/json: ""
-            ResponseParameters:
-              method.response.header.Access-Control-Allow-Origin: "'*'"
-        PassthroughBehavior: WHEN_NO_MATCH
-        IntegrationHttpMethod: POST
-        Uri: !Sub
-          - "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFuncNameArn}/invocations"
-          - LambdaFuncNameArn: !GetAtt RegistrationLambdaFunction.Arn
-    DependsOn:
-      - APIGatewayRegistrationResource
-  APIGatewayDeployment:
-    Type: AWS::ApiGateway::Deployment
-    Properties:
-      RestApiId: !Ref APIGatewayRestAPI
-      StageName:
-        Ref: Env
-    DependsOn: [APIGatewayPostMethod]
-  APIGatewayPermissionRegistration:
-    Type: "AWS::Lambda::Permission"
-    Properties:
-      Action: "lambda:InvokeFunction"
-      FunctionName: !Ref RegistrationLambdaFunction
-      Principal: apigateway.amazonaws.com
-  IAMRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - lambda.amazonaws.com
-            Action:
-              - "sts:AssumeRole"
-      Path: /
-      Policies:
-        - PolicyName: Policy_api-lambda-db
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - "dynamodb:BatchGetItem"
-                  - "dynamodb:BatchWriteItem"
-                  - "dynamodb:TagResource"
-                  - "dynamodb:UntagResource"
-                  - "dynamodb:PutItem"
-                  - "dynamodb:DeleteItem"
-                  - "dynamodb:GetItem"
-                  - "dynamodb:Scan"
-                  - "dynamodb:Query"
-                  - "dynamodb:UpdateItem"
-                Resource: 
-                  - !GetAtt DynamoDBStudents.Arn
-                  - !GetAtt DynamoDBCourses.Arn
-                  - !GetAtt DynamoDBRegistrations.Arn
-              - Effect: Allow
-                Action:
-                  - "logs:CreateLogStream"
-                  - "logs:CreateLogGroup"
-                  - "logs:PutLogEvents"
-                Resource: "*"
-
+  
   MyS3Bucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
@@ -222,9 +105,3 @@ Resources:
             Principal:
               AWS:
                 - "*"
-
-  LambdaS3Bucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: nextbyte-lambdas
-
