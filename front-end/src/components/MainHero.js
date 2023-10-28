@@ -3,6 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { heroText, heroCallToAction } from "../data/homeContent";
+import { scroller } from "react-scroll"; // Import Element and scroller
 
 const heroStyle = {
 	backgroundImage: "url('images/code.jpg')",
@@ -21,7 +22,14 @@ const MainHero = () => {
 	const callToAction = heroCallToAction[random];
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("md"));
-
+	const scrollToFooter = () => {
+		// Scroll to the "footer" element with a smooth effect
+		scroller.scrollTo("footer", {
+		  duration: 800, // Duration of the scroll animation
+		  delay: 0, // Delay before scrolling starts
+		  smooth: "easeInOutQuart", // Type of scrolling easing
+		});
+	}
 	return (
 		<Box sx={{ ...heroStyle, p: { xs: 5, md: 15 } }}>
 			<Box
@@ -84,8 +92,9 @@ const MainHero = () => {
 							p: 2,
 							color: "white",
 						}}
-						variant="text"
+						variant="contained"
 						size="medium"
+						onClick={scrollToFooter} // Call scrollToFooter function on button click
 					>
 						CONTACT US
 					</Button>
