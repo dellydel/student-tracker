@@ -3,6 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { heroText, heroCallToAction } from "../data/homeContent";
+import { scroller } from "react-scroll"; 
 
 const heroStyle = {
 	backgroundImage: "url('images/code.jpg')",
@@ -21,7 +22,14 @@ const MainHero = () => {
 	const callToAction = heroCallToAction[random];
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("md"));
-
+	const scrollToFooter = () => {
+		
+		scroller.scrollTo("footer", {
+		  duration: 800, 
+		  delay: 0, 
+		  smooth: "easeInOutQuart", 
+		});
+	}
 	return (
 		<Box sx={{ ...heroStyle, p: { xs: 5, md: 15 } }}>
 			<Box
@@ -84,8 +92,9 @@ const MainHero = () => {
 							p: 2,
 							color: "white",
 						}}
-						variant="text"
+						variant="contained"
 						size="medium"
+						onClick={scrollToFooter}
 					>
 						CONTACT US
 					</Button>
