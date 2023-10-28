@@ -19,7 +19,7 @@ package:
     - node_modules/**
 
 functions:
-  hello:
+  ping:
     name: ping-lambda-development
     package: 
       include:
@@ -39,6 +39,16 @@ functions:
      - http:
          path: /courses
          method: get
+  registration-lambda:
+    name: registration-lambda-development
+    package: 
+      include:
+        - registration.js
+    handler: registration.handler
+    events:
+     - http:
+         path: /registration
+         method: post
 
 resources:
   - Resources:
