@@ -11,28 +11,24 @@ provider:
   iam:
     role: IAMServerlessRole
 
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
 package:
   individually: true
 
-# functions:
-#   hello:
-#     name: pingHandler
-#     handler: ping.handler
-#     events:
-#      - http:
-#          path: /ping
-#          method: get
-#   courses-lambda:
-#     name: courses-lambda-development
-#     handler: courses.handler
-#     events:
-#      - http:
-#          path: /courses
-#          method: get
+functions:
+  hello:
+    name: pingHandler
+    handler: ping.handler
+    events:
+     - http:
+         path: /ping
+         method: get
+  courses-lambda:
+    name: courses-lambda-development
+    handler: courses.handler
+    events:
+     - http:
+         path: /courses
+         method: get
 
 resources:
   - Resources:

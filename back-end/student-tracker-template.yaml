@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-
+Description: "Cloudformation template for back end resources, excluding lambdas"
 Parameters:
   Env:
     Type: String
