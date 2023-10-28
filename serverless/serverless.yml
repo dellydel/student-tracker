@@ -19,16 +19,16 @@ package:
     - node_modules/**
 
 functions:
-  # ping:
-  #   name: ping-lambda-development
-  #   package: 
-  #     include:
-  #       - ping.js
-  #   handler: ping.handler
-  #   events:
-  #    - http:
-  #        path: /ping
-  #        method: get
+  ping:
+    name: ping-lambda-development
+    package: 
+      include:
+        - ping.js
+    handler: ping.handler
+    events:
+     - http:
+         path: /ping
+         method: get
   
   courses-lambda:
     name: courses-lambda-development
