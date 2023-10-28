@@ -13,10 +13,18 @@ provider:
 
 package:
   individually: true
+  exclude:
+    - ./**
+  include:
+    - common/**
+    - node_modules/**
 
 functions:
   hello:
     name: pingHandler
+    package: 
+      include:
+        - ping.js
     handler: ping.handler
     events:
      - http:
@@ -24,6 +32,9 @@ functions:
          method: get
   courses-lambda:
     name: courses-lambda-development
+    package: 
+      include:
+        - courses.js
     handler: courses.handler
     events:
      - http:
