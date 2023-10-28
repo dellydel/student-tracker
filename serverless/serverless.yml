@@ -16,12 +16,11 @@ package:
   exclude:
     - ./**
   include:
-    - common/**
     - node_modules/**
 
 functions:
   hello:
-    name: pingHandler
+    name: ping-lambda-development
     package: 
       include:
         - ping.js
