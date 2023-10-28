@@ -11,7 +11,7 @@ const footerLink = {
 
 const Footer = () => {
 	return (
-		<Element name="footer"> {/* Set the name to "footer" */}
+		<Element name="footer"> {}
 			<Box
 				sx={{
 					minHeight: "400px",

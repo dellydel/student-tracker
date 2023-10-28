@@ -3,7 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { heroText, heroCallToAction } from "../data/homeContent";
-import { scroller } from "react-scroll"; // Import Element and scroller
+import { scroller } from "react-scroll"; 
 
 const heroStyle = {
 	backgroundImage: "url('images/code.jpg')",
@@ -23,11 +23,11 @@ const MainHero = () => {
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("md"));
 	const scrollToFooter = () => {
-		// Scroll to the "footer" element with a smooth effect
+		
 		scroller.scrollTo("footer", {
-		  duration: 800, // Duration of the scroll animation
-		  delay: 0, // Delay before scrolling starts
-		  smooth: "easeInOutQuart", // Type of scrolling easing
+		  duration: 800, 
+		  delay: 0, 
+		  smooth: "easeInOutQuart", 
 		});
 	}
 	return (
@@ -94,7 +94,7 @@ const MainHero = () => {
 						}}
 						variant="contained"
 						size="medium"
-						onClick={scrollToFooter} // Call scrollToFooter function on button click
+						onClick={scrollToFooter}
 					>
 						CONTACT US
 					</Button>
