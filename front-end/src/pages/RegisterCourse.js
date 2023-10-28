@@ -173,6 +173,21 @@ const RegisterCourse = () => {
 							fullWidth
 							required
 							onChange={(event) => setPassword(event.target.value)}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment position="end">
+										<Tooltip
+											title="Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+											placement="right"
+											arrow
+										>
+											<Avatar>
+												<HelpOutlineIcon />
+											</Avatar>
+										</Tooltip>
+									</InputAdornment>
+								),
+							}}
 						/>
 					</Grid>
 					<Grid xs={6} item>
