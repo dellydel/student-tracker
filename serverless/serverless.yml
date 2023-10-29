@@ -4,7 +4,7 @@ frameworkVersion: "3"
 provider:
   name: aws
   runtime: nodejs16.x
-  stackName: serverless-${opt:stage}${opt:stage}
+  stackName: serverless-${opt:stage}
   apiGateway:
     restApiId: ${ssm:nextbyte-api-restApiId-${opt:stage}}
     restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-${opt:stage}}
