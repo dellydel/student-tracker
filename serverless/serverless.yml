@@ -4,12 +4,14 @@ frameworkVersion: "3"
 provider:
   name: aws
   runtime: nodejs16.x
-  stackName: serverless-development
+  stackName: serverless-${opt:stage}${opt:stage}
   apiGateway:
-    restApiId: ${ssm:nextbyte-api-restApiId-development}
-    restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-development}
+    restApiId: ${ssm:nextbyte-api-restApiId-${opt:stage}}
+    restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-${opt:stage}}
   iam:
     role: IAMServerlessRole
+custom:
+    ENV: ${file(./config.${opt:stage, 'development'}.json)}
 
 package:
   individually: true
@@ -21,7 +23,7 @@ package:
 
 functions:
   ping:
-    name: ping-lambda-development
+    name: ping-lambda-${opt:stage}
     package: 
       include:
         - ping.js
@@ -32,7 +34,7 @@ functions:
          method: get
   
   courses-lambda:
-    name: courses-lambda-development
+    name: courses-lambda-${opt:stage}
     package: 
       include:
         - courses.js
@@ -43,7 +45,7 @@ functions:
          method: get
   
   registration-lambda:
-    name: registration-lambda-development
+    name: registration-lambda-${opt:stage}
     package: 
       include:
         - registration.js
@@ -54,7 +56,7 @@ functions:
          method: post
   
   payments-lambda:
-      name: payments-lambda-development
+      name: payments-lambda-${opt:stage}
       package: 
         include:
           - payments.js
@@ -96,9 +98,9 @@ resources:
                       - "dynamodb:Query"
                       - "dynamodb:UpdateItem"
                     Resource: 
-                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-development
-                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-development
-                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-development
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-${opt:stage}
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-${opt:stage}
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-${opt:stage}
                   - Effect: Allow
                     Action:
                       - "logs:CreateLogStream"

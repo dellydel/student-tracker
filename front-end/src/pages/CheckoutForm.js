@@ -20,14 +20,8 @@ const CheckoutForm = () => {
 				method: "POST",
 			},
 		)
-			.then((res) => {
-				console.log(res, "res");
-				return res.json();
-			})
-			.then((data) => {
-				console.log(data, "data");
-				setClientSecret(data.body);
-			});
+			.then((res) => res.json())
+			.then((secret) => setClientSecret(secret));
 	}, []);
 
 	return (

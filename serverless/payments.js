@@ -1,10 +1,8 @@
 const Stripe = require("stripe");
-
 const stripe = Stripe(process.env.STRIPE_SECRET);
 
 exports.handler = async (event) => {
-  const method = event.requestContext.http.method;
-
+  const method = event.httpMethod;
   switch (method) {
     case "POST":
       try {
@@ -12,7 +10,7 @@ exports.handler = async (event) => {
           ui_mode: "embedded",
           line_items: [
             {
-              price: "price_1NqRYKLoiLBmpxqijmLxioki",
+              price: "price_1NqRYKLoiLBmpxqijmLxioki", //This needs to be dynamic and tied to the course that is being purchased
               quantity: 1,
             },
           ],
@@ -22,22 +20,49 @@ exports.handler = async (event) => {
           automatic_tax: { enabled: false },
         });
         return {
-          body: created_session.client_secret,
+          statusCode: 200,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify(created_session.client_secret),
         };
       } catch (err) {
-        console.log("err", err);
+        console.log("error when posting", err);
+        return {
+          statusCode: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify(err),
+        };
       }
-      break;
     case "GET":
-      const retrieved_session = await stripe.checkout.sessions.retrieve(
-        event.queryStringParameters.session_id
-      );
-      return {
-        statusCode: 200,
-        body: {
-          status: retrieved_session.status,
-          customer_email: retrieved_session.customer_details.email,
-        },
-      };
+      try {
+        const retrieved_session = await stripe.checkout.sessions.retrieve(
+          event.queryStringParameters.session_id
+        );
+        return {
+          statusCode: 200,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: {
+            status: retrieved_session.status,
+          },
+        };
+      } catch (err) {
+        console.log("error when posting", err);
+        return {
+          statusCode: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify(err),
+        };
+      }
   }
 };
