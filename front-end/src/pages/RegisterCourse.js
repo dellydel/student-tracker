@@ -8,9 +8,10 @@ import {
 	Button,
 	InputAdornment,
 	Tooltip,
-	Avatar,
+	IconButton,
 	Box,
 } from "@mui/material";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 const RegisterCourse = () => {
 	const navigate = useNavigate();
@@ -29,6 +30,12 @@ const RegisterCourse = () => {
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading] = useState(false);
 	const { courseName } = useParams();
+
+	const isPasswordValid = (password) => {
+		const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/;
+		return regex.test(password);
+	  };
+
 	const resetForm = () => {
 		setFeedBackText("");
 	};
@@ -183,6 +190,12 @@ const RegisterCourse = () => {
 							fullWidth
 							required
 							onChange={(event) => setPassword(event.target.value)}
+							helperText={
+                             !isPasswordValid(password)
+                             ? "Password must be at least 7 characters long and contain at least one letter and one number."
+                             : ""
+                             }
+							 error={!isPasswordValid(password)}
 							InputProps={{
 								endAdornment: (
 									<InputAdornment position="end">
@@ -191,9 +204,9 @@ const RegisterCourse = () => {
 											placement="right"
 											arrow
 										>
-											<Avatar>
+											<IconButton>
 												<HelpOutlineIcon />
-											</Avatar>
+											</IconButton>
 										</Tooltip>
 									</InputAdornment>
 								),
