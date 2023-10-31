@@ -1,17 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Typography, Grid, Button, Box } from "@mui/material";
 
-const CourseDetails = ({
-	courseName,
-	duration,
-	technology,
-	description,
-	price,
-	outline,
-}) => {
+const CourseDetails = () => {
+	const { state } = useLocation();
 	const navigate = useNavigate();
 	const handleFormTitle = () => {
-		navigate("/register");
+		navigate("/register", { state });
 	};
 	return (
 		<Box
@@ -41,7 +35,8 @@ const CourseDetails = ({
 								color: "grey",
 							}}
 						>
-							Course name:{courseName}
+							Course name:
+							{state.course.name}
 						</span>
 					</Grid>
 					<Grid xs={6} item>
@@ -54,7 +49,7 @@ const CourseDetails = ({
 								color: "grey",
 							}}
 						>
-							Duration:{duration}
+							Duration: {state.course.duration}
 						</span>
 					</Grid>
 					<Grid xs={6} item style={{ display: "flex" }}>
@@ -65,7 +60,12 @@ const CourseDetails = ({
 								color: "grey",
 							}}
 						>
-							Technology used:{technology}
+							Technology used:
+							<ul>
+								{state.course.technologies.map((technology, index) => (
+									<li key={index}>{technology}</li>
+								))}
+							</ul>
 						</span>
 					</Grid>
 					<Grid xs={6} item>
@@ -78,7 +78,8 @@ const CourseDetails = ({
 								color: "grey",
 							}}
 						>
-							Description: {description}
+							Description:
+							{state.course.description}
 						</span>
 					</Grid>
 					<Grid xs={12} item style={{ display: "flex" }}>
@@ -89,11 +90,13 @@ const CourseDetails = ({
 								color: "grey",
 							}}
 						>
-							Course outline:{outline}
+							Course outline:
+							<ul>
+								{state.course.modules.map((outline, index) => (
+									<li key={index}>{outline}</li>
+								))}
+							</ul>
 						</span>
-						<ul>
-							<li></li>
-						</ul>
 					</Grid>
 					<Grid xs={12} item style={{ display: "flex" }}>
 						<span
@@ -103,10 +106,10 @@ const CourseDetails = ({
 								color: "grey",
 							}}
 						>
-							Price:{price}
+							Price: {state.course.Price}
 						</span>
 					</Grid>
-					<Grid xs={12} item sx={{ mt: "50px", mb: "50px" }}>
+					<Grid xs={12} item sx={{ mt: "10px", mb: "50px" }}>
 						<Button
 							style={{
 								color: "white",
