@@ -24,11 +24,23 @@ const RegisterCourse = () => {
 	const [setZip] = useState("");
 	const [setCountry] = useState("");
 	const [setDateOfBirth] = useState("");
-	const [setPassword] = useState("");
-	const [setConfirmPassword] = useState("");
+	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const [error, setError] = useState(false);
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading] = useState(false);
 	const { courseName } = useParams();
+
+	const handleConfirmPasswordChange = (event) => {
+		setConfirmPassword(event.target.value);
+		setError(event.target.value !== password);
+	};
+
+	const handlePasswordChange = (event) => {
+		setPassword(event.target.value);
+		setError(event.target.value !== confirmPassword);
+	};
+
 	const resetForm = () => {
 		setFeedBackText("");
 	};
@@ -182,7 +194,7 @@ const RegisterCourse = () => {
 							variant="outlined"
 							fullWidth
 							required
-							onChange={(event) => setPassword(event.target.value)}
+							onChange={handlePasswordChange}
 							InputProps={{
 								endAdornment: (
 									<InputAdornment position="end">
@@ -209,7 +221,9 @@ const RegisterCourse = () => {
 							variant="outlined"
 							fullWidth
 							required
-							onChange={(event) => setConfirmPassword(event.target.value)}
+							onChange={handleConfirmPasswordChange}
+							error={error}
+							helperText={error ? "Passwords do not match" : ""}
 						/>
 					</Grid>
 					<Grid xs={12} item>
