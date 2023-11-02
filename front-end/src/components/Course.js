@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Link, Card, Typography, Box, Chip, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -7,11 +8,23 @@ const ListItem = styled("li")(({ theme }) => ({
 }));
 
 const Course = ({ course }) => {
+	const navigate = useNavigate();
+	const handleNavigateToCourseDetails = () => {
+		navigate("/course-details", {
+			state: { course },
+		});
+	};
 	return (
 		<Card
 			sx={{ maxWidth: "450px", p: 3, mb: 3, mr: 3, backgroundColor: "#f5f5f5" }}
 		>
-			<Link href="/course-details" color="inherit" underline="none">
+			<Link
+				component="button"
+				onClick={handleNavigateToCourseDetails}
+				color="inherit"
+				underline="none"
+			>
+				{/* <Link href="/course-details" color="inherit" underline="none"> */}
 				<Typography
 					variant="h5"
 					color="primary"
@@ -62,5 +75,4 @@ const Course = ({ course }) => {
 		</Card>
 	);
 };
-
 export default Course;
