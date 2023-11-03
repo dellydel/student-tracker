@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import {
 	Typography,
@@ -29,6 +29,7 @@ const RegisterCourse = () => {
 	const [error, setError] = useState(false);
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading] = useState(false);
+<<<<<<< HEAD
 	const { courseName } = useParams();
 
 	const handleConfirmPasswordChange = (event) => {
@@ -41,6 +42,9 @@ const RegisterCourse = () => {
 		setError(event.target.value !== confirmPassword);
 	};
 
+=======
+	const { state } = useLocation();
+>>>>>>> main
 	const resetForm = () => {
 		setFeedBackText("");
 	};
@@ -57,8 +61,12 @@ const RegisterCourse = () => {
 				minHeight: 1000,
 			}}
 		>
-			<Typography gutterBottom variant="h5" style={{ marginBottom: "50px" }}>
-				{courseName}
+			<Typography
+				gutterBottom
+				variant="h5"
+				style={{ marginTop: "30px", marginBottom: "20px" }}
+			>
+				{state.course.name}
 			</Typography>
 			<Typography
 				gutterBottom
