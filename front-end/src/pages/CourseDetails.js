@@ -4,9 +4,11 @@ import { Typography, Grid, Button, Box } from "@mui/material";
 const CourseDetails = () => {
 	const { state } = useLocation();
 	const navigate = useNavigate();
+
 	const handleFormTitle = () => {
 		navigate("/register", { state });
 	};
+
 	return (
 		<Box
 			sx={{
@@ -20,26 +22,14 @@ const CourseDetails = () => {
 				variant="h4"
 				sx={{
 					fontWeight: 600,
-					my: 3,
+					my: 5,
 				}}
 			>
-				Course Detail
+				{state.course.name}
 			</Typography>
 			<form>
 				<Grid container spacing={2}>
-					<Grid xs={6} item style={{ display: "flex" }}>
-						<span
-							style={{
-								textAlign: "left",
-								marginBottom: "0px",
-								color: "grey",
-							}}
-						>
-							Course name:
-							{state.course.name}
-						</span>
-					</Grid>
-					<Grid xs={6} item>
+					<Grid xs={12} item>
 						<span
 							style={{
 								textAlign: "left",
@@ -49,10 +39,25 @@ const CourseDetails = () => {
 								color: "grey",
 							}}
 						>
-							Duration: {state.course.duration}
+							<b>Duration:</b> {state.course.duration}
 						</span>
 					</Grid>
-					<Grid xs={6} item style={{ display: "flex" }}>
+					<Grid xs={6} item sx={{ mb: 5 }}>
+						<span
+							style={{
+								textAlign: "left",
+								padding: "0px",
+								marginTop: "0px",
+								marginBottom: "0px",
+								color: "grey",
+							}}
+						>
+							<b>Description:</b>
+							{state.course.description}
+						</span>
+					</Grid>
+					<Grid xs={6} item></Grid>
+					<Grid xs={6} item>
 						<span
 							style={{
 								textAlign: "left",
@@ -60,7 +65,7 @@ const CourseDetails = () => {
 								color: "grey",
 							}}
 						>
-							Technology used:
+							<b>Technology used:</b>
 							<ul>
 								{state.course.technologies.map((technology, index) => (
 									<li key={index}>{technology}</li>
@@ -68,21 +73,8 @@ const CourseDetails = () => {
 							</ul>
 						</span>
 					</Grid>
-					<Grid xs={6} item>
-						<span
-							style={{
-								textAlign: "left",
-								padding: "0px",
-								marginTop: "0px",
-								marginBottom: "0px",
-								color: "grey",
-							}}
-						>
-							Description:
-							{state.course.description}
-						</span>
-					</Grid>
-					<Grid xs={12} item style={{ display: "flex" }}>
+
+					<Grid xs={6} item style={{ display: "flex" }}>
 						<span
 							style={{
 								textAlign: "left",
@@ -90,7 +82,7 @@ const CourseDetails = () => {
 								color: "grey",
 							}}
 						>
-							Course outline:
+							<b>Course Modules:</b>
 							<ul>
 								{state.course.modules.map((outline, index) => (
 									<li key={index}>{outline}</li>
@@ -106,7 +98,7 @@ const CourseDetails = () => {
 								color: "grey",
 							}}
 						>
-							Price: {state.course.Price}
+							<b>Price: {state.course.Price}</b>
 						</span>
 					</Grid>
 					<Grid xs={12} item sx={{ mt: "10px", mb: "50px" }}>
