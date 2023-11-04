@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import {
 	Typography,
@@ -25,6 +25,7 @@ const RegisterCourse = () => {
 	const [setCountry] = useState("");
 	const [setDateOfBirth] = useState("");
 	const [password, setPassword] = useState("");
+<<<<<<< HEAD
 	const [setConfirmPassword] = useState("");
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading] = useState(false);
@@ -33,6 +34,22 @@ const RegisterCourse = () => {
 	const isPasswordValid = (password) => {
 		const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/;
 		return regex.test(password);
+=======
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const [error, setError] = useState(false);
+	const [feedBackText, setFeedBackText] = useState("");
+	const [isLoading] = useState(false);
+	const { state } = useLocation();
+
+	const handleConfirmPasswordChange = (event) => {
+		setConfirmPassword(event.target.value);
+		setError(event.target.value !== password);
+	};
+
+	const handlePasswordChange = (event) => {
+		setPassword(event.target.value);
+		setError(event.target.value !== confirmPassword);
+>>>>>>> main
 	};
 
 	const resetForm = () => {
@@ -51,8 +68,12 @@ const RegisterCourse = () => {
 				minHeight: 1000,
 			}}
 		>
-			<Typography gutterBottom variant="h5" style={{ marginBottom: "50px" }}>
-				{courseName}
+			<Typography
+				gutterBottom
+				variant="h5"
+				style={{ marginTop: "30px", marginBottom: "20px" }}
+			>
+				{state.course.name}
 			</Typography>
 			<Typography
 				gutterBottom
@@ -188,6 +209,7 @@ const RegisterCourse = () => {
 							variant="outlined"
 							fullWidth
 							required
+<<<<<<< HEAD
 							onChange={(event) => setPassword(event.target.value)}
 							helperText={
 								!isPasswordValid(password)
@@ -195,6 +217,9 @@ const RegisterCourse = () => {
 									: ""
 							}
 							error={!isPasswordValid(password)}
+=======
+							onChange={handlePasswordChange}
+>>>>>>> main
 							InputProps={{
 								endAdornment: (
 									<InputAdornment position="end">
@@ -221,7 +246,9 @@ const RegisterCourse = () => {
 							variant="outlined"
 							fullWidth
 							required
-							onChange={(event) => setConfirmPassword(event.target.value)}
+							onChange={handleConfirmPasswordChange}
+							error={error}
+							helperText={error ? "Passwords do not match" : ""}
 						/>
 					</Grid>
 					<Grid xs={12} item>

@@ -1,20 +1,21 @@
 import React from "react";
-import { Box } from "@mui/material";
-import { Element } from 'react-scroll';
+import { Element } from "react-scroll";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import { Box, List, Typography } from "@mui/material";
 
-
-
-const footerLink = {
-	width: "250px",
-	textAlign: "left",
+const footerText = {
+	color: "white",
+	fontWeight: "bold",
+	fontSize: "1.2rem",
 };
 
 const Footer = () => {
 	return (
-		<Element name="footer"> {}
+		<Element name="footer">
 			<Box
 				sx={{
-					minHeight: "400px",
+					p: 5,
+					minHeight: "100px",
 					backgroundColor: "#1976d2",
 					color: "white",
 				}}
@@ -23,26 +24,34 @@ const Footer = () => {
 					sx={{
 						maxWidth: "1050px",
 						margin: "0 auto",
-						pt: "50px",
 						display: "flex",
 						flexDirection: "row",
 						justifyContent: "flex-start",
 						flexWrap: "wrap",
 					}}
 				>
-					<Box sx={footerLink}>
-						<ul sx={{ listStyle: "none" }}>
-							<li>Link 1</li>
-							<li>Link 2</li>
-							<li>Link 3</li>
-						</ul>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "center",
+							flex: 1,
+						}}
+					>
+						<Typography sx={{ ...footerText, mr: 1 }}>Follow us on </Typography>
+						<InstagramIcon />
 					</Box>
-					<Box sx={footerLink}>
-						<ul>
-							<li>Link 1</li>
-							<li>Link 2</li>
-							<li>Link 3</li>
-						</ul>
+					<Box sx={{ flex: 1, textAlign: "right" }}>
+						<List sx={{ ...footerText, listStyle: "none" }}>
+							<li>
+								Nextbyte, LLC
+								<br />
+								Dallas, TX
+							</li>
+							<br />
+							<br />
+							<li>Contact: admin @ nextbyteweb.com</li>
+						</List>
 					</Box>
 				</Box>
 			</Box>

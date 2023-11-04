@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import axios from "axios";
 import Course from "../components/Course";
 
@@ -26,17 +26,9 @@ const Courses = () => {
 				margin: "0 auto",
 				padding: "0 20px",
 				minHeight: 1000,
+				mt: 5,
 			}}
 		>
-			<Typography
-				variant="h4"
-				sx={{
-					fontWeight: 600,
-					my: 3,
-				}}
-			>
-				Course List
-			</Typography>
 			<Box
 				component={"div"}
 				sx={{

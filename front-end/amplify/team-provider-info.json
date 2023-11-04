@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nextbyteweb-dev-150724-authRole",
+      "UnauthRoleArn": "arn:aws:iam::893303684985:role/amplify-nextbyteweb-dev-150724-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::893303684985:role/amplify-nextbyteweb-dev-150724-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-nextbyteweb-dev-150724-deployment",
+      "UnauthRoleName": "amplify-nextbyteweb-dev-150724-unauthRole",
+      "StackName": "amplify-nextbyteweb-dev-150724",
+      "StackId": "arn:aws:cloudformation:us-east-1:893303684985:stack/amplify-nextbyteweb-dev-150724/9b5cb540-7a84-11ee-9548-0a10f4937f59",
+      "AmplifyAppId": "d2gop96d88v29l"
+    },
+    "categories": {
+      "auth": {
+        "nextbytewebCognito": {}
+      }
+    }
+  }
+}
