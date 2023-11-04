@@ -29,8 +29,7 @@ const RegisterCourse = () => {
 	const [error, setError] = useState(false);
 	const [feedBackText, setFeedBackText] = useState("");
 	const [isLoading] = useState(false);
-<<<<<<< HEAD
-	const { courseName } = useParams();
+	const { state } = useLocation();
 
 	const handleConfirmPasswordChange = (event) => {
 		setConfirmPassword(event.target.value);
@@ -42,9 +41,6 @@ const RegisterCourse = () => {
 		setError(event.target.value !== confirmPassword);
 	};
 
-=======
-	const { state } = useLocation();
->>>>>>> main
 	const resetForm = () => {
 		setFeedBackText("");
 	};
