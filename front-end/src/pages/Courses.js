@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import axios from "axios";
 import Course from "../components/Course";
 
