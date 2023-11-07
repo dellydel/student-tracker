@@ -1,12 +1,10 @@
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
-const httpResponse = require("./httpResponse");
+const httpResponse = require("./http_response");
 
 exports.handler = async (event) => {
   const params = {
     Bucket: "nextbyte-course-materials",
-    Key: "cybersecurity",
-    Expires: 1800,
   };
 
   try {
