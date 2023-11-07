@@ -1,4 +1,5 @@
 const Stripe = require("stripe");
+const { httpResponse } = require("./http_response");
 const stripe = Stripe(process.env.STRIPE_SECRET);
 
 exports.handler = async (event) => {
@@ -19,50 +20,22 @@ exports.handler = async (event) => {
             "http://localhost:3000/payment-complete?session_id={CHECKOUT_SESSION_ID}",
           automatic_tax: { enabled: false },
         });
-        return {
-          statusCode: 200,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: JSON.stringify(created_session.client_secret),
-        };
+        return httpResponse(200, created_session.client_secret);
       } catch (err) {
         console.log("error when posting", err);
-        return {
-          statusCode: 500,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: JSON.stringify(err),
-        };
+        return httpResponse(500, err);
       }
     case "GET":
       try {
         const retrieved_session = await stripe.checkout.sessions.retrieve(
           event.queryStringParameters.session_id
         );
-        return {
-          statusCode: 200,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: {
-            status: retrieved_session.status,
-          },
-        };
+        return httpResponse(200, {
+          status: retrieved_session.status,
+        });
       } catch (err) {
         console.log("error when posting", err);
-        return {
-          statusCode: 500,
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: JSON.stringify(err),
-        };
+        return httpResponse(500, err);
       }
   }
 };

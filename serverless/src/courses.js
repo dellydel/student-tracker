@@ -1,4 +1,5 @@
 const AWS = require("aws-sdk");
+const { httpResponse } = require("./http_response");
 
 exports.handler = async (event) => {
   const docClient = new AWS.DynamoDB.DocumentClient();
@@ -16,12 +17,5 @@ exports.handler = async (event) => {
     statusCode = err.statusCode;
     body = err.message;
   }
-  return {
-    statusCode: statusCode,
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify(body),
-  };
+  return httpResponse(statusCode, body);
 };

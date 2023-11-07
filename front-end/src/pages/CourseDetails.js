@@ -66,7 +66,7 @@ const CourseDetails = () => {
 							}}
 						>
 							<b>Technology used:</b>
-							<ul>
+							<ul style={{ paddingLeft: 15 }}>
 								{state.course.technologies.map((technology, index) => (
 									<li key={index}>{technology}</li>
 								))}
