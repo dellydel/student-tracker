@@ -123,4 +123,4 @@ resources:
                       -  "s3:GetObject"
                       -  "s3:ListBucket"
                     Resource: 
-                      - arn:aws:s3:us-east-1:893303684985:nextbyte-course-materials/*
+                      - arn:aws:s3:::nextbyte-course-materials/*
