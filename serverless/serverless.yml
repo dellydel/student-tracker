@@ -20,6 +20,7 @@ package:
   include:
     - node_modules/**
     - package.json
+    - src/http_response.js
 
 functions:
   ping:
