@@ -26,8 +26,8 @@ functions:
     name: ping-lambda-${opt:stage}
     package: 
       include:
-        - src/ping.js
-    handler: ping.handler
+        - ping.js
+    handler: src/ping.handler
     events:
      - http:
          path: /ping
@@ -38,7 +38,7 @@ functions:
     package: 
       include:
         - src/courses.js
-    handler: courses.handler
+    handler: src/courses.handler
     events:
      - http:
          path: /courses
@@ -49,7 +49,7 @@ functions:
     package: 
       include:
         - src/registration.js
-    handler: registration.handler
+    handler: src/registration.handler
     events:
      - http:
          path: /registration
@@ -60,7 +60,7 @@ functions:
       package: 
         include:
           - src/payments.js
-      handler: payments.handler
+      handler: src/payments.handler
       events:
       - http:
           path: /pay
@@ -71,7 +71,7 @@ functions:
       package: 
         include:
           - src/materials.js
-      handler: materials.handler
+      handler: src/materials.handler
       events:
       - http:
           path: /materials
