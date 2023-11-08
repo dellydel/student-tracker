@@ -1,5 +1,5 @@
 const AWS = require("aws-sdk");
-const { httpResponse } = require("./http_response");
+const httpResponse = require("./http_response");
 
 exports.handler = async (event) => {
   const docClient = new AWS.DynamoDB.DocumentClient();
