@@ -23,7 +23,7 @@ jobs:
         run: npm install
         working-directory: ./front-end
       - name: Build Site
-        run: npm run build${{ github.event.inputs.environment == 'production' && ':prod'}}
+        run: npm run build${{ github.event.inputs.environment == 'production' && ':prod' || ''}}
         working-directory: ./front-end
       - name: Configure AWS Creds
         uses: aws-actions/configure-aws-credentials@v1
