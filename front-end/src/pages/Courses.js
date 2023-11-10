@@ -8,9 +8,7 @@ const Courses = () => {
 
 	useEffect(() => {
 		axios
-			.get(
-				"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/courses",
-			)
+			.get(`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/courses`)
 			.then((res) => {
 				setCourses(res.data.Items);
 			})
