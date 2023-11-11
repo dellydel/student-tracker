@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Typography, Grid, Button, Box } from "@mui/material";
 
 
-const CourseDetails = ({isLogin = true}) => {
+const CourseDetails = ({isLogin = false}) => {
 	const { state } = useLocation();
 	const navigate = useNavigate();
 	
