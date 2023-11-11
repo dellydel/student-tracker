@@ -1,13 +1,13 @@
 const AWS = require("aws-sdk");
-const { httpResponse } = require("./http_response");
+const httpResponse = require("./http_response");
 exports.handler = async (event) => {
   const docClient = new AWS.DynamoDB.DocumentClient();
   let body;
   let statusCode = 201;
-  let obj = JSON.parse(event.body);
+  let obj = event.body;
   const params = {
     TableName: "next-byte-Registrations-development",
-    Item: { obj },
+    Item: obj,
   };
   try {
     body = await docClient.put(params).promise();
