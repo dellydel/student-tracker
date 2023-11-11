@@ -1,46 +1,36 @@
-import React, { useEffect } from "react";
 import { Box } from "@mui/material";
-import axios from "axios";
 import Course from "../components/Course";
+import { useCoursesData } from "../hooks/useCoursesData";
+
+const pageLayout = {
+	maxWidth: "1050px",
+	margin: "0 auto",
+	padding: "0 20px",
+	minHeight: 1000,
+	mt: 5,
+};
 
 const Courses = () => {
-	const [courses, setCourses] = React.useState([]);
-
-	useEffect(() => {
-		axios
-			.get(
-				"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/courses",
-			)
-			.then((res) => {
-				setCourses(res.data.Items);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	}, []);
+	const { data, isPending, isError, isSuccess, error } = useCoursesData();
 
 	return (
-		<Box
-			sx={{
-				maxWidth: "1050px",
-				margin: "0 auto",
-				padding: "0 20px",
-				minHeight: 1000,
-				mt: 5,
-			}}
-		>
-			<Box
-				component={"div"}
-				sx={{
-					display: "flex",
-					flexWrap: "wrap",
-					justifyContent: "flex-start",
-				}}
-			>
-				{courses.map((course) => (
-					<Course course={course} key={course.id} />
-				))}
-			</Box>
+		<Box sx={pageLayout}>
+			{isPending && <span>Loading...</span>}
+			{isError && <span>{error.message}</span>}
+			{isSuccess && (
+				<Box
+					component={"div"}
+					sx={{
+						display: "flex",
+						flexWrap: "wrap",
+						justifyContent: "flex-start",
+					}}
+				>
+					{data.map((course) => (
+						<Course course={course} key={course.id} />
+					))}
+				</Box>
+			)}
 		</Box>
 	);
 };

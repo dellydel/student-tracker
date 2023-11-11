@@ -6,20 +6,14 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(
-	"pk_test_51NpN43LoiLBmpxqifOYqQuagPOWXBfGFI4qaGqhcMN84DzYFC1RPCb1F1SOAgiSFL0owHIe23ylwHszp1Dt8n09u00I0KLUkzx",
-);
-
+const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`);
 const CheckoutForm = () => {
 	const [clientSecret, setClientSecret] = useState("");
 
 	useEffect(() => {
-		fetch(
-			"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/pay",
-			{
-				method: "POST",
-			},
-		)
+		fetch(`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/pay`, {
+			method: "POST",
+		})
 			.then((res) => res.json())
 			.then((secret) => setClientSecret(secret));
 	}, []);

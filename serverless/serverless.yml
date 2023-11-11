@@ -20,6 +20,7 @@ package:
   include:
     - node_modules/**
     - package.json
+    - src/http_response.js
 
 functions:
   ping:
@@ -27,7 +28,7 @@ functions:
     package: 
       include:
         - ping.js
-    handler: ping.handler
+    handler: src/ping.handler
     events:
      - http:
          path: /ping
@@ -37,8 +38,8 @@ functions:
     name: courses-lambda-${opt:stage}
     package: 
       include:
-        - courses.js
-    handler: courses.handler
+        - src/courses.js
+    handler: src/courses.handler
     events:
      - http:
          path: /courses
@@ -48,8 +49,8 @@ functions:
     name: registration-lambda-${opt:stage}
     package: 
       include:
-        - registration.js
-    handler: registration.handler
+        - src/registration.js
+    handler: src/registration.handler
     events:
      - http:
          path: /registration
@@ -59,12 +60,23 @@ functions:
       name: payments-lambda-${opt:stage}
       package: 
         include:
-          - payments.js
-      handler: payments.handler
+          - src/payments.js
+      handler: src/payments.handler
       events:
       - http:
           path: /pay
           method: post
+
+  materials-lambda:
+      name: materials-lambda-${opt:stage}
+      package: 
+        include:
+          - src/materials.js
+      handler: src/materials.handler
+      events:
+      - http:
+          path: /materials
+          method: get
 
 resources:
   - Resources:
@@ -107,3 +119,10 @@ resources:
                       - "logs:CreateLogGroup"
                       - "logs:PutLogEvents"
                     Resource: "*"
+                  - Effect: Allow
+                    Action:
+                      -  "s3:GetObject"
+                      -  "s3:ListBucket"
+                    Resource: 
+                      - arn:aws:s3:::nextbyte-course-materials
+                      - arn:aws:s3:::nextbyte-course-materials/*
