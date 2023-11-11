@@ -36,25 +36,32 @@ const Footer = () => {
 					<Box
 						sx={{
 							display: "flex",
-							flexDirection: "row",
-							alignItems: "center",
-							flex: 1,
+							alignItems: "flex-start",
 						}}
 					>
-						<Typography
-							sx={{ ...footerText, mr: 1 }}
-							onClick={() => {
-								window.open(instagramURL);
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								alignItems: "center",
+								flex: 1,
 							}}
 						>
-							Follow us on
-						</Typography>
-						<InstagramIcon
-							sx={{ cursor: "pointer" }}
-							onClick={() => {
-								window.open(instagramURL);
-							}}
-						/>
+							<Typography
+								sx={{ ...footerText, mr: 1 }}
+								onClick={() => {
+									window.open(instagramURL);
+								}}
+							>
+								Follow us on
+							</Typography>
+							<InstagramIcon
+								sx={{ cursor: "pointer" }}
+								onClick={() => {
+									window.open(instagramURL);
+								}}
+							/>
+						</Box>
 					</Box>
 					<Box sx={{ flex: 1, textAlign: "right" }}>
 						<List sx={{ ...footerText, listStyle: "none" }}>
