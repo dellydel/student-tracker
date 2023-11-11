@@ -18,7 +18,7 @@ const loginNav = {
 	fontSize: "1.2rem",
 };
 
-function Navigation({ isLogin = false }) {
+function Navigation({isLogin = true}) {
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("md"));
 	const matchesLg = useMediaQuery(theme.breakpoints.down("lg"));
