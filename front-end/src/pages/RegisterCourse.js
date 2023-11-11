@@ -272,7 +272,6 @@ const RegisterCourse = () => {
 					<Grid item>
 						<Button
 							type="reset"
-							// onClick={}
 							variant="contained"
 							style={{ backgroundColor: "green", marginBottom: "50px" }}
 						>
