@@ -15,7 +15,7 @@ const CourseMaterals = () => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/materials",
+					`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/materials`,
 				);
 				const data = await response.json();
 				setDocuments(data);

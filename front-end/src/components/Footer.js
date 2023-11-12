@@ -2,11 +2,14 @@ import React from "react";
 import { Element } from "react-scroll";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { Box, List, Typography } from "@mui/material";
+import { instagramURL } from "../data/constants";
 
 const footerText = {
 	color: "white",
 	fontWeight: "bold",
 	fontSize: "1.2rem",
+	textDecoration: "none",
+	cursor: "pointer",
 };
 
 const Footer = () => {
@@ -33,13 +36,32 @@ const Footer = () => {
 					<Box
 						sx={{
 							display: "flex",
-							flexDirection: "row",
-							alignItems: "center",
-							flex: 1,
+							alignItems: "flex-start",
 						}}
 					>
-						<Typography sx={{ ...footerText, mr: 1 }}>Follow us on </Typography>
-						<InstagramIcon />
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								alignItems: "center",
+								flex: 1,
+							}}
+						>
+							<Typography
+								sx={{ ...footerText, mr: 1 }}
+								onClick={() => {
+									window.open(instagramURL);
+								}}
+							>
+								Follow us on
+							</Typography>
+							<InstagramIcon
+								sx={{ cursor: "pointer" }}
+								onClick={() => {
+									window.open(instagramURL);
+								}}
+							/>
+						</Box>
 					</Box>
 					<Box sx={{ flex: 1, textAlign: "right" }}>
 						<List sx={{ ...footerText, listStyle: "none" }}>

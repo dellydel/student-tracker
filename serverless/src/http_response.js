@@ -4,7 +4,7 @@ const httpResponse = (statusCode, body) => {
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+      "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
     },
     body: JSON.stringify(body),
   };
