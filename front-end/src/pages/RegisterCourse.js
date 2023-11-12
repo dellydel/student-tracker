@@ -14,6 +14,7 @@ import {
 	Alert,
 } from "@mui/material";
 import axios from "axios";
+import { v4 as uuid } from "uuid";
 import * as yup from "yup";
 
 const RegisterCourse = () => {
@@ -67,6 +68,7 @@ const RegisterCourse = () => {
 	});
 	const onSubmit = (data, event) => {
 		event.preventDefault();
+		data.id = uuid();
 		axios
 			.post(
 				"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/registration",
