@@ -1,6 +1,4 @@
-import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
-import { yupResolver } from "@hookform/resolvers/yup";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import {
 	Typography,
@@ -14,8 +12,9 @@ import {
 	Alert,
 } from "@mui/material";
 import axios from "axios";
+import { useFormik } from "formik";
 import { v4 as uuid } from "uuid";
-import * as yup from "yup";
+import { registrationValidationSchema } from "../schemas/registrationValidationSchema";
 
 const RegisterCourse = () => {
 	const navigate = useNavigate();
@@ -23,71 +22,43 @@ const RegisterCourse = () => {
 	const registerStudent = (event) => {
 		navigate("/checkout");
 	};
-	const schema = yup.object().shape({
-		firstName: yup.string().required("Please enter firstname").min(2).max(30),
-		lastName: yup.string().required("Please enter lastname").min(2).max(30),
-		phoneNumber: yup
-			.string()
-			.required("Please enter phone number")
-			.matches(/^[0-9]+$/, "Not a valid phone number"),
-		email: yup
-			.string()
-			.email("Not a valid email")
-			.required("Please enter email"),
-		street: yup.string().required("Please enter the street address"),
-		city: yup.string().required("Please enter your city"),
-		state: yup.string().required("Please enter your state"),
-		zip: yup
-			.string()
-			.required("Please enter zip code")
-			.matches(/^[0-9]+$/, "Only digits allowed"),
-		country: yup.string().required("Please enter country"),
-		dateOfBirth: yup
-			.date()
-			.typeError("invalid date of birth !")
-			.required("Please enter the date of birth")
-			.max(
-				new Date(new Date().getFullYear() - 10, 0, 1),
-				"must be 10 years old",
-			),
-		password: yup.string().min(8).max(20).required("Please enter password"),
-		confirmPassword: yup
-			.string()
-			.oneOf(
-				[yup.ref("password")],
-				"Password and the Confirm Password did not match",
-			)
-			.required("Please confirm password"),
-	});
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm({
-		resolver: yupResolver(schema),
-	});
-	const onSubmit = (data, event) => {
-		event.preventDefault();
-		data.id = uuid();
-		axios
-			.post(
-				`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration`,
-				data,
-				{
-					headers: {
-						"Content-Type": "application/json",
-						"Access-Control-Allow-Origin": "*",
-						"Access-Control-Allow-Methods": "OPTIONS,POST",
+	const formik = useFormik({
+		initialValues: {
+			firstName: "",
+			lastName: "",
+			phoneNumber: "",
+			email: "",
+			street: "",
+			city: "",
+			state: "",
+			zip: "",
+			country: "",
+			dateOfBirth: "",
+			password: "",
+			confirmPassword: "",
+		},
+		validationSchema: registrationValidationSchema,
+		onSubmit: (values, event) => {
+			values.id = uuid();
+			axios
+				.post(
+					`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration`,
+					values,
+					{
+						headers: {
+							"Content-Type": "application/json",
+							"Access-Control-Allow-Origin": "*",
+							"Access-Control-Allow-Methods": "OPTIONS,POST",
+						},
 					},
-				},
-			)
-			.then((res) => {
-				registerStudent();
-				<Alert severity="success">{res.body}</Alert>;
-			})
-			.catch((err) => console.log(err));
-	};
-
+				)
+				.then((res) => {
+					registerStudent();
+					<Alert severity="success">{res.body}</Alert>;
+				})
+				.catch((err) => console.log(err));
+		},
+	});
 	return (
 		<Box
 			sx={{
@@ -113,16 +84,23 @@ const RegisterCourse = () => {
 			>
 				All fields are compulsory, ensure all details are correct.
 			</Typography>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={formik.handleSubmit}>
 				<Grid container spacing={2}>
 					<Grid xs={12} sm={6} item>
 						<TextField
 							label="First Name"
 							placeholder="Enter first name"
 							fullWidth
-							{...register("firstName")}
+							id="firstName"
+							name="firstName"
+							value={formik.values.firstName}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={
+								formik.touched.firstName && Boolean(formik.errors.firstName)
+							}
+							helperText={formik.touched.firstName && formik.errors.firstName}
 						/>
-						<span style={{ color: "red" }}>{errors.firstName?.message}</span>
 					</Grid>
 					<Grid xs={12} sm={6} item>
 						<TextField
@@ -130,9 +108,14 @@ const RegisterCourse = () => {
 							placeholder="Enter last name"
 							variant="outlined"
 							fullWidth
-							{...register("lastName")}
+							id="lastName"
+							name="lastName"
+							value={formik.values.lastName}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+							helperText={formik.touched.lastName && formik.errors.lastName}
 						/>
-						<span style={{ color: "red" }}>{errors.lastName?.message}</span>
 					</Grid>
 					<Grid xs={6} item>
 						<TextField
@@ -141,9 +124,18 @@ const RegisterCourse = () => {
 							placeholder="Enter phone number"
 							variant="outlined"
 							fullWidth
-							{...register("phoneNumber")}
+							id="phoneNumber"
+							name="phoneNumber"
+							value={formik.values.phoneNumber}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={
+								formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
+							}
+							helperText={
+								formik.touched.phoneNumber && formik.errors.phoneNumber
+							}
 						/>
-						<span style={{ color: "red" }}>{errors.phoneNumber?.message}</span>
 					</Grid>
 					<Grid xs={6} item>
 						<TextField
@@ -152,9 +144,14 @@ const RegisterCourse = () => {
 							placeholder="Enter email"
 							variant="outlined"
 							fullWidth
-							{...register("email")}
+							id="email"
+							name="email"
+							value={formik.values.email}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={formik.touched.email && Boolean(formik.errors.email)}
+							helperText={formik.touched.email && formik.errors.email}
 						/>
-						<span style={{ color: "red" }}>{errors.email?.message}</span>
 					</Grid>
 					<Grid xs={12} item>
 						<TextField
@@ -162,9 +159,14 @@ const RegisterCourse = () => {
 							placeholder="Enter street"
 							variant="outlined"
 							fullWidth
-							{...register("street")}
+							id="street"
+							name="street"
+							value={formik.values.street}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={formik.touched.street && Boolean(formik.errors.street)}
+							helperText={formik.touched.street && formik.errors.street}
 						/>
-						<span style={{ color: "red" }}>{errors.street?.message}</span>
 					</Grid>
 					<Grid xs={12} sm={4} item>
 						<TextField
@@ -172,9 +174,14 @@ const RegisterCourse = () => {
 							placeholder="Enter city"
 							variant="outlined"
 							fullWidth
-							{...register("city")}
+							id="city"
+							name="city"
+							value={formik.values.city}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={formik.touched.city && Boolean(formik.errors.city)}
+							helperText={formik.touched.city && formik.errors.city}
 						/>
-						<span style={{ color: "red" }}>{errors.city?.message}</span>
 					</Grid>
 					<Grid xs={12} sm={4} item>
 						<TextField
@@ -182,9 +189,14 @@ const RegisterCourse = () => {
 							placeholder="Enter state / province of residence"
 							variant="outlined"
 							fullWidth
-							{...register("state")}
+							id="state"
+							name="state"
+							value={formik.values.state}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={formik.touched.state && Boolean(formik.errors.state)}
+							helperText={formik.touched.state && formik.errors.state}
 						/>
-						<span style={{ color: "red" }}>{errors.state?.message}</span>
 					</Grid>
 					<Grid type="number" xs={12} sm={4} item>
 						<TextField
@@ -192,44 +204,65 @@ const RegisterCourse = () => {
 							placeholder="Enter zip"
 							variant="outlined"
 							fullWidth
-							{...register("zip")}
+							id="zip"
 							name="zip"
+							value={formik.values.zip}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={formik.touched.zip && Boolean(formik.errors.zip)}
+							helperText={formik.touched.zip && formik.errors.zip}
 						/>
-						<span style={{ color: "red" }}>{errors.zip?.message}</span>
 					</Grid>
 					<Grid xs={6} item>
 						<TextField
 							label="Country"
-							name="country"
 							placeholder="Enter Country"
 							variant="outlined"
 							fullWidth
-							{...register("country")}
+							id="zip"
+							name="country"
+							value={formik.values.country}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={formik.touched.country && Boolean(formik.errors.country)}
+							helperText={formik.touched.country && formik.errors.country}
 						/>
-						<span style={{ color: "red" }}>{errors.country?.message}</span>
 					</Grid>
 					<Grid xs={6} item>
 						<TextField
 							type="Date"
-							name="dateOfBirth"
 							label="Date of birth"
 							variant="outlined"
 							fullWidth
-							{...register("dateOfBirth")}
+							name="dateOfBirth"
+							value={formik.values.dateOfBirth}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={
+								formik.touched.dateOfBirth && Boolean(formik.errors.dateOfBirth)
+							}
+							helperText={
+								formik.touched.dateOfBirth && formik.errors.dateOfBirth
+							}
 							InputLabelProps={{
 								shrink: true,
 							}}
 						/>
-						<span style={{ color: "red" }}>{errors.dateOfBirth?.message}</span>
 					</Grid>
 					<Grid xs={6} item>
 						<TextField
 							label="Password"
-							type="password"
 							placeholder="Enter your password"
 							variant="outlined"
 							fullWidth
-							{...register("password")}
+							id="password"
+							name="password"
+							type="password"
+							value={formik.values.password}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={formik.touched.password && Boolean(formik.errors.password)}
+							helperText={formik.touched.password && formik.errors.password}
 							InputProps={{
 								endAdornment: (
 									<InputAdornment position="end">
@@ -246,7 +279,6 @@ const RegisterCourse = () => {
 								),
 							}}
 						/>
-						<span style={{ color: "red" }}>{errors.password?.message}</span>
 					</Grid>
 					<Grid xs={6} item>
 						<TextField
@@ -255,11 +287,20 @@ const RegisterCourse = () => {
 							placeholder="Enter your password"
 							variant="outlined"
 							fullWidth
-							{...register("confirmPassword")}
+							id="confirmPassword"
+							name="confirmPassword"
+							value={formik.values.confirmPassword}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							error={
+								formik.touched.confirmPassword &&
+								Boolean(formik.errors.confirmPassword)
+							}
+							helperText={
+								formik.touched.confirmPassword && formik.errors.confirmPassword
+							}
 						/>
-						<span style={{ color: "red" }}>
-							{errors.confirmPassword?.message}
-						</span>
+						<span style={{ color: "red" }}></span>
 					</Grid>
 					<Grid xs={12} item></Grid>
 					<Grid item>
@@ -274,7 +315,6 @@ const RegisterCourse = () => {
 					<Grid item>
 						<Button
 							type="reset"
-							// onClick={}
 							variant="contained"
 							style={{ backgroundColor: "green", marginBottom: "50px" }}
 						>
