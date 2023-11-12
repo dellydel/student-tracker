@@ -14,6 +14,7 @@ import {
 	Alert,
 } from "@mui/material";
 import axios from "axios";
+import { v4 as uuid } from "uuid";
 import * as yup from "yup";
 
 const RegisterCourse = () => {
@@ -67,6 +68,7 @@ const RegisterCourse = () => {
 	});
 	const onSubmit = (data, event) => {
 		event.preventDefault();
+		data.id = uuid();
 		axios
 			.post(
 				`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration`,
