@@ -71,7 +71,7 @@ const RegisterCourse = () => {
 		data.id = uuid();
 		axios
 			.post(
-				"https://jhp99bx2t6.execute-api.us-east-1.amazonaws.com/development/registration",
+				`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration`,
 				data,
 				{
 					headers: {
