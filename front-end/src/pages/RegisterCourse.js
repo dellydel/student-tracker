@@ -9,7 +9,6 @@ import {
 	Tooltip,
 	Avatar,
 	Box,
-	Alert,
 } from "@mui/material";
 import axios from "axios";
 import { useFormik } from "formik";
@@ -54,7 +53,6 @@ const RegisterCourse = () => {
 				)
 				.then((res) => {
 					registerStudent();
-					<Alert severity="success">{res.body}</Alert>;
 				})
 				.catch((err) => console.log(err));
 		},
