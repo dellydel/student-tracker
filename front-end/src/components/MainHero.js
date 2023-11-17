@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { scroller } from "react-scroll";
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -74,9 +75,10 @@ const MainHero = () => {
 				</Typography>
 				<Box sx={{ mt: 3, display: "flex", justifyContent: "flex-start" }}>
 					<Button
+						component={Link}
 						variant="contained"
 						size="medium"
-						href="/courses"
+						to="/courses"
 						sx={{
 							my: 1,
 							p: 2,

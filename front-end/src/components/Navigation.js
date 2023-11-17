@@ -1,7 +1,9 @@
-import React from "react";
-import { Toolbar, Link, Box, Modal } from "@mui/material";
+import React, { useContext } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { Toolbar, Box, Modal, Link } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { AuthContext } from "../context/AuthContext";
 import Login from "./Login";
 
 const pages = [
@@ -25,17 +27,18 @@ const modalStyle = {
 	transform: "translate(-50%, -50%)",
 };
 
-const Navigation = ({ isLogin = false }) => {
+const Navigation = () => {
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("md"));
 	const matchesLg = useMediaQuery(theme.breakpoints.down("lg"));
 	const [open, setOpen] = React.useState(false);
-
+	const { isLoggedIn, user, logout } = useContext(AuthContext);
+	console.log("Logged in", isLoggedIn);
 	return (
 		<>
 			<Modal open={open} onClose={() => setOpen(false)}>
 				<Box sx={modalStyle}>
-					<Login />
+					<Login setOpen={setOpen} />
 				</Box>
 			</Modal>
 			<Box sx={{ backgroundColor: "black", boxShadow: "none" }}>
@@ -49,7 +52,8 @@ const Navigation = ({ isLogin = false }) => {
 						}}
 					>
 						<Link
-							href={"/"}
+							component={RouterLink}
+							to="/"
 							sx={{ m: 1, p: 1, color: "white", textDecoration: "none" }}
 						>
 							<Box
@@ -70,8 +74,9 @@ const Navigation = ({ isLogin = false }) => {
 						{!matches &&
 							pages.map((page) => (
 								<Link
+									component={RouterLink}
 									key={page.name}
-									href={page.link}
+									to={page.link}
 									sx={{
 										m: 1,
 										mr: 0,
@@ -88,12 +93,13 @@ const Navigation = ({ isLogin = false }) => {
 						{!matches && (
 							<Box sx={loginNav}>
 								|
-								{isLogin ? (
+								{isLoggedIn ? (
 									<Link
+										onClick={logout}
 										underline="none"
 										sx={{ color: "white", ml: 5, cursor: "pointer" }}
 									>
-										{}first name
+										{user}
 									</Link>
 								) : (
 									<Link
