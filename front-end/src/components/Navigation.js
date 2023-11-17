@@ -1,6 +1,5 @@
 import React from "react";
-import { Toolbar, Link, Box, Stack, Modal } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
+import { Toolbar, Link, Box, Modal } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Login from "./Login";

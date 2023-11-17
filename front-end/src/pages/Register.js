@@ -37,7 +37,7 @@ const Register = () => {
 		const username = data.email;
 
 		try {
-			const { isSignUpComplete, userId, nextStep } = await signUp({
+			const { userId } = await signUp({
 				username,
 				password,
 				options: {

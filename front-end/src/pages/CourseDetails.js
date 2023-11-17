@@ -5,7 +5,7 @@ import { Typography, Grid, Button, Box } from "@mui/material";
 const CourseDetails = ({ isLogin = false }) => {
 	const { state } = useLocation();
 	const navigate = useNavigate();
-	const [isRegistered, setIsRegistered] = useState(false);
+	const [isRegistered] = useState(false);
 
 	const handleButtonPress = () => {
 		navigate(isLogin && isRegistered ? "/course-materials" : "/checkout");
