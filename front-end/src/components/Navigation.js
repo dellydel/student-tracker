@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Toolbar, Box, Modal, Link } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -31,9 +31,14 @@ const Navigation = () => {
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("md"));
 	const matchesLg = useMediaQuery(theme.breakpoints.down("lg"));
+	const { isLoggedIn, user, logout, showLogin } = useContext(AuthContext);
 	const [open, setOpen] = React.useState(false);
-	const { isLoggedIn, user, logout } = useContext(AuthContext);
-	console.log("Logged in", isLoggedIn);
+
+	useEffect(() => {
+		if (showLogin) setOpen(true);
+		else setOpen(false);
+	}, [showLogin]);
+
 	return (
 		<>
 			<Modal open={open} onClose={() => setOpen(false)}>

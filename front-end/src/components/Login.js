@@ -19,15 +19,40 @@ const linkStyle = {
 const Login = ({ setOpen }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const { login, logout } = useContext(AuthContext);
+	const [awaitingCode, setAwaitingCode] = useState(false);
+	const [code, setCode] = useState("");
+	const { login, logout, handleConfirmation, setShowLogin } =
+		useContext(AuthContext);
 	const [error, setError] = useState(null);
 
 	const handleLogin = async () => {
 		const result = await login(email, password);
-		if (result.type === "success") {
-			setOpen(false);
-		} else {
-			setError(result.message);
+		switch (result.type) {
+			case "success":
+				setOpen(false);
+				break;
+			case "nextSteps":
+				setAwaitingCode(true);
+				break;
+			case "error":
+				setError(result.message);
+				break;
+			default:
+				setError(result.message);
+				break;
+		}
+	};
+
+	const handleConfirm = async () => {
+		try {
+			const result = handleConfirmation(email, code);
+			if (result.isSignUpComplete) {
+				setOpen(false);
+				setShowLogin(false);
+			}
+		} catch (error) {
+			console.log(error);
+			setError("Invalid code entered.");
 		}
 	};
 
@@ -132,7 +157,35 @@ const Login = ({ setOpen }) => {
 					</Grid>
 					<Grid xs={12} textAlign={"center"} item>
 						<Typography color={"error"}>{error}</Typography>
+						{awaitingCode && (
+							<TextField
+								name="code"
+								type="text"
+								placeholder="Enter code"
+								variant="outlined"
+								fullWidth
+								size="small"
+								value={code}
+								onChange={(event) => setCode(event.target.value)}
+							/>
+						)}
 					</Grid>
+					{awaitingCode && (
+						<Grid xs={12} item>
+							<Button
+								style={{
+									color: "white",
+									backgroundColor: "green",
+									textTransform: "capitalize",
+								}}
+								variant="contained"
+								fullWidth
+								onClick={handleConfirm}
+							>
+								Submit Code
+							</Button>
+						</Grid>
+					)}
 				</Grid>
 			</CardContent>
 		</Card>

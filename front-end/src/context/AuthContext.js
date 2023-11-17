@@ -1,18 +1,24 @@
-import React, { createContext, useState, useEffect } from "react";
-import { signIn, signOut } from "aws-amplify/auth";
+import React, { createContext, useState } from "react";
+import { signIn, signOut, confirmSignUp } from "aws-amplify/auth";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [user, setUser] = useState();
+	const [showLogin, setShowLogin] = useState(false);
 
-	useEffect(() => {
-		console.log("AuthProvider mounted");
-		return () => {
-			console.log("AuthProvider unmounted");
-		};
-	}, []);
+	const handleConfirmation = async (username, confirmationCode) => {
+		try {
+			const result = await confirmSignUp({
+				username,
+				confirmationCode,
+			});
+			return result;
+		} catch (error) {
+			return error;
+		}
+	};
 
 	const login = async (username, password) => {
 		try {
@@ -24,9 +30,9 @@ export const AuthProvider = ({ children }) => {
 			} else {
 				if (result.nextStep.signInStep === "CONFIRM_SIGN_UP") {
 					return {
-						type: "error",
+						type: "nextSteps",
 						message:
-							"Please confirm your email address before attempting to log in.",
+							"Please confirm your registration by entering the code that was sent to your email address.",
 					};
 				}
 			}
@@ -47,7 +53,17 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={{ isLoggedIn, login, logout, user }}>
+		<AuthContext.Provider
+			value={{
+				isLoggedIn,
+				login,
+				logout,
+				user,
+				handleConfirmation,
+				showLogin,
+				setShowLogin,
+			}}
+		>
 			{children}
 		</AuthContext.Provider>
 	);

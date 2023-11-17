@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import {
@@ -18,6 +17,7 @@ import { Amplify } from "aws-amplify";
 import { signUp } from "aws-amplify/auth";
 import axios from "axios";
 import awsconfig from "../aws-exports";
+import { AuthContext } from "../context/AuthContext";
 import { registrationText } from "../data/registrationContent";
 import { registrationSchema } from "../schemas/registrationSchema";
 
@@ -33,7 +33,8 @@ const Register = () => {
 		mode: "onChange",
 		resolver: yupResolver(registrationSchema),
 	});
-	const navigate = useNavigate();
+
+	const { setShowLogin } = useContext(AuthContext);
 
 	const [snackbarState, setSnackbarState] = useState({
 		isOpen: false,
@@ -87,7 +88,7 @@ const Register = () => {
 						message: res.data,
 						isOpen: true,
 					});
-					navigate("/");
+					setShowLogin(true);
 				})
 				.catch((err) => {
 					setSnackbarState({
