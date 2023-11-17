@@ -9,6 +9,12 @@ import {
 	Link,
 } from "@mui/material";
 
+const linkStyle = {
+	color: "blue",
+	backgroundColor: "white",
+	cursor: "pointer",
+};
+
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -87,19 +93,13 @@ const Login = () => {
 					</Grid>
 					<Grid xs={12} textAlign={"center"} item>
 						No account?
-						<Link
-							to="/NewAccount"
-							style={{ color: "blue", backgroundColor: "white" }}
-						>
+						<Link href="./register" sx={linkStyle}>
 							{" "}
 							Register Now
 						</Link>
 					</Grid>
 					<Grid xs={12} textAlign={"center"} item>
-						<Link
-							to="/ForgotPassword"
-							style={{ color: "blue", backgroundColor: "white" }}
-						>
+						<Link to="/ForgotPassword" sx={linkStyle}>
 							Forgot Password?
 						</Link>
 					</Grid>

@@ -6,7 +6,9 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`);
+const stripePromise = loadStripe(
+	`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`,
+);
 const CheckoutForm = () => {
 	const [clientSecret, setClientSecret] = useState("");
 

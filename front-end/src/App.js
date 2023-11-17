@@ -10,7 +10,7 @@ import Courses from "./pages/Courses";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import PaymentSuccessful from "./pages/PaymentSuccessful";
-import RegisterCourse from "./pages/RegisterCourse";
+import Register from "./pages/Register";
 import UserInformationScreen from "./pages/UserInformationScreen";
 
 const theme = createTheme({
@@ -32,7 +32,7 @@ const App = () => {
 							<Route index element={<Home />} />
 							<Route path="/courses" element={<Courses />} />
 							<Route path="/course-details" element={<CourseDetails />} />
-							<Route path="/register" element={<RegisterCourse />} />
+							<Route path="/register" element={<Register />} />
 							<Route path="/user" element={<UserInformationScreen />} />
 							<Route path="/checkout" element={<CheckoutForm />} />
 							<Route path="/payment-complete" element={<PaymentSuccessful />} />

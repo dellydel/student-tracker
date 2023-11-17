@@ -14,7 +14,7 @@ const footerText = {
 
 const Footer = () => {
 	return (
-		<Element name="footer">
+		<Element name="footer" sx={{ flexShrink: 0 }}>
 			<Box
 				sx={{
 					p: 5,

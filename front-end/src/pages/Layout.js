@@ -1,14 +1,17 @@
 import { Outlet } from "react-router-dom";
+import { Box } from "@mui/material";
 import Footer from "../components/Footer";
 import Navigation from "../components/Navigation";
 
 const Layout = () => {
 	return (
-		<>
-			<Navigation />
-			<Outlet />
+		<Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+			<div style={{ flex: 1 }}>
+				<Navigation />
+				<Outlet />
+			</div>
 			<Footer />
-		</>
+		</Box>
 	);
 };
 

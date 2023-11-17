@@ -1,24 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Typography, Grid, Button, Box } from "@mui/material";
 
-
-const CourseDetails = ({isLogin = false}) => {
+const CourseDetails = ({ isLogin = false }) => {
 	const { state } = useLocation();
 	const navigate = useNavigate();
-	
-	console.log("isLogin prop value:", isLogin);
+	const [isRegistered, setIsRegistered] = useState(false);
 
-	const handleFormTitle = () => {
-		if (isLogin) {
-			navigate("/course-materials", { state });
-		} else {
-			navigate("/register", { state });
-		};
+	const handleButtonPress = () => {
+		navigate(isLogin && isRegistered ? "/course-materials" : "/checkout");
 	};
 
-	const buttonLabel = isLogin ? "View Course Material" : "Register Now";
-	
 	return (
 		<Box
 			sx={{
@@ -116,15 +108,13 @@ const CourseDetails = ({isLogin = false}) => {
 							style={{
 								color: "white",
 								backgroundColor: "green",
-								textTransform: "capitalize",
 								mt: "150px",
-								mb: "50px",
 							}}
 							type="submit"
 							variant="contained"
-							onClick={handleFormTitle}
+							onClick={handleButtonPress}
 						>
-							{buttonLabel}
+							{isLogin ? "View Course Material" : "Register for course"}
 						</Button>
 					</Grid>
 					<Grid xs={12} item></Grid>

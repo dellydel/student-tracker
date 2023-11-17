@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "nextbytewebCognito": {}
+        "nextbytewebCognito": {},
+        "userPoolGroups": {}
       }
     }
   }

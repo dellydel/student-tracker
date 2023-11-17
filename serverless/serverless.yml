@@ -55,6 +55,7 @@ functions:
      - http:
          path: /registration
          method: post
+         cors: true
   
   payments-lambda:
       name: payments-lambda-${opt:stage}

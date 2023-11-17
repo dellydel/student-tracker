@@ -24,10 +24,9 @@ const modalStyle = {
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	bgcolor: "background.paper",
 };
 
-const Navigation = ({ isLogin }) => {
+const Navigation = ({ isLogin = false }) => {
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("md"));
 	const matchesLg = useMediaQuery(theme.breakpoints.down("lg"));
@@ -91,21 +90,21 @@ const Navigation = ({ isLogin }) => {
 							<Box sx={loginNav}>
 								|
 								{isLogin ? (
-									<Stack sx={{ ml: 5 }} direction="row">
-										<Avatar sx={{ width: 25, height: 25, mb: 2, mr: 1 }}>
-											ID
-										</Avatar>
-										<Box sx={{ color: "white" }}>USER NAME</Box>
-									</Stack>
+									<Link
+										underline="none"
+										sx={{ color: "white", ml: 5, cursor: "pointer" }}
+									>
+										{}first name
+									</Link>
 								) : (
 									<Link
-										href={"#"}
+										underline="none"
 										sx={{
 											m: 1,
 											ml: 5,
 											p: 1,
 											color: "white",
-											textDecoration: "none",
+											cursor: "pointer",
 										}}
 										onClick={() => setOpen(true)}
 									>
