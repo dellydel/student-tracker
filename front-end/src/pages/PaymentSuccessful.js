@@ -8,12 +8,9 @@ const PaymentSuccessful = () => {
 	const [customerEmail, setCustomerEmail] = useState("");
 	const [searchParams] = useSearchParams();
 
+	const sessionId = searchParams.get("session_id");
+
 	useEffect(() => {
-		//const queryString = window.location.search;
-		// const urlParams = new URLSearchParams(queryString);
-		// const sessionId = urlParams.get("session_id");
-		const sessionId = searchParams.get("session_id");
-		console.log(sessionId, "sessionId");
 		fetch(
 			`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/pay?session_id=${sessionId}`,
 		)
@@ -22,7 +19,7 @@ const PaymentSuccessful = () => {
 				setStatus(data.body.status);
 				setCustomerEmail(data.body.customer_email);
 			});
-	}, []);
+	}, [sessionId]);
 
 	if (status === "open") {
 		navigate("/checkout");
