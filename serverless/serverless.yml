@@ -70,6 +70,9 @@ functions:
           path: /pay
           method: post
           cors: true
+      - http:
+          path: /pay
+          method: get
 
   materials-lambda:
       name: materials-lambda-${opt:stage}
