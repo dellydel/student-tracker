@@ -3,7 +3,7 @@ const httpResponse = require("./http_response");
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
-  console, log(event, "event");
+  console.log(event, "event");
   if (event.type === "payment_intent.succeeded") {
     const paymentIntent = event.data.object;
 
@@ -27,7 +27,7 @@ exports.handler = async (event) => {
       return httpResponse(200, "Transaction recorded successfully");
     } catch (error) {
       console.error("Error recording transaction:", error);
-      return httpResponse(err.statusCode, "Error recording transaction");
+      return httpResponse(error.statusCode, "Error recording transaction");
     }
   }
 
