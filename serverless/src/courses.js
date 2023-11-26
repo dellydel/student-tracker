@@ -5,7 +5,7 @@ exports.handler = async (event) => {
   const docClient = new AWS.DynamoDB.DocumentClient();
 
   const params = {
-    TableName: "next-byte-Courses-development",
+    TableName: process.env.COURSES_TABLE,
   };
 
   let body;

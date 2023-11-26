@@ -11,7 +11,11 @@ provider:
   iam:
     role: IAMServerlessRole
 custom:
-    ENV: ${file(./config.${opt:stage, 'development'}.json)}
+    environment: ${file(./config.${opt:stage, 'development'}.json)}
+    courses_table: "next-byte-Courses-${opt:stage}"
+    nextbyte_url:
+      development: "http://dev.nextbyteweb.com"
+      production: "https://nextbyteweb.com"
 
 package:
   individually: true
@@ -40,6 +44,8 @@ functions:
       include:
         - src/courses.js
     handler: src/courses.handler
+    environment:
+      COURSES_TABLE: "next-byte-Courses-${opt:stage}"
     events:
      - http:
          path: /courses
@@ -63,6 +69,8 @@ functions:
         include:
           - src/payments.js
       handler: src/payments.handler
+      environment:  
+        NEXTBYTE_URL: ${self:custom.nextbyte_url:${opt:stage}}
       events:
       - http:
           path: /pay

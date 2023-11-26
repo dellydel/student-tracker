@@ -16,8 +16,7 @@ exports.handler = async (event) => {
             },
           ],
           mode: "payment",
-          return_url:
-            "http://localhost:3000/payment-complete?session_id={CHECKOUT_SESSION_ID}",
+          return_url: `${process.env.NEXTBYTE_URL}/payment-complete?session_id={CHECKOUT_SESSION_ID}`,
           automatic_tax: { enabled: false },
         });
         return httpResponse(200, created_session.client_secret);
