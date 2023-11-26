@@ -74,7 +74,7 @@ functions:
           - src/payments.js
       handler: src/payments.handler
       environment:  
-        NEXTBYTE_URL: ${self:custom.nextbyte_url}.${opt:stage}
+        NEXTBYTE_URL: ${self:custom.nextbyte_url:${opt:stage}}
       events:
       - http:
           path: /pay
