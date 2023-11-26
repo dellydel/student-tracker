@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 
 const PaymentSuccessful = () => {
 	const navigate = useNavigate();
 	const [status, setStatus] = useState(null);
 	const [customerEmail, setCustomerEmail] = useState("");
+	const [searchParams] = useSearchParams();
 
 	useEffect(() => {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		const sessionId = urlParams.get("session_id");
-
+		//const queryString = window.location.search;
+		// const urlParams = new URLSearchParams(queryString);
+		// const sessionId = urlParams.get("session_id");
+		const sessionId = searchParams.get("session_id");
+		console.log(sessionId, "sessionId");
 		fetch(
 			`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/pay?session_id=${sessionId}`,
 		)

@@ -10,7 +10,7 @@ const stripePromise = loadStripe(
 	`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`,
 );
 const CheckoutForm = () => {
-	const [clientSecret, setClientSecret] = useState("");
+	const [clientSecret, setClientSecret] = useState();
 
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/pay`, {

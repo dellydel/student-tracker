@@ -114,7 +114,6 @@ const CourseDetails = ({ isLogin = false }) => {
 								backgroundColor: "green",
 								mt: "150px",
 							}}
-							type="submit"
 							variant="contained"
 							onClick={handleButtonPress}
 						>

@@ -16,7 +16,7 @@ exports.handler = async (event) => {
             },
           ],
           mode: "payment",
-          return_url: `${process.env.NEXTBYTE_URL}/payment-complete?session_id={CHECKOUT_SESSION_ID}`,
+          return_url: "payment-complete?session_id={CHECKOUT_SESSION_ID}",
           automatic_tax: { enabled: false },
         });
         return httpResponse(200, created_session.client_secret);
@@ -33,7 +33,7 @@ exports.handler = async (event) => {
           status: retrieved_session.status,
         });
       } catch (err) {
-        console.log("error when posting", err);
+        console.log("error when attempting to retrieve session", err);
         return httpResponse(500, err);
       }
   }
