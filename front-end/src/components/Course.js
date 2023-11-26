@@ -9,16 +9,17 @@ const ListItem = styled("li")(({ theme }) => ({
 const Course = ({ course }) => {
 	const navigate = useNavigate();
 
+	const toCourseDetails = () => {
+		navigate("/course-details", {
+			state: { course },
+		});
+	};
 	return (
 		<Card
 			sx={{ maxWidth: "450px", p: 3, mb: 3, mr: 3, backgroundColor: "#f5f5f5" }}
 		>
 			<Link
-				onClick={() => {
-					navigate("/course-details", {
-						state: { course },
-					});
-				}}
+				onClick={toCourseDetails}
 				color="inherit"
 				underline="none"
 				sx={{ cursor: "pointer" }}
@@ -67,7 +68,7 @@ const Course = ({ course }) => {
 			<Typography component="p" sx={{ mb: 1 }}>
 				{course.description}
 			</Typography>
-			<Button href="/course-details" variant="text" color="primary">
+			<Button onClick={toCourseDetails} variant="text" color="primary">
 				MORE...
 			</Button>
 		</Card>

@@ -1,17 +1,35 @@
 const AWS = require("aws-sdk");
 const httpResponse = require("./http_response");
+const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
-  const docClient = new AWS.DynamoDB.DocumentClient();
+  console, log(event, "event");
+  if (event.type === "payment_intent.succeeded") {
+    const paymentIntent = event.data.object;
 
-  const params = {
-    TableName: "next-byte-Registrations-development",
-    Item: JSON.parse(event.body),
-  };
-  try {
-    await docClient.put(params).promise();
-    return httpResponse(201, "Thank you for registering with NextByte.");
-  } catch (err) {
-    return httpResponse(err.statusCode, err.message);
+    console.log("data", paymentIntent.metadata);
+    const { name, email, course_id, product_id } = paymentIntent.metadata;
+
+    const params = {
+      TableName: "next-byte-Registrations-development",
+      Item: {
+        name,
+        email,
+        course_id,
+        product_id,
+        transaction_id: paymentIntent.id,
+        timestamp: Date.now(),
+      },
+    };
+
+    try {
+      await dynamoDB.put(params).promise();
+      return httpResponse(200, "Transaction recorded successfully");
+    } catch (error) {
+      console.error("Error recording transaction:", error);
+      return httpResponse(err.statusCode, "Error recording transaction");
+    }
   }
+
+  return httpResponse(200, "Transaction was not completed successfully.");
 };

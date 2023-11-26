@@ -44,7 +44,7 @@ const CourseDetails = ({ isLogin = false }) => {
 							<b>Duration:</b> {state.course.duration}
 						</span>
 					</Grid>
-					<Grid xs={6} item sx={{ mb: 5 }}>
+					<Grid xs={12} item sx={{ mb: 5 }}>
 						<span
 							style={{
 								textAlign: "left",
@@ -55,11 +55,11 @@ const CourseDetails = ({ isLogin = false }) => {
 							}}
 						>
 							<b>Description:</b>
+							<br />
 							{state.course.description}
 						</span>
 					</Grid>
-					<Grid xs={6} item></Grid>
-					<Grid xs={6} item>
+					<Grid xs={12} md={6} item>
 						<span
 							style={{
 								textAlign: "left",
@@ -68,7 +68,9 @@ const CourseDetails = ({ isLogin = false }) => {
 							}}
 						>
 							<b>Technology used:</b>
-							<ul style={{ paddingLeft: 15 }}>
+							<ul
+								style={{ listStylePosition: "inside", paddingInlineStart: 0 }}
+							>
 								{state.course.technologies.map((technology, index) => (
 									<li key={index}>{technology}</li>
 								))}
@@ -76,7 +78,7 @@ const CourseDetails = ({ isLogin = false }) => {
 						</span>
 					</Grid>
 
-					<Grid xs={6} item style={{ display: "flex" }}>
+					<Grid xs={12} md={6} item style={{ display: "flex" }}>
 						<span
 							style={{
 								textAlign: "left",
@@ -85,7 +87,9 @@ const CourseDetails = ({ isLogin = false }) => {
 							}}
 						>
 							<b>Course Modules:</b>
-							<ul>
+							<ul
+								style={{ listStylePosition: "inside", paddingInlineStart: 0 }}
+							>
 								{state.course.modules.map((outline, index) => (
 									<li key={index}>{outline}</li>
 								))}
