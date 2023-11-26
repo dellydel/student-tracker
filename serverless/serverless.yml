@@ -13,6 +13,7 @@ provider:
 custom:
     environment: ${file(./config.${opt:stage, 'development'}.json)}
     courses_table: "next-byte-Courses-${opt:stage}"
+    registrations_table: "next-byte-Registrations-${opt:stage}"
     nextbyte_url:
       development: "http://dev.nextbyteweb.com"
       production: "https://nextbyteweb.com"
@@ -57,6 +58,9 @@ functions:
       include:
         - src/registration.js
     handler: src/registration.handler
+    environment:
+      REGISTRATIONS_TABLE: "next-byte-Registrations-${opt:stage}"
+
     events:
      - http:
          path: /registration
@@ -70,7 +74,7 @@ functions:
           - src/payments.js
       handler: src/payments.handler
       environment:  
-        NEXTBYTE_URL: ${self:custom.nextbyte_url:${opt:stage}}
+        NEXTBYTE_URL: ${self:custom.nextbyte_url}.${opt:stage}
       events:
       - http:
           path: /pay

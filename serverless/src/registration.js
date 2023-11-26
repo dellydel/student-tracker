@@ -11,7 +11,7 @@ exports.handler = async (event) => {
     const { name, email, course_id, product_id } = paymentIntent.metadata;
 
     const params = {
-      TableName: "next-byte-Registrations-development",
+      TableName: process.env.REGISTRATIONS_TABLE,
       Item: {
         name,
         email,
