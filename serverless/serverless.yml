@@ -5,18 +5,15 @@ provider:
   name: aws
   runtime: nodejs16.x
   stackName: serverless-${opt:stage}
+  environment:  ${file(env.yml):${self:custom.stage}}
   apiGateway:
     restApiId: ${ssm:nextbyte-api-restApiId-${opt:stage}}
     restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-${opt:stage}}
   iam:
     role: IAMServerlessRole
 custom:
-    environment: ${file(./config.${opt:stage, 'development'}.json)}
-    courses_table: "next-byte-Courses-${opt:stage}"
-    registrations_table: "next-byte-Registrations-${opt:stage}"
-    nextbyte_url:
-      development: "http://dev.nextbyteweb.com"
-      production: "https://nextbyteweb.com"
+    stage: ${opt:stage, self:provider.stage}
+    
 
 package:
   individually: true
@@ -45,8 +42,6 @@ functions:
       include:
         - src/courses.js
     handler: src/courses.handler
-    environment:
-      COURSES_TABLE: "next-byte-Courses-${opt:stage}"
     events:
      - http:
          path: /courses
@@ -58,9 +53,6 @@ functions:
       include:
         - src/registration.js
     handler: src/registration.handler
-    environment:
-      REGISTRATIONS_TABLE: "next-byte-Registrations-${opt:stage}"
-
     events:
      - http:
          path: /registration
@@ -73,8 +65,6 @@ functions:
         include:
           - src/payments.js
       handler: src/payments.handler
-      environment:  
-        NEXTBYTE_URL: ${self:custom.nextbyte_url:${opt:stage}}
       events:
       - http:
           path: /pay
