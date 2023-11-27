@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Typography, Grid, Button, Box } from "@mui/material";
+import { AuthContext } from "../context/AuthContext";
 
-const CourseDetails = ({ isLogin = false }) => {
+const CourseDetails = () => {
 	const { state } = useLocation();
 	const navigate = useNavigate();
-	const [isRegistered] = useState(false);
+	const { isLoggedIn } = useContext(AuthContext);
 
 	const toCheckout = () => {
 		navigate("/checkout", {
@@ -126,9 +127,13 @@ const CourseDetails = ({ isLogin = false }) => {
 								mt: "150px",
 							}}
 							variant="contained"
-							onClick={isLogin && isRegistered ? toCourseMaterials : toCheckout}
+							onClick={
+								isLoggedIn && state.course.isRegistered
+									? toCourseMaterials
+									: toCheckout
+							}
 						>
-							{isLogin && isRegistered
+							{isLoggedIn && state.course.isRegistered
 								? "View Course Material"
 								: "Register for course"}
 						</Button>

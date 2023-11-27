@@ -34,7 +34,11 @@ const UserInformationScreen = () => {
 					},
 				);
 				if (courses && courses.data.length > 0) {
-					setCourses(courses.data);
+					const updatedCourses = courses.data.map((course) => ({
+						...course,
+						isRegistered: true,
+					}));
+					setCourses(updatedCourses);
 				}
 			}
 		};

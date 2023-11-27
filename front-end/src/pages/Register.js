@@ -253,6 +253,7 @@ const Register = () => {
 								label="Password"
 								placeholder="Enter your password"
 								variant="outlined"
+								type="password"
 								fullWidth
 								{...register("password")}
 								InputProps={{
