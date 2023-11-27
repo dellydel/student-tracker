@@ -16,7 +16,7 @@ export const useCoursesData = () => {
 	return useQuery({
 		queryKey: ["courses"],
 		queryFn: fetchCourses,
-		select: (data) => data.data.Items.map((course) => course),
+		select: (data) => data.data.map((course) => course),
 	});
 };
 
@@ -24,7 +24,7 @@ export const useCoursesByIdData = ({ courseIds }) => {
 	return useQuery({
 		queryKey: ["courses", courseIds],
 		queryFn: () => fetchCoursesById(courseIds),
-		select: (data) => data.data.Items.map((course) => course),
+		select: (data) => data.data.map((course) => course),
 		enabled: courseIds?.length,
 	});
 };
