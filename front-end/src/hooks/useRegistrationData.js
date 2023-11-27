@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const fetchRegistrations = async () => {
+const fetchRegistrations = async (email) => {
+	const encodedEmail = encodeURIComponent(email);
 	return axios.get(
-		`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration`,
+		`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration?email=${encodedEmail}`,
 	);
 };
 
 export const useRegistrationData = (email) => {
 	return useQuery({
 		queryKey: ["registrations"],
-		queryFn: fetchRegistrations,
-		select: (data) =>
-			data.data.Items.map((registration) => registration.email === email),
+		queryFn: () => fetchRegistrations(email),
+		select: (data) => data.data.map((registration) => registration.product_id),
 	});
 };

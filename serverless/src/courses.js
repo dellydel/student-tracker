@@ -13,11 +13,11 @@ exports.handler = async (event) => {
     let courses = await docClient.scan(params).promise();
     switch (method) {
       case "POST":
-        const body = JSON.parse(event.body);
+        const { courseIds } = JSON.parse(event.body);
         const registeredCourses = courses.Items.filter((course) =>
-          body.courseIds.includes(course.id)
+          courseIds.includes(course.id)
         );
-        return httpResponse(200, registeredCourses.Items);
+        return httpResponse(200, registeredCourses);
       case "GET":
         return httpResponse(200, courses);
     }

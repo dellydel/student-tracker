@@ -1,7 +1,9 @@
+import { useContext, useEffect } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
+import axios from "axios";
 import Course from "../components/Course";
-import { useCoursesByIdData } from "../hooks/useCoursesData";
-import { useRegistrationData } from "../hooks/useRegistrationData";
+import { AuthContext } from "../context/AuthContext";
 
 const pageLayout = {
 	maxWidth: "1050px",
@@ -12,36 +14,50 @@ const pageLayout = {
 };
 
 const UserInformationScreen = () => {
-	const { data: registrations } = useRegistrationData();
+	const { user } = useContext(AuthContext);
+	const [courses, setCourses] = useState([]);
 
-	const {
-		data: courses,
-		isPending,
-		isError,
-		isSuccess,
-		error,
-	} = useCoursesByIdData(["prod_Odj0L1XDyvrQ3g"]);
-	//} = useCoursesByIdData(registrations);
+	useEffect(() => {
+		const getRegisteredCourses = async (email) => {
+			const encodedEmail = encodeURIComponent(email);
+			const registrations = await axios.get(
+				`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration?email=${encodedEmail}`,
+			);
+			if (registrations && registrations.data.length > 0) {
+				const courseIds = registrations.data.map(
+					(registration) => registration.product_id,
+				);
+				const courses = await axios.post(
+					`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/courses`,
+					{
+						courseIds,
+					},
+				);
+				if (courses && courses.data.length > 0) {
+					setCourses(courses.data);
+				}
+			}
+		};
+		getRegisteredCourses(user);
+	}, [user]);
 
 	return (
 		<Box sx={pageLayout}>
-			{registrations && "yes"}
-			{isPending && <span>Loading...</span>}
-			{isError && <span>{error.message}</span>}
-			{isSuccess && (
-				<Box
-					component={"div"}
-					sx={{
-						display: "flex",
-						flexWrap: "wrap",
-						justifyContent: "flex-start",
-					}}
-				>
-					{courses.map((course) => (
-						<Course course={course} key={course.id} />
-					))}
-				</Box>
+			{courses.length === 0 && (
+				<h3>You have not registered for any upcoming courses.</h3>
 			)}
+			<Box
+				component={"div"}
+				sx={{
+					display: "flex",
+					flexWrap: "wrap",
+					justifyContent: "flex-start",
+				}}
+			>
+				{courses.map((course) => (
+					<Course course={course} key={course.id} />
+				))}
+			</Box>
 		</Box>
 	);
 };
