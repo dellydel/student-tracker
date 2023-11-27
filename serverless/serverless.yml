@@ -58,7 +58,19 @@ functions:
          path: /registration
          method: post
          cors: true
-  
+
+  students-lambda:
+    name: students-lambda-${opt:stage}
+    package: 
+      include:
+        - src/students.js
+    handler: src/students.handler
+    events:
+     - http:
+         path: /students
+         method: post
+         cors: true
+
   payments-lambda:
       name: payments-lambda-${opt:stage}
       package: 
