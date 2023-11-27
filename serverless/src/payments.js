@@ -26,6 +26,7 @@ exports.handler = async (event) => {
               price: body.price,
             },
           },
+          customer_email: body.user_email,
         });
         return httpResponse(200, created_session.client_secret);
       } catch (err) {

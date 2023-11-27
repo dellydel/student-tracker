@@ -6,6 +6,7 @@ import {
 	EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { AuthContext } from "../context/AuthContext";
 
 const stripePromise = loadStripe(
 	`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`,
@@ -13,6 +14,7 @@ const stripePromise = loadStripe(
 const CheckoutForm = () => {
 	const { state } = useLocation();
 	const [clientSecret, setClientSecret] = useState();
+	const { isLoggedIn, user } = useContext(AuthContext);
 
 	useEffect(() => {
 		const { product_id, course_name, price, price_id } = state;
@@ -23,6 +25,7 @@ const CheckoutForm = () => {
 				course_name,
 				price,
 				price_id,
+				user_email: isLoggedIn ? user : "",
 			}),
 		})
 			.then((res) => res.json())
