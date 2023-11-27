@@ -30,7 +30,7 @@ const CheckoutForm = () => {
 		})
 			.then((res) => res.json())
 			.then((secret) => setClientSecret(secret));
-	}, [state]);
+	}, [state, isLoggedIn, user]);
 
 	return (
 		<Box sx={{ m: 5, minHeight: 1000 }}>
