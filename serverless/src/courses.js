@@ -19,7 +19,7 @@ exports.handler = async (event) => {
         );
         return httpResponse(200, registeredCourses);
       case "GET":
-        return httpResponse(200, courses);
+        return httpResponse(200, courses.Items);
     }
   } catch (err) {
     return httpResponse(err.statusCode, err.message);
