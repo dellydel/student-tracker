@@ -17,7 +17,7 @@ const PaymentSuccessful = () => {
 			.then((res) => res.json())
 			.then((data) => {
 				setStatus(data.status);
-				setCustomerEmail(data.customer_email);
+				setCustomerEmail(data.email);
 			});
 	}, [sessionId]);
 

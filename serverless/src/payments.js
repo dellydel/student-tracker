@@ -31,6 +31,7 @@ exports.handler = async (event) => {
         );
         return httpResponse(200, {
           status: retrieved_session.status,
+          email: retrieved_session.customer_details.email,
         });
       } catch (err) {
         console.log("error when attempting to retrieve session", err);
