@@ -1,12 +1,34 @@
-import React, { createContext, useState } from "react";
-import { signIn, signOut, confirmSignUp } from "aws-amplify/auth";
+import React, { createContext, useState, useEffect } from "react";
+import {
+	signIn,
+	signOut,
+	confirmSignUp,
+	resetPassword,
+	confirmResetPassword,
+	getCurrentUser,
+} from "aws-amplify/auth";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState();
 	const [user, setUser] = useState();
 	const [showLogin, setShowLogin] = useState(false);
+
+	useEffect(() => {
+		const currentAuthenticatedUser = async () => {
+			try {
+				const { userId, signInDetails } = await getCurrentUser();
+				if (userId) {
+					setIsLoggedIn(true);
+					setUser(signInDetails.loginId);
+				}
+			} catch (error) {
+				return { error };
+			}
+		};
+		currentAuthenticatedUser();
+	}, []);
 
 	const handleConfirmation = async (username, confirmationCode) => {
 		try {
@@ -54,6 +76,44 @@ export const AuthProvider = ({ children }) => {
 		}
 	};
 
+	const forgotPassword = async (username) => {
+		try {
+			const output = await resetPassword({ username });
+			return handleResetPasswordNextSteps(output);
+		} catch (error) {
+			return { error };
+		}
+	};
+
+	const handleResetPasswordNextSteps = (output) => {
+		const { nextStep } = output;
+		switch (nextStep.resetPasswordStep) {
+			case "CONFIRM_RESET_PASSWORD_WITH_CODE":
+				const codeDeliveryDetails = nextStep.codeDeliveryDetails;
+				console.log(
+					`Confirmation code was sent to ${codeDeliveryDetails.deliveryMedium}`,
+				);
+				return { codeSent: true };
+			case "DONE":
+				return { complete: true };
+			default:
+				return { error: "Confirm password flow exited." };
+		}
+	};
+
+	const handleConfirmResetPassword = async ({
+		username,
+		confirmationCode,
+		newPassword,
+	}) => {
+		try {
+			await confirmResetPassword({ username, confirmationCode, newPassword });
+			return { complete: true };
+		} catch (error) {
+			return { error: error.message };
+		}
+	};
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -64,6 +124,8 @@ export const AuthProvider = ({ children }) => {
 				handleConfirmation,
 				showLogin,
 				setShowLogin,
+				forgotPassword,
+				handleConfirmResetPassword,
 			}}
 		>
 			{children}

@@ -46,6 +46,10 @@ functions:
      - http:
          path: /courses
          method: get
+     - http:
+         path: /courses
+         method: post
+         cors: true
   
   registration-lambda:
     name: registration-lambda-${opt:stage}

@@ -5,10 +5,22 @@ const fetchCourses = async () => {
 	return axios.get(`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/courses`);
 };
 
+const fetchCourseById = async () => {
+	return axios.get(`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/courses`);
+};
+
 export const useCoursesData = () => {
 	return useQuery({
 		queryKey: ["courses"],
 		queryFn: fetchCourses,
+		select: (data) => data.data.Items.map((course) => course),
+	});
+};
+
+export const useCoursesByIdData = ({ courseId }) => {
+	return useQuery({
+		queryKey: ["courses", courseId],
+		queryFn: () => fetchCourseById(courseId),
 		select: (data) => data.data.Items.map((course) => course),
 	});
 };
