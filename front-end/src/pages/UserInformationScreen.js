@@ -25,6 +25,7 @@ const UserInformationScreen = () => {
 
 	return (
 		<Box sx={pageLayout}>
+			{registrations && "yes"}
 			{isPending && <span>Loading...</span>}
 			{isError && <span>{error.message}</span>}
 			{isSuccess && (
