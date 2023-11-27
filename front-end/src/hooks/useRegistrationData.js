@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchRegistrations = async () => {
 	return axios.get(
-		`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registrataions`,
+		`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration`,
 	);
 };
 

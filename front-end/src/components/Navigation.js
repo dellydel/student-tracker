@@ -19,10 +19,7 @@ import IconButton from "@mui/material/IconButton";
 import { AuthContext } from "../context/AuthContext";
 import Login from "./Login";
 
-const pages = [
-	{ name: "HOME", link: "/" },
-	{ name: "COURSES", link: "/courses" },
-];
+const pages = [{ name: "COURSES", link: "/courses" }];
 
 const loginNav = {
 	m: 1,
@@ -151,7 +148,7 @@ const Navigation = () => {
 									underline="none"
 									sx={{ color: "white", ml: 5, cursor: "pointer" }}
 								>
-									{user}
+									{user ?? "LOGOUT"}
 								</Link>
 							) : (
 								<Link
