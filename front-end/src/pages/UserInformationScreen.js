@@ -1,46 +1,44 @@
-import React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
-import courseList from "../test-data/courseList";
+import { Box } from "@mui/material";
 
-const UserInformationScreen = () => {
-  return (
-    <div>
-      <Typography
-        variant="h6"
-        gutterBottom
-        sx={{
-          background: "green",
-          fontSize: 30,
-          color: "white",
-          fontWeight: 600,
-        }}
-      >
-        Course List
-      </Typography>
-      <List>
-        {courseList.map((course) => (
-          <Course course={course} key={course.name} />
-        ))}
-      </List>
-    </div>
-  );
+//import Course from "../components/Course";
+//import { useCoursesData } from "../hooks/useCoursesData";
+
+const pageLayout = {
+	maxWidth: "1050px",
+	margin: "0 auto",
+	padding: "0 20px",
+	minHeight: 1000,
+	mt: 5,
 };
 
-function Course({ course }) {
-  return (
-    <>
-      <b>
-        <ListItem alignItems="flex-start">{course.name} </ListItem>
-      </b>
-      <ListItem alignItems="flex-start">{course.description} </ListItem>
-      <ListItem alignItems="flex-start">{course.Price}</ListItem>
-      <p>
-        <Divider />
-      </p>
-    </>
-  );
-}
+const UserInformationScreen = () => {
+	//const { data, isPending, isError, isSuccess, error } = useCoursesData();
+
+	return (
+		<Box sx={pageLayout}>
+			<Box component={"h3"} sx={{ m: 5 }}>
+				No upcoming registrations found
+			</Box>
+		</Box>
+		// <Box sx={pageLayout}>
+		// 	{isPending && <span>Loading...</span>}
+		// 	{isError && <span>{error.message}</span>}
+		// 	{isSuccess && (
+		// 		<Box
+		// 			component={"div"}
+		// 			sx={{
+		// 				display: "flex",
+		// 				flexWrap: "wrap",
+		// 				justifyContent: "flex-start",
+		// 			}}
+		// 		>
+		// 			{data.map((course) => (
+		// 				<Course course={course} key={course.id} />
+		// 			))}
+		// 		</Box>
+		// 	)}
+		// </Box>
+	);
+};
+
 export default UserInformationScreen;

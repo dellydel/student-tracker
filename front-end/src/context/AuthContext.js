@@ -14,6 +14,8 @@ export const AuthProvider = ({ children }) => {
 				username,
 				confirmationCode,
 			});
+			setIsLoggedIn(result.isSignUpComplete);
+			setUser(username);
 			return result;
 		} catch (error) {
 			return error;

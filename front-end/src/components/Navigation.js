@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
@@ -9,6 +9,11 @@ import {
 	Menu,
 	MenuItem,
 	Button,
+	Dialog,
+	DialogContent,
+	DialogTitle,
+	DialogContentText,
+	DialogActions,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { AuthContext } from "../context/AuthContext";
@@ -37,7 +42,8 @@ const modalStyle = {
 
 const Navigation = () => {
 	const { isLoggedIn, user, logout, showLogin } = useContext(AuthContext);
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useState(false);
+	const [dialogOpen, setDialogOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
 	useEffect(() => {
@@ -119,11 +125,29 @@ const Navigation = () => {
 								{page.name}
 							</Link>
 						))}
+						{isLoggedIn && (
+							<Link
+								component={RouterLink}
+								key={"user"}
+								to={"/user"}
+								sx={{
+									m: 1,
+									mr: 0,
+									p: 2,
+									color: "white",
+									textDecoration: "none",
+									fontWeight: "bold",
+									fontSize: "1.2rem",
+								}}
+							>
+								MY COURSES
+							</Link>
+						)}
 						<Box sx={loginNav}>
 							|
 							{isLoggedIn ? (
 								<Link
-									onClick={logout}
+									onClick={() => setDialogOpen(true)}
 									underline="none"
 									sx={{ color: "white", ml: 5, cursor: "pointer" }}
 								>
@@ -178,6 +202,27 @@ const Navigation = () => {
 							<Button onClick={() => setOpen(true)}>LOGIN / REGISTER</Button>
 						</MenuItem>
 					</Menu>
+					<Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+						<DialogTitle>Logout</DialogTitle>
+						<DialogContent>
+							<DialogContentText>Would you like to log out?</DialogContentText>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={() => setDialogOpen(false)} color="primary">
+								No
+							</Button>
+							<Button
+								onClick={() => {
+									logout();
+									setDialogOpen(false);
+								}}
+								color="primary"
+								autoFocus
+							>
+								Logout
+							</Button>
+						</DialogActions>
+					</Dialog>
 				</Toolbar>
 			</Box>
 		</>

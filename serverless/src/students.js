@@ -10,7 +10,10 @@ exports.handler = async (event) => {
   };
   try {
     await docClient.put(params).promise();
-    return httpResponse(201, "Thank you for registering with NextByte.");
+    return httpResponse(
+      201,
+      "Thank you for registering with NextByte. A validation code has been sent to your email address."
+    );
   } catch (err) {
     return httpResponse(err.statusCode, err.message);
   }

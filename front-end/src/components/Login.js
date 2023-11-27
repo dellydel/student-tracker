@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
 	Card,
 	CardContent,
@@ -17,12 +18,12 @@ const linkStyle = {
 };
 
 const Login = ({ setOpen }) => {
+	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [awaitingCode, setAwaitingCode] = useState(false);
 	const [code, setCode] = useState("");
-	const { login, logout, handleConfirmation, setShowLogin } =
-		useContext(AuthContext);
+	const { login, handleConfirmation, setShowLogin } = useContext(AuthContext);
 	const [error, setError] = useState(null);
 
 	const handleLogin = async () => {
@@ -45,10 +46,11 @@ const Login = ({ setOpen }) => {
 
 	const handleConfirm = async () => {
 		try {
-			const result = handleConfirmation(email, code);
+			const result = await handleConfirmation(email, code);
 			if (result.isSignUpComplete) {
 				setOpen(false);
 				setShowLogin(false);
+				navigate("/user");
 			}
 		} catch (error) {
 			console.log(error);
@@ -127,20 +129,6 @@ const Login = ({ setOpen }) => {
 							onClick={handleLogin}
 						>
 							Log in
-						</Button>
-					</Grid>
-					<Grid xs={12} item>
-						<Button
-							style={{
-								color: "white",
-								backgroundColor: "green",
-								textTransform: "capitalize",
-							}}
-							variant="contained"
-							fullWidth
-							onClick={logout}
-						>
-							Log out [Temporary Button]
 						</Button>
 					</Grid>
 					<Grid xs={12} textAlign={"center"} item>
