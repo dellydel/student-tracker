@@ -14,7 +14,7 @@ const stripePromise = loadStripe(
 const CheckoutForm = () => {
 	const { state } = useLocation();
 	const [clientSecret, setClientSecret] = useState();
-	const { isLoggedIn, user } = useContext(AuthContext);
+	const { isLoggedIn } = useContext(AuthContext);
 
 	useEffect(() => {
 		const { product_id, course_name, price, price_id } = state;
@@ -25,12 +25,11 @@ const CheckoutForm = () => {
 				course_name,
 				price,
 				price_id,
-				user_email: isLoggedIn ? user : "",
 			}),
 		})
 			.then((res) => res.json())
 			.then((secret) => setClientSecret(secret));
-	}, [state, isLoggedIn, user]);
+	}, [state, isLoggedIn]);
 
 	return (
 		<Box sx={{ m: 5, minHeight: 1000 }}>
