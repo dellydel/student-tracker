@@ -38,7 +38,7 @@ const PaymentSuccessful = () => {
 				<Typography variant="p">
 					We appreciate your business! A confirmation email will be sent to{" "}
 					{customerEmail}. If you have any questions, please email{" "}
-					<a href="mailto:orders@example.com">orders@example.com</a>.
+					<a href="mailto:admin@nextbyteweb.com">admin@nextbyteweb.com</a>.
 				</Typography>
 				<Box sx={{ mt: 3 }}>
 					<Button

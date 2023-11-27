@@ -7,8 +7,19 @@ const CourseDetails = ({ isLogin = false }) => {
 	const navigate = useNavigate();
 	const [isRegistered] = useState(false);
 
-	const handleButtonPress = () => {
-		navigate(isLogin && isRegistered ? "/course-materials" : "/checkout");
+	const toCheckout = () => {
+		navigate("/checkout", {
+			state: {
+				product_id: state.course.id,
+				course_name: state.course.name,
+				price: state.course.price,
+				price_id: state.course.priceLink,
+			},
+		});
+	};
+
+	const toCourseMaterials = () => {
+		navigate("/course-materials");
 	};
 
 	return (
@@ -104,7 +115,7 @@ const CourseDetails = ({ isLogin = false }) => {
 								color: "grey",
 							}}
 						>
-							<b>Price: {state.course.Price}</b>
+							<b>Price: {state.course.price}</b>
 						</span>
 					</Grid>
 					<Grid xs={12} item sx={{ mt: "10px", mb: "50px" }}>
@@ -115,9 +126,11 @@ const CourseDetails = ({ isLogin = false }) => {
 								mt: "150px",
 							}}
 							variant="contained"
-							onClick={handleButtonPress}
+							onClick={isLogin && isRegistered ? toCourseMaterials : toCheckout}
 						>
-							{isLogin ? "View Course Material" : "Register for course"}
+							{isLogin && isRegistered
+								? "View Course Material"
+								: "Register for course"}
 						</Button>
 					</Grid>
 					<Grid xs={12} item></Grid>

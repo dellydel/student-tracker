@@ -3,22 +3,21 @@ const httpResponse = require("./http_response");
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
-  console.log(event, "event");
-  if (event.type === "payment_intent.succeeded") {
-    const paymentIntent = event.data.object;
-
-    console.log("data", paymentIntent.metadata);
-    const { name, email, course_id, product_id } = paymentIntent.metadata;
+  const body = JSON.parse(event.body);
+  if (body.type === "payment_intent.succeeded") {
+    const paymentIntent = body.data.object;
+    const { id, amount, created, receipt_email, metadata } = paymentIntent;
 
     const params = {
       TableName: process.env.REGISTRATIONS_TABLE,
       Item: {
-        name,
-        email,
-        course_id,
-        product_id,
-        transaction_id: paymentIntent.id,
-        timestamp: Date.now(),
+        id: id,
+        amount: amount,
+        created: created,
+        email: receipt_email,
+        course_name: metadata.course_name,
+        price: metadata.price,
+        product_id: metadata.product_id,
       },
     };
 
