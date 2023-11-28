@@ -101,7 +101,7 @@ const Login = ({ setOpen }) => {
 		<Card
 			sx={{
 				p: 2,
-				maxWidth: 350,
+				maxWidth: { md: 350},
 			}}
 		>
 			<CardContent>
