@@ -11,23 +11,23 @@ import {
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-	const [isLoggedIn, setIsLoggedIn] = useState();
 	const [user, setUser] = useState();
 	const [showLogin, setShowLogin] = useState(false);
+	const isLoggedIn = !!user;
 
 	useEffect(() => {
-		const currentAuthenticatedUser = async () => {
+		const getCurrentAuthenticatedUser = async () => {
 			try {
-				const { userId, signInDetails } = await getCurrentUser();
-				if (userId) {
-					setIsLoggedIn(true);
-					setUser(signInDetails.loginId);
+				const user = await getCurrentUser();
+				if (user) {
+					setUser(user.signInDetails.loginId);
 				}
 			} catch (error) {
+				setUser();
 				return { error };
 			}
 		};
-		currentAuthenticatedUser();
+		getCurrentAuthenticatedUser();
 	}, []);
 
 	const handleConfirmation = async (username, confirmationCode) => {
@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }) => {
 				username,
 				confirmationCode,
 			});
-			setIsLoggedIn(result.isSignUpComplete);
 			setUser(username);
 			return result;
 		} catch (error) {
@@ -48,7 +47,6 @@ export const AuthProvider = ({ children }) => {
 		try {
 			const result = await signIn({ username, password });
 			if (result.isSignedIn) {
-				setIsLoggedIn(result.isSignedIn);
 				setUser(username);
 				return { type: "success", message: "Successfully signed in" };
 			} else {
@@ -68,7 +66,6 @@ export const AuthProvider = ({ children }) => {
 	const logout = async () => {
 		try {
 			await signOut({ global: true });
-			setIsLoggedIn(false);
 			setUser();
 		} catch (error) {
 			console.log("error signing out: ", error);

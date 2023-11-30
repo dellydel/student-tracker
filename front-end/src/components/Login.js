@@ -98,12 +98,7 @@ const Login = ({ setOpen }) => {
 	};
 
 	return (
-		<Card
-			sx={{
-				p: 2,
-				maxWidth: { md: 350},
-			}}
-		>
+		<Card>
 			<CardContent>
 				<Typography gutterBottom variant="h6">
 					{!resetPassword && !awaitingNewPassword && "Log in"}
