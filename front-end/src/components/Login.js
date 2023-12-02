@@ -154,7 +154,7 @@ const Login = ({ setOpen }) => {
 							/>
 						</Grid>
 					)}
-					{!resetPassword && !awaitingNewPassword && (
+					{!resetPassword && !awaitingNewPassword && !awaitingCode && (
 						<Grid xs={12} item>
 							<Button
 								style={{
@@ -188,7 +188,7 @@ const Login = ({ setOpen }) => {
 							</Button>
 						</Grid>
 					)}
-					{!awaitingNewPassword && (
+					{!awaitingNewPassword && !awaitingCode && (
 						<Grid xs={12} textAlign={"center"} item>
 							No account?
 							<Link href="./register" sx={linkStyle}>
@@ -197,7 +197,7 @@ const Login = ({ setOpen }) => {
 							</Link>
 						</Grid>
 					)}
-					{!resetPassword && !awaitingNewPassword && (
+					{!resetPassword && !awaitingNewPassword && !awaitingCode && (
 						<Grid xs={12} textAlign={"center"} item>
 							<Link onClick={() => setResetpassword(true)} sx={linkStyle}>
 								Forgot Password?
@@ -205,29 +205,37 @@ const Login = ({ setOpen }) => {
 						</Grid>
 					)}
 					{(awaitingCode || awaitingNewPassword) && (
-						<Grid xs={12} textAlign={"center"} item>
-							<h5
-								style={{
-									textAlign: "left",
-									padding: "0px",
-									marginTop: "0px",
-									marginBottom: "0px",
-									color: "grey",
-								}}
-							>
-								Validation Code
-							</h5>
-							<TextField
-								name="code"
-								type="text"
-								placeholder="Enter code"
-								variant="outlined"
-								fullWidth
-								size="small"
-								value={code}
-								onChange={(event) => setCode(event.target.value)}
-							/>
-						</Grid>
+						<>
+							<Grid xs={12} textAlign={"center"} item>
+								<Typography sx={{ p: 2 }}>
+									Please validate your email address and confirm your account
+									creation by entering the 6 digit code that was sent to you.
+								</Typography>
+							</Grid>
+							<Grid xs={12} textAlign={"center"} item>
+								<h5
+									style={{
+										textAlign: "left",
+										padding: "0px",
+										marginTop: "0px",
+										marginBottom: "0px",
+										color: "grey",
+									}}
+								>
+									Validation Code
+								</h5>
+								<TextField
+									name="code"
+									type="text"
+									placeholder="Enter code from email"
+									variant="outlined"
+									fullWidth
+									size="small"
+									value={code}
+									onChange={(event) => setCode(event.target.value)}
+								/>
+							</Grid>
+						</>
 					)}
 					{(awaitingCode || awaitingNewPassword) && (
 						<Grid xs={12} item>

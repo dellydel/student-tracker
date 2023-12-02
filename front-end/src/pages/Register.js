@@ -35,7 +35,6 @@ const Register = () => {
 	});
 
 	const { setShowLogin } = useContext(AuthContext);
-
 	const [snackbarState, setSnackbarState] = useState({
 		isOpen: false,
 		message: "",
@@ -83,6 +82,7 @@ const Register = () => {
 					id: userId.toString(),
 				})
 				.then((res) => {
+					reset();
 					setSnackbarState({
 						type: "success",
 						message: res.data,
