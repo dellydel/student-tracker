@@ -36,6 +36,7 @@ const Login = ({ setOpen }) => {
 	const [resetPassword, setResetpassword] = useState(false);
 
 	const handleLogin = async () => {
+		setError();
 		const result = await login(email, password);
 		switch (result.type) {
 			case "success":
@@ -54,6 +55,7 @@ const Login = ({ setOpen }) => {
 	};
 
 	const handleConfirm = async () => {
+		setError();
 		try {
 			const result = await handleConfirmation(email, code);
 			if (result.isSignUpComplete) {
@@ -68,6 +70,7 @@ const Login = ({ setOpen }) => {
 	};
 
 	const handleConfirmPasswordReset = async () => {
+		setError();
 		const result = await handleConfirmResetPassword({
 			username: email,
 			confirmationCode: code,
@@ -82,6 +85,7 @@ const Login = ({ setOpen }) => {
 	};
 
 	const handleForgotPassword = async () => {
+		setError();
 		const result = await forgotPassword(email);
 		if (result.error) {
 			if (result.error.name === "EmptyResetPasswordUsername") {
