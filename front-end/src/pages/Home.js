@@ -3,7 +3,8 @@ import { Box } from "@mui/material";
 import Features from "../components/Features";
 import MainHero from "../components/MainHero";
 import SectionDivider from "../components/SectionDivider";
-import Testimonials from "../components/Testimonials";
+
+//import Testimonials from "../components/Testimonials";
 
 const Home = () => {
 	const container = {

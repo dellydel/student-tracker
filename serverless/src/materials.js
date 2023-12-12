@@ -11,6 +11,9 @@ exports.handler = async (event) => {
   try {
     const files = [];
     const data = await s3.listObjectsV2(params).promise();
+    if (data.IsTruncated) {
+      throw new Error("Course Materials List truncated");
+    }
     const objects = data.Contents.filter((item) => item.Key.substr(-1) !== "/");
 
     for (const item of objects) {
@@ -20,7 +23,6 @@ exports.handler = async (event) => {
         Expires: 1800,
       };
       const url = await s3.getSignedUrlPromise("getObject", params);
-      console.log("url", url);
       files.push({ name: item.Key, url: url });
     }
     return httpResponse(200, files);
