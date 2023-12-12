@@ -11,6 +11,9 @@ exports.handler = async (event) => {
   try {
     const files = [];
     const data = await s3.listObjectsV2(params).promise();
+    if (data.IsTruncated) {
+      throw new Error("Course Materials List truncated");
+    }
     const objects = data.Contents.filter((item) => item.Key.substr(-1) !== "/");
 
     for (const item of objects) {
