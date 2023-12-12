@@ -1,4 +1,22 @@
 {
+  "production": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nextbyteweb-production-05008-authRole",
+      "UnauthRoleArn": "arn:aws:iam::893303684985:role/amplify-nextbyteweb-production-05008-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::893303684985:role/amplify-nextbyteweb-production-05008-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-nextbyteweb-production-05008-deployment",
+      "UnauthRoleName": "amplify-nextbyteweb-production-05008-unauthRole",
+      "StackName": "amplify-nextbyteweb-production-05008",
+      "StackId": "arn:aws:cloudformation:us-east-1:893303684985:stack/amplify-nextbyteweb-production-05008/66413df0-9888-11ee-b1f2-0e08ca9b0557",
+      "AmplifyAppId": "d2gop96d88v29l"
+    },
+    "categories": {
+      "auth": {
+        "nextbytewebCognito": {}
+      }
+    }
+  },
   "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-nextbyteweb-dev-150724-authRole",
