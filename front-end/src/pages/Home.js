@@ -20,8 +20,8 @@ const Home = () => {
 				<SectionDivider SectionTitle="Why NextByte?" />
 				<Features />
 				<br />
-				<SectionDivider SectionTitle="Testimonials" />
-				<Testimonials />
+				{/* <SectionDivider SectionTitle="Testimonials" />
+				<Testimonials /> */}
 			</Box>
 		</>
 	);
