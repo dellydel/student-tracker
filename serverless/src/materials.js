@@ -20,7 +20,6 @@ exports.handler = async (event) => {
         Expires: 1800,
       };
       const url = await s3.getSignedUrlPromise("getObject", params);
-      console.log("url", url);
       files.push({ name: item.Key, url: url });
     }
     return httpResponse(200, files);
