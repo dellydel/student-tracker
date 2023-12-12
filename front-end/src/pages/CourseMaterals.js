@@ -6,6 +6,7 @@ import {
 	ListItemText,
 	Box,
 	Typography,
+	Paper,
 } from "@mui/material";
 
 const CourseMaterals = () => {
@@ -18,6 +19,12 @@ const CourseMaterals = () => {
 					`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/materials`,
 				);
 				const data = await response.json();
+
+				data.map((document) => {
+					document.name = document.name.split("/").pop();
+					return document;
+				});
+
 				setDocuments(data);
 			} catch (error) {
 				console.error("Error fetching S3 contents:", error);
@@ -45,21 +52,28 @@ const CourseMaterals = () => {
 			>
 				Course Materials
 			</Typography>
-			<List>
-				{documents.map((document, index) => (
-					<ListItem key={index}>
-						<ListItemText primary={document.name} />
-						<Button
-							variant="contained"
-							color="primary"
-							href={document.url}
-							download
-						>
-							Download
-						</Button>
-					</ListItem>
-				))}
-			</List>
+			<Paper
+				sx={{
+					backgroundColor: "#EEEEEE",
+				}}
+			>
+				<List>
+					{documents.map((document, index) => (
+						<ListItem key={index}>
+							<ListItemText primary={document.name} />
+							<Button
+								variant="contained"
+								color="primary"
+								href={document.url}
+								download
+								target="_blank"
+							>
+								Download
+							</Button>
+						</ListItem>
+					))}
+				</List>
+			</Paper>
 		</Box>
 	);
 };
