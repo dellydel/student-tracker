@@ -128,12 +128,10 @@ const CourseDetails = () => {
 							}}
 							variant="contained"
 							onClick={
-								isLoggedIn && state.course.isRegistered
-									? toCourseMaterials
-									: toCheckout
+								isLoggedIn && state.registered ? toCourseMaterials : toCheckout
 							}
 						>
-							{isLoggedIn && state.course.isRegistered
+							{isLoggedIn && state.registered
 								? "View Course Material"
 								: "Register for course"}
 						</Button>

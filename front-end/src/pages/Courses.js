@@ -1,5 +1,9 @@
+import { useContext, useEffect } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
+import axios from "axios";
 import Course from "../components/Course";
+import { AuthContext } from "../context/AuthContext";
 import { useCoursesData } from "../hooks/useCoursesData";
 
 const pageLayout = {
@@ -12,6 +16,28 @@ const pageLayout = {
 
 const Courses = () => {
 	const { data, isPending, isError, isSuccess, error } = useCoursesData();
+	const { user } = useContext(AuthContext);
+
+	const [courseIds, setCourseIds] = useState(null);
+
+	useEffect(() => {
+		const getRegisteredCourses = async (email) => {
+			if (email === null) return [];
+			const encodedEmail = encodeURIComponent(email);
+			const registrations = await axios.get(
+				`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration?email=${encodedEmail}`,
+			);
+			if (registrations && registrations.data.length > 0) {
+				const courseIds = registrations.data.map(
+					(registration) => registration.product_id,
+				);
+				setCourseIds(courseIds);
+			}
+		};
+		getRegisteredCourses(
+			user === null || user === undefined ? null : user.signInDetails.loginId,
+		);
+	}, [user, data]);
 
 	return (
 		<Box sx={pageLayout}>
@@ -27,7 +53,11 @@ const Courses = () => {
 					}}
 				>
 					{data.map((course) => (
-						<Course course={course} key={course.id} />
+						<Course
+							registered={courseIds?.includes(course.id)}
+							course={course}
+							key={course.id}
+						/>
 					))}
 				</Box>
 			)}

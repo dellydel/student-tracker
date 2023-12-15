@@ -6,12 +6,12 @@ const ListItem = styled("li")(({ theme }) => ({
 	margin: theme.spacing(0.3),
 }));
 
-const Course = ({ course }) => {
+const Course = ({ course, registered }) => {
 	const navigate = useNavigate();
 
 	const toCourseDetails = () => {
 		navigate("/course-details", {
-			state: { course },
+			state: { course, registered },
 		});
 	};
 	return (

@@ -16,6 +16,7 @@ const pageLayout = {
 const UserInformationScreen = () => {
 	const { user } = useContext(AuthContext);
 	const [courses, setCourses] = useState(null);
+	const [courseIds, setCourseIds] = useState(null);
 
 	useEffect(() => {
 		const getRegisteredCourses = async (email) => {
@@ -34,13 +35,8 @@ const UserInformationScreen = () => {
 						courseIds,
 					},
 				);
-				if (courses && courses.data.length > 0) {
-					const updatedCourses = courses.data.map((course) => ({
-						...course,
-						isRegistered: true,
-					}));
-					setCourses(updatedCourses);
-				}
+				setCourseIds(courseIds);
+				setCourses(courses);
 			}
 		};
 		getRegisteredCourses(
@@ -50,7 +46,7 @@ const UserInformationScreen = () => {
 
 	return (
 		<Box sx={pageLayout}>
-			{courses && courses.length === 0 && (
+			{courses && courses.data.length === 0 && (
 				<h3>You have not registered for any upcoming courses.</h3>
 			)}
 			<Box
@@ -62,7 +58,13 @@ const UserInformationScreen = () => {
 				}}
 			>
 				{courses &&
-					courses.map((course) => <Course course={course} key={course.id} />)}
+					courses.data.map((course) => (
+						<Course
+							registered={courseIds?.includes(course.id)}
+							course={course}
+							key={course.id}
+						/>
+					))}
 			</Box>
 		</Box>
 	);
