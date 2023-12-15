@@ -219,7 +219,6 @@ const Register = () => {
 								placeholder="Enter zip"
 								variant="outlined"
 								fullWidth
-								inputProps={{ maxLength: 5 }}
 								{...register("zip")}
 							/>
 							<span style={{ color: "red" }}>{errors.zip?.message}</span>

@@ -15,10 +15,11 @@ const pageLayout = {
 
 const UserInformationScreen = () => {
 	const { user } = useContext(AuthContext);
-	const [courses, setCourses] = useState([]);
+	const [courses, setCourses] = useState(null);
 
 	useEffect(() => {
 		const getRegisteredCourses = async (email) => {
+			if (email === null) return [];
 			const encodedEmail = encodeURIComponent(email);
 			const registrations = await axios.get(
 				`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration?email=${encodedEmail}`,
@@ -42,12 +43,14 @@ const UserInformationScreen = () => {
 				}
 			}
 		};
-		getRegisteredCourses(user);
+		getRegisteredCourses(
+			user === null || user === undefined ? null : user.signInDetails.loginId,
+		);
 	}, [user]);
 
 	return (
 		<Box sx={pageLayout}>
-			{courses.length === 0 && (
+			{courses && courses.length === 0 && (
 				<h3>You have not registered for any upcoming courses.</h3>
 			)}
 			<Box
@@ -58,9 +61,8 @@ const UserInformationScreen = () => {
 					justifyContent: "flex-start",
 				}}
 			>
-				{courses.map((course) => (
-					<Course course={course} key={course.id} />
-				))}
+				{courses &&
+					courses.map((course) => <Course course={course} key={course.id} />)}
 			</Box>
 		</Box>
 	);

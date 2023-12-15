@@ -11,20 +11,21 @@ import {
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-	const [user, setUser] = useState();
+	const [user, setUser] = useState(null);
 	const [showLogin, setShowLogin] = useState(false);
-	const isLoggedIn = !!user;
 
 	useEffect(() => {
 		const getCurrentAuthenticatedUser = async () => {
 			try {
-				const user = await getCurrentUser();
-				if (user) {
-					setUser(user.signInDetails.loginId);
+				const currentUser = await getCurrentUser();
+				if (currentUser) {
+					setUser(currentUser);
+				} else {
+					setUser(null);
 				}
 			} catch (error) {
-				setUser();
-				return { error };
+				setUser(null);
+				console.error("Error fetching user:", error);
 			}
 		};
 		getCurrentAuthenticatedUser();
@@ -47,7 +48,8 @@ export const AuthProvider = ({ children }) => {
 		try {
 			const result = await signIn({ username, password });
 			if (result.isSignedIn) {
-				setUser(username);
+				const currentUser = await getCurrentUser();
+				setUser(currentUser);
 				return { type: "success", message: "Successfully signed in" };
 			} else {
 				if (result.nextStep.signInStep === "CONFIRM_SIGN_UP") {
@@ -66,7 +68,7 @@ export const AuthProvider = ({ children }) => {
 	const logout = async () => {
 		try {
 			await signOut({ global: true });
-			setUser();
+			setUser(null);
 		} catch (error) {
 			console.log("error signing out: ", error);
 			return { type: "error", message: error };
@@ -114,7 +116,7 @@ export const AuthProvider = ({ children }) => {
 	return (
 		<AuthContext.Provider
 			value={{
-				isLoggedIn,
+				isLoggedIn: !!user,
 				login,
 				logout,
 				user,

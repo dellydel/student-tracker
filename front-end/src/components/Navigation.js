@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
 	Toolbar,
@@ -43,7 +44,7 @@ const Navigation = () => {
 	const [open, setOpen] = useState(false);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-
+	const navigate = useNavigate();
 	useEffect(() => {
 		if (showLogin) setOpen(true);
 		else setOpen(false);
@@ -123,35 +124,38 @@ const Navigation = () => {
 								{page.name}
 							</Link>
 						))}
-						{isLoggedIn && (
-							<Link
-								component={RouterLink}
-								key={"user"}
-								to={"/user"}
-								sx={{
-									m: 1,
-									mr: 0,
-									p: 2,
-									color: "white",
-									textDecoration: "none",
-									fontWeight: "bold",
-									fontSize: "1.2rem",
-								}}
-							>
-								MY COURSES
-							</Link>
-						)}
-						<Box sx={loginNav}>
-							|
-							{isLoggedIn ? (
+						{isLoggedIn ? (
+							<>
 								<Link
-									onClick={() => setDialogOpen(true)}
-									underline="none"
-									sx={{ color: "white", ml: 5, cursor: "pointer" }}
+									component={RouterLink}
+									key={"user"}
+									to={"/user"}
+									sx={{
+										m: 1,
+										mr: 0,
+										p: 2,
+										color: "white",
+										textDecoration: "none",
+										fontWeight: "bold",
+										fontSize: "1.2rem",
+									}}
 								>
-									{user ?? "LOGOUT"}
+									MY COURSES
 								</Link>
-							) : (
+								<Box sx={loginNav}>
+									|
+									<Link
+										onClick={() => setDialogOpen(true)}
+										underline="none"
+										sx={{ color: "white", ml: 5, cursor: "pointer" }}
+									>
+										{user ? user.signInDetails.loginId : "LOGOUT"}
+									</Link>
+								</Box>
+							</>
+						) : (
+							<Box sx={loginNav}>
+								|
 								<Link
 									underline="none"
 									sx={{
@@ -165,8 +169,8 @@ const Navigation = () => {
 								>
 									<Box component={"span"}>LOGIN /REGISTER</Box>
 								</Link>
-							)}
-						</Box>
+							</Box>
+						)}
 					</Box>
 					<Menu
 						id="menu-appbar"
@@ -213,6 +217,7 @@ const Navigation = () => {
 								onClick={() => {
 									logout();
 									setDialogOpen(false);
+									navigate("/");
 								}}
 								color="primary"
 								autoFocus

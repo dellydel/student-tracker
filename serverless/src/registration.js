@@ -34,6 +34,7 @@ exports.handler = async (event) => {
         }
       }
     case "GET":
+      const email = decodeURIComponent(event.queryStringParameters.email);
       const params = {
         TableName: process.env.REGISTRATIONS_TABLE,
         FilterExpression: "#email = :email",
@@ -41,7 +42,7 @@ exports.handler = async (event) => {
           "#email": "email",
         },
         ExpressionAttributeValues: {
-          ":email": event.queryStringParameters.email,
+          ":email": email,
         },
       };
       try {
