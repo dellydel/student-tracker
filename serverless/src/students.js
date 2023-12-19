@@ -3,7 +3,7 @@ const httpResponse = require("./http_response");
 
 exports.handler = async (event) => {
   const docClient = new AWS.DynamoDB.DocumentClient();
-
+  const method = event.httpMethod;
   switch (method) {
     case "POST":
       const postParams = {
@@ -11,7 +11,7 @@ exports.handler = async (event) => {
         Item: JSON.parse(event.body),
       };
       try {
-        await docClient.put(params).promise();
+        await docClient.put(postParams).promise();
         return httpResponse(
           201,
           "Thank you for registering with NextByte. A validation code has been sent to your email address."
