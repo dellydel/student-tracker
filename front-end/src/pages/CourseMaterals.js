@@ -52,14 +52,18 @@ const CourseMaterals = () => {
 			>
 				Course Materials
 			</Typography>
-			<Paper
-				sx={{
-					backgroundColor: "#EEEEEE",
-				}}
-			>
-				<List>
-					{documents.map((document, index) => (
-						<ListItem key={index}>
+
+			<List sx={{ width: "50%" }}>
+				{documents.map((document, index) => (
+					<Paper
+						key={index}
+						sx={{
+							backgroundColor: "#EEEEEE",
+							mb: 2,
+							p: 1,
+						}}
+					>
+						<ListItem>
 							<ListItemText primary={document.name} />
 							<Button
 								variant="contained"
@@ -71,9 +75,9 @@ const CourseMaterals = () => {
 								Download
 							</Button>
 						</ListItem>
-					))}
-				</List>
-			</Paper>
+					</Paper>
+				))}
+			</List>
 		</Box>
 	);
 };
