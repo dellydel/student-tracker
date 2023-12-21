@@ -149,7 +149,8 @@ const Navigation = () => {
 										underline="none"
 										sx={{ color: "white", ml: 5, cursor: "pointer" }}
 									>
-										{user ? user.signInDetails.loginId : "LOGOUT"}
+										LOGOUT
+										{/* {user ? user.signInDetails.loginId : "LOGOUT"} */}
 									</Link>
 								</Box>
 							</>
