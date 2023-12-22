@@ -40,7 +40,7 @@ const modalStyle = {
 };
 
 const Navigation = () => {
-	const { isLoggedIn, user, logout, showLogin } = useContext(AuthContext);
+	const { isLoggedIn, logout, showLogin } = useContext(AuthContext);
 	const [open, setOpen] = useState(false);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
