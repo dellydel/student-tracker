@@ -52,7 +52,7 @@ const CourseMaterals = () => {
 			>
 				Course Materials
 			</Typography>
-
+			<p>****Right click and save for videos</p>
 			<List sx={{ width: "50%" }}>
 				{documents.map((document, index) => (
 					<Paper
