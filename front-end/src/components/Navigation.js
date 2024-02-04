@@ -40,7 +40,7 @@ const modalStyle = {
 };
 
 const Navigation = () => {
-	const { isLoggedIn, logout, showLogin } = useContext(AuthContext);
+	const { isLoggedIn, logout, showLogin, user } = useContext(AuthContext);
 	const [open, setOpen] = useState(false);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -128,7 +128,6 @@ const Navigation = () => {
 							<>
 								<Link
 									component={RouterLink}
-									key={"user"}
 									to={"/user"}
 									sx={{
 										m: 1,
@@ -149,8 +148,7 @@ const Navigation = () => {
 										underline="none"
 										sx={{ color: "white", ml: 5, cursor: "pointer" }}
 									>
-										LOGOUT
-										{/* {user ? user.signInDetails.loginId : "LOGOUT"} */}
+										{user ? user : "LOGOUT"}
 									</Link>
 								</Box>
 							</>

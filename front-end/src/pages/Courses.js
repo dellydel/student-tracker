@@ -1,10 +1,11 @@
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Box } from "@mui/material";
-import axios from "axios";
+import { getCourseRegistrations } from "../api/registrationAPI";
 import Course from "../components/Course";
 import { AuthContext } from "../context/AuthContext";
 import { useCoursesData } from "../hooks/useCoursesData";
+import { encodeEmail } from "../utils/emailUtils";
 
 const pageLayout = {
 	maxWidth: "1050px",
@@ -21,23 +22,22 @@ const Courses = () => {
 	const [courseIds, setCourseIds] = useState(null);
 
 	useEffect(() => {
-		const getRegisteredCourses = async (email) => {
-			if (email === null) return [];
-			const encodedEmail = encodeURIComponent(email);
-			const registrations = await axios.get(
-				`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration?email=${encodedEmail}`,
-			);
-			if (registrations && registrations.data.length > 0) {
-				const courseIds = registrations.data.map(
+		const fetchRegistrations = async () => {
+			if (user === null) {
+				setCourseIds([]);
+				return;
+			}
+			const registrations = await getCourseRegistrations(encodeEmail(user));
+
+			if (registrations && registrations.length > 0) {
+				const courseIds = registrations.map(
 					(registration) => registration.product_id,
 				);
 				setCourseIds(courseIds);
 			}
 		};
-		getRegisteredCourses(
-			user === null || user === undefined ? null : user.signInDetails.loginId,
-		);
-	}, [user, data]);
+		fetchRegistrations();
+	}, [user]);
 
 	return (
 		<Box sx={pageLayout}>
