@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }) => {
 		try {
 			const result = await signIn({ username, password });
 			if (result.isSignedIn) {
-				const currentUser = await getCurrentUser();
 				const userAttributes = await fetchUserAttributes();
 				setUser(userAttributes.email);
 				return { type: "success", message: "Successfully signed in" };
