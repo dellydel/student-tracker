@@ -2,14 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { scroller } from "react-scroll";
 import { Box, Button, Typography } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { heroText, heroCallToAction } from "../data/homeContent";
 
 const heroStyle = {
-	backgroundImage: "url('images/code.jpg')",
+	backgroundImage: "url('images/code-laptop-bg.png')",
 	backgroundBlendMode: "darken",
-	backgroundColor: " rgba(0, 0, 0, 0.6)",
+	backgroundColor: " rgba(0, 0, 0, 0.1)",
 	backgroundRepeat: "no-repeat",
 	backgroundPositionX: "center",
 	backgroundPositionY: "top",
@@ -17,7 +19,13 @@ const heroStyle = {
 	p: 15,
 	pt: 10,
 };
-
+const avatarStyle = {
+	height: 32,
+	width: 32,
+	weight: 1000,
+	border: 2,
+	color: "white",
+};
 const MainHero = () => {
 	const random = Math.floor(Math.random() * heroCallToAction.length);
 	const callToAction = heroCallToAction[random];
@@ -34,7 +42,7 @@ const MainHero = () => {
 		<Box sx={{ ...heroStyle, p: { xs: 5, md: 15 } }}>
 			<Box
 				sx={{
-					textAlign: "left",
+					textAlign: "center",
 					maxWidth: "1050px",
 					margin: "0 auto",
 				}}
@@ -62,43 +70,107 @@ const MainHero = () => {
 				>
 					{callToAction.text[1]}
 				</Typography>
-
-				<Typography
-					sx={{
-						fontSize: 18,
-						mt: 2,
-						color: "white",
-						width: { md: "100%", lg: "50%" },
-					}}
-				>
-					{heroText}
-				</Typography>
-				<Box sx={{ mt: 3, display: "flex", justifyContent: "flex-start" }}>
+				<Box sx={{ mt: 3, display: "flex", justifyContent: "center" }}>
+					<Typography
+						sx={{
+							fontSize: 18,
+							mt: 2,
+							color: "white",
+							width: { md: "100%", lg: "50%" },
+						}}
+					>
+						{heroText}
+					</Typography>
+				</Box>
+				<Box sx={{ mt: 3, display: "flex", justifyContent: "center" }}>
 					<Button
 						component={Link}
-						variant="contained"
-						size="medium"
+						variant="outlined"
 						to="/courses"
 						sx={{
 							my: 1,
 							p: 2,
 							color: "white",
+							borderRadius: "10px",
+							textTransform: "none",
+							fontSize: 20,
+							weight: 500,
 						}}
 					>
-						BROWSE COURSES
+						{`Browse Courses`}
 					</Button>
 					<Button
 						sx={{
 							m: 1,
 							p: 2,
 							color: "white",
+							textTransform: "none",
+							fontSize: 20,
+							weight: 500,
 						}}
 						variant="text"
-						size="medium"
 						onClick={scrollToFooter}
 					>
-						CONTACT US
+						{`Contact Us`}
 					</Button>
+				</Box>
+				<Box
+					sx={{
+						mt: 12,
+						display: "flex",
+						gap: 0,
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+				>
+					<Stack direction="row" spacing={-2}>
+						<Avatar
+							sx={{
+								...avatarStyle,
+							}}
+							alt="Remy Sharp"
+							src="/images/avatar/Ellipse1.png"
+						/>
+						<Avatar
+							sx={{
+								...avatarStyle,
+							}}
+							alt="Travis Howard"
+							src="/images/avatar/Ellipse2.png"
+						/>
+						<Avatar
+							sx={{
+								...avatarStyle,
+							}}
+							alt="Cindy Baker"
+							src="/images/avatar/Ellipse3.png"
+						/>
+						<Avatar
+							sx={{
+								...avatarStyle,
+							}}
+							alt="Travis Howard"
+							src="/images/avatar/Ellipse4.png"
+						/>
+						<Avatar
+							sx={{
+								...avatarStyle,
+							}}
+							alt="2k+"
+							src="/images/avatar/2k+.png"
+						/>
+					</Stack>
+					<Typography
+						sx={{
+							fontFamily: "sans-serif",
+							fontSize: 16,
+							weight: 400,
+							m: 2,
+							color: "white",
+						}}
+					>
+						{`Trusted by 2000+ students worldwide`}
+					</Typography>
 				</Box>
 			</Box>
 		</Box>
