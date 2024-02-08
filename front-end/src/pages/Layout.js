@@ -5,14 +5,7 @@ import Navigation from "../components/Navigation";
 
 const Layout = () => {
 	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				minHeight: "100vh",
-				background: "black",
-			}}
-		>
+		<Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
 			<div style={{ flex: 1 }}>
 				<Navigation />
 				<Outlet />
