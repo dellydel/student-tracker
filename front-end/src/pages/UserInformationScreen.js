@@ -39,9 +39,7 @@ const UserInformationScreen = () => {
 				setCourses(courses);
 			}
 		};
-		getRegisteredCourses(
-			user === null || user === undefined ? null : user.signInDetails.loginId,
-		);
+		getRegisteredCourses(user);
 	}, [user]);
 
 	return (

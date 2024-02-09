@@ -6,6 +6,7 @@ import {
 	resetPassword,
 	confirmResetPassword,
 	getCurrentUser,
+	fetchUserAttributes,
 } from "aws-amplify/auth";
 
 export const AuthContext = createContext();
@@ -19,7 +20,8 @@ export const AuthProvider = ({ children }) => {
 			try {
 				const currentUser = await getCurrentUser();
 				if (currentUser) {
-					setUser(currentUser);
+					const userAttributes = await fetchUserAttributes();
+					setUser(userAttributes.email);
 				} else {
 					setUser(null);
 				}
@@ -37,7 +39,8 @@ export const AuthProvider = ({ children }) => {
 				username,
 				confirmationCode,
 			});
-			setUser(username);
+			const userAttributes = await fetchUserAttributes();
+			setUser(userAttributes.email);
 			return result;
 		} catch (error) {
 			return error;
@@ -48,8 +51,8 @@ export const AuthProvider = ({ children }) => {
 		try {
 			const result = await signIn({ username, password });
 			if (result.isSignedIn) {
-				const currentUser = await getCurrentUser();
-				setUser(currentUser);
+				const userAttributes = await fetchUserAttributes();
+				setUser(userAttributes.email);
 				return { type: "success", message: "Successfully signed in" };
 			} else {
 				if (result.nextStep.signInStep === "CONFIRM_SIGN_UP") {
