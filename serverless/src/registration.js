@@ -1,6 +1,8 @@
 const AWS = require("aws-sdk");
 const httpResponse = require("./http_response");
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
+const Stripe = require("stripe");
+const stripe = Stripe(process.env.STRIPE_SECRET);
 
 exports.handler = async (event) => {
   const method = event.httpMethod;
@@ -8,35 +10,35 @@ exports.handler = async (event) => {
   switch (method) {
     case "POST":
       const body = JSON.parse(event.body);
-      if (body.type === "payment_intent.succeeded") {
-        const paymentIntent = body.data.object;
-        const { id, amount, created, receipt_email, metadata } = paymentIntent;
 
-        const params = {
-          TableName: process.env.REGISTRATIONS_TABLE,
-          Item: {
-            id: id,
-            amount: amount,
-            created: created,
-            email: receipt_email,
-            emailLower: receipt_email.toLocaleLowerCase(),
-            course_name: metadata.course_name,
-            price: metadata.price,
-            product_id: metadata.product_id,
-          },
-        };
+      if (body.type === "checkout.session.completed") {
+        const session = body.data.object;
+        const { id, amount_total: amount, created, customer_details } = session;
+
+        const line_items = await stripe.checkout.sessions.listLineItems(
+          session.id
+        );
+
+        const postParams = generateParams(
+          id,
+          amount,
+          created,
+          customer_details.email,
+          line_items.data[0]
+        );
 
         try {
-          await dynamoDB.put(params).promise();
+          await dynamoDB.put(postParams).promise();
           return httpResponse(200, "Transaction recorded successfully");
         } catch (error) {
           console.error("Error recording transaction:", error);
           return httpResponse(error.statusCode, "Error recording transaction");
         }
       }
+
     case "GET":
       const email = decodeURIComponent(event.queryStringParameters.email);
-      const params = {
+      const getParams = {
         TableName: process.env.REGISTRATIONS_TABLE,
         FilterExpression: "#emailLower = :emailLower OR #email = :email",
         ExpressionAttributeNames: {
@@ -49,12 +51,27 @@ exports.handler = async (event) => {
         },
       };
       try {
-        let registrations = await dynamoDB.scan(params).promise();
+        let registrations = await dynamoDB.scan(getParams).promise();
         return httpResponse(200, registrations.Items);
       } catch (error) {
         console.error("Error retrieving registration:", error);
         return httpResponse(error.statusCode, "Error retrieving registrations");
       }
   }
-  return httpResponse(200, "Transaction was not completed successfully.");
 };
+
+function generateParams(id, amount, created, receipt_email, line_item) {
+  return {
+    TableName: process.env.REGISTRATIONS_TABLE,
+    Item: {
+      id: id,
+      amount: amount,
+      created: created,
+      email: receipt_email,
+      emailLower: receipt_email.toLocaleLowerCase(),
+      course_name: line_item.description,
+      price: line_item.price.unit_amount,
+      product_id: line_item.price.product,
+    },
+  };
+}
