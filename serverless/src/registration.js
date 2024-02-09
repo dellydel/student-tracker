@@ -19,6 +19,7 @@ exports.handler = async (event) => {
             amount: amount,
             created: created,
             email: receipt_email,
+            emailLower: receipt_email.toLocaleLowerCase(),
             course_name: metadata.course_name,
             price: metadata.price,
             product_id: metadata.product_id,
@@ -37,11 +38,13 @@ exports.handler = async (event) => {
       const email = decodeURIComponent(event.queryStringParameters.email);
       const params = {
         TableName: process.env.REGISTRATIONS_TABLE,
-        FilterExpression: "#email = :email",
+        FilterExpression: "#emailLower = :emailLower OR #email = :email",
         ExpressionAttributeNames: {
+          "#emailLower": "emailLower",
           "#email": "email",
         },
         ExpressionAttributeValues: {
+          ":emailLower": email.toLocaleLowerCase(),
           ":email": email,
         },
       };
