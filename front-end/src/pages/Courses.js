@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Box } from "@mui/material";
 import { getCourseRegistrations } from "../api/registrationAPI";
-import Course from "../components/Course";
+import CourseV2 from "../components/CourseV2";
 import { AuthContext } from "../context/AuthContext";
 import { useCoursesData } from "../hooks/useCoursesData";
 import { encodeEmail } from "../utils/emailUtils";
@@ -53,7 +53,7 @@ const Courses = () => {
 					}}
 				>
 					{data.map((course) => (
-						<Course
+						<CourseV2
 							registered={courseIds?.includes(course.id)}
 							course={course}
 							key={course.id}
