@@ -1,4 +1,5 @@
-import httpResponse from "./http_response";
+const AWS = require("aws-sdk");
+const httpResponse = require("./http_response");
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -11,6 +12,9 @@ export const getAllCourses = async () => {
 };
 
 export const getCoursesById = async (courseIds) => {
+  const params = {
+    TableName: process.env.COURSES_TABLE,
+  };
   let courses = await docClient.scan(params).promise();
   const registeredCourses = courses.Items.filter((course) =>
     courseIds.includes(course.id)

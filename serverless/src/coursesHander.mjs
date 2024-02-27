@@ -1,10 +1,8 @@
 const AWS = require("aws-sdk");
 const httpResponse = require("./http_response");
-const { getCourseById, getAllCourses, getCoursesById } = require("./courses");
+import { getCourseById, getAllCourses, getCoursesById } from "./courses.mjs";
 
-const docClient = new AWS.DynamoDB.DocumentClient();
-
-exports.handler = async (event) => {
+export const handler = async (event) => {
   try {
     switch (event.httpMethod) {
       case "POST":
