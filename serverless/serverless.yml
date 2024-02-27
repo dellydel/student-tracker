@@ -58,7 +58,7 @@ functions:
       include:
         - src/registration.js
         - src/registrationHandler.js
-    handler: src/registration.handler
+    handler: src/registrationHandler.handler
     events:
      - http:
          path: /registration
@@ -90,7 +90,7 @@ functions:
         include:
           - src/payments.js
           - src/paymentsHandler.js
-      handler: src/payments.handler
+      handler: src/paymentsHandler.handler
       events:
       - http:
           path: /pay
@@ -106,7 +106,7 @@ functions:
         include:
           - src/materials.js
           - src/materialsHandler.js
-      handler: src/materials.handler
+      handler: src/materialsHandler.handler
       events:
       - http:
           path: /materials
