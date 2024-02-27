@@ -1,38 +1,48 @@
-import AWS from "aws-sdk";
-import httpResponse from "./http_response";
+import {
+  DynamoDBClient,
+  ScanCommand,
+  GetItemCommand,
+} from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
 
-const docClient = new AWS.DynamoDB.DocumentClient();
+import httpResponse from "./http_response.js";
+
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 export const getAllCourses = async () => {
-  const params = {
+  const command = new ScanCommand({
     TableName: process.env.COURSES_TABLE,
-  };
-  let courses = await docClient.scan(params).promise();
-  return httpResponse(200, courses.Items);
+  });
+  let response = await docClient.send(command);
+  const courses = response.Items.map((record) => unmarshall(record));
+  return httpResponse(200, courses);
 };
 
 export const getCoursesById = async (courseIds) => {
-  const params = {
+  const command = new ScanCommand({
     TableName: process.env.COURSES_TABLE,
-  };
-  let courses = await docClient.scan(params).promise();
-  const registeredCourses = courses.Items.filter((course) =>
+  });
+  let response = await docClient.send(command);
+  const courses = response.Items.map((record) => unmarshall(record));
+  const registeredCourses = courses.filter((course) =>
     courseIds.includes(course.id)
   );
   return httpResponse(200, registeredCourses);
 };
 
-export const getCourseById = async (id) => {
-  const params = {
+export const getCourseById = async (courseId) => {
+  const command = new GetItemCommand({
     TableName: process.env.COURSES_TABLE,
     Key: {
-      pk: id,
+      id: { S: courseId },
     },
-  };
+  });
   try {
-    const data = await docClient.get(params).promise();
+    const data = await docClient.send(command);
     if (data.Item) {
-      return httpResponse(200, data.Item);
+      return httpResponse(200, unmarshall(data.Item));
     } else {
       return httpResponse(404, { message: "Course not found" });
     }

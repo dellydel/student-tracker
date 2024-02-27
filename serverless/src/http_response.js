@@ -1,4 +1,4 @@
-export default httpResponse = (statusCode, body) => {
+const httpResponse = (statusCode, body) => {
   return {
     statusCode: statusCode,
     headers: {
@@ -9,3 +9,5 @@ export default httpResponse = (statusCode, body) => {
     body: JSON.stringify(body),
   };
 };
+
+export default httpResponse;
