@@ -89,8 +89,7 @@ functions:
       package: 
         include:
           - src/payments.js
-          - src/paymentsHandler.js
-      handler: src/paymentsHandler.handler
+      handler: src/payments.handler
       events:
       - http:
           path: /pay

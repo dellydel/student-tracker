@@ -4,7 +4,7 @@ import {
   GetCommand,
   DynamoDBDocumentClient,
 } from "@aws-sdk/lib-dynamodb";
-import httpResponse from "./http_response";
+import httpResponse from "./http_response.js";
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);

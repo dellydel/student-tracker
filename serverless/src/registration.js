@@ -5,7 +5,7 @@ import {
   DynamoDBDocumentClient,
 } from "@aws-sdk/lib-dynamodb";
 
-import httpResponse from "./http_response";
+import httpResponse from "./http_response.js";
 import Stripe from "stripe";
 
 const client = new DynamoDBClient({});
