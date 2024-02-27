@@ -17,8 +17,6 @@ custom:
 
 package:
   individually: true
-  exclude:
-    - src/**
   include:
     - node_modules/**
     - package.json
