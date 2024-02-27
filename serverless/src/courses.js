@@ -1,5 +1,5 @@
-const AWS = require("aws-sdk");
-const httpResponse = require("./http_response");
+import AWS from "aws-sdk";
+import httpResponse from "./http_response";
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 

@@ -1,8 +1,8 @@
-const AWS = require("aws-sdk");
+import AWS from "aws-sdk";
+import httpResponse from "./http_response";
 const s3 = new AWS.S3();
-const httpResponse = require("./http_response");
 
-exports.handler = async (event) => {
+export const handler = async () => {
   const params = {
     Bucket: "nextbyte-course-materials",
     Prefix: "cybersecurity",

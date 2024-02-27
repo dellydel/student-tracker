@@ -1,8 +1,8 @@
-const Stripe = require("stripe");
-const httpResponse = require("./http_response");
+import Stripe from "stripe";
+import httpResponse from "./http_response";
 const stripe = Stripe(process.env.STRIPE_SECRET);
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   const method = event.httpMethod;
   switch (method) {
     case "POST":

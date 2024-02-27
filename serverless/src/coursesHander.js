@@ -1,6 +1,5 @@
-const AWS = require("aws-sdk");
-const httpResponse = require("./http_response");
-import { getCourseById, getAllCourses, getCoursesById } from "./courses.mjs";
+import httpResponse from "./http_response";
+import { getCourseById, getAllCourses, getCoursesById } from "./courses.js";
 
 export const handler = async (event) => {
   try {

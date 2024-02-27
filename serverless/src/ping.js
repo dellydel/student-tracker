@@ -1,5 +1,5 @@
-const httpResponse = require("./http_response");
+import httpResponse from "./http_response";
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   return httpResponse(200, "Hello from Nextbyte");
 };
