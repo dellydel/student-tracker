@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import {
 	Card,
 	CardContent,
@@ -7,19 +6,21 @@ import {
 	Grid,
 	TextField,
 	Button,
-	Link,
 	Box,
 } from "@mui/material";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { AuthContext } from "../context/AuthContext";
 
 const linkStyle = {
 	color: "blue",
 	backgroundColor: "white",
 	cursor: "pointer",
+	margin: "0 10px",
 };
 
 const Login = ({ setOpen }) => {
-	const navigate = useNavigate();
+	const router = useRouter();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [awaitingCode, setAwaitingCode] = useState(false);
@@ -61,7 +62,7 @@ const Login = ({ setOpen }) => {
 			if (result.isSignUpComplete) {
 				setOpen(false);
 				setShowLogin(false);
-				navigate("/user");
+				router.push("/user");
 			}
 		} catch (error) {
 			console.log(error);
@@ -97,12 +98,12 @@ const Login = ({ setOpen }) => {
 		} else if (result.complete) {
 			setOpen(false);
 			setShowLogin(false);
-			navigate("/user");
+			router.push("/user");
 		}
 	};
 
 	return (
-		<Card>
+		<Card sx={{ padding: 1 }}>
 			<CardContent>
 				<Typography gutterBottom variant="h6">
 					{!resetPassword && !awaitingNewPassword && "Log in"}
@@ -195,17 +196,16 @@ const Login = ({ setOpen }) => {
 					{!awaitingNewPassword && !awaitingCode && (
 						<Grid xs={12} textAlign={"center"} item>
 							No account?
-							<Link href="./register" sx={linkStyle}>
-								{" "}
+							<Link href="/register" style={linkStyle}>
 								Register Now
 							</Link>
 						</Grid>
 					)}
 					{!resetPassword && !awaitingNewPassword && !awaitingCode && (
 						<Grid xs={12} textAlign={"center"} item>
-							<Link onClick={() => setResetpassword(true)} sx={linkStyle}>
+							<a onClick={() => setResetpassword(true)} style={linkStyle}>
 								Forgot Password?
-							</Link>
+							</a>
 						</Grid>
 					)}
 					{(awaitingCode || awaitingNewPassword) && (

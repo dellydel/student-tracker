@@ -1,11 +1,13 @@
+"use client";
+
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Box } from "@mui/material";
-import { getCourseRegistrations } from "../api/registrationAPI";
-import Course from "../components/Course";
-import { AuthContext } from "../context/AuthContext";
-import { useCoursesData } from "../hooks/useCoursesData";
-import { encodeEmail } from "../utils/emailUtils";
+import { getCourseRegistrations } from "../../api/registrationAPI";
+import Course from "../../components/Course";
+import { AuthContext } from "../../context/AuthContext";
+import { useCoursesData } from "../../hooks/useCoursesData";
+import { encodeEmail } from "../../utils/emailUtils";
 
 const pageLayout = {
 	maxWidth: "1050px",

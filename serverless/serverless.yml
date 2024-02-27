@@ -18,7 +18,7 @@ custom:
 package:
   individually: true
   exclude:
-    - ./**
+    - src/**
   include:
     - node_modules/**
     - package.json
@@ -40,8 +40,8 @@ functions:
     name: courses-lambda-${opt:stage}
     package: 
       include:
-        - src/courses.mjs
-        - src/coursesHandler.mjs
+        - src/courses.js
+        - src/coursesHandler.js
     handler: src/coursesHandler
     events:
      - http:

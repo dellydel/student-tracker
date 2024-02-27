@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Features from "../components/Features";
 import MainHero from "../components/MainHero";
@@ -7,6 +9,11 @@ import SectionDivider from "../components/SectionDivider";
 //import Testimonials from "../components/Testimonials";
 
 const Home = () => {
+	const [hydrated, setHydrated] = useState(false);
+	useEffect(() => {
+		setHydrated(true);
+	}, []);
+
 	const container = {
 		maxWidth: "1050px",
 		px: { xs: 5, md: 15 },
@@ -16,7 +23,7 @@ const Home = () => {
 
 	return (
 		<>
-			<MainHero />
+			{hydrated && <MainHero />}
 			<Box sx={container}>
 				<SectionDivider SectionTitle="Why NextByte?" />
 				<Features />

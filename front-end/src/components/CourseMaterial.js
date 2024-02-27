@@ -24,7 +24,7 @@ const CourseMaterial = ({ file }) => {
 				<Button
 					variant="contained"
 					color="primary"
-					href={file.url}
+					href={`${file.url}`}
 					download
 					target="_blank"
 				>
