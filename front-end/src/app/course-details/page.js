@@ -20,15 +20,10 @@ const CourseDetails = () => {
 	} = useCourseByIdData(id);
 
 	const toCheckout = () => {
-		router.push("/checkout");
-		// router.push("/checkout", {
-		// 	state: {
-		// 		product_id: course.id,
-		// 		course_name: course.name,
-		// 		price: course.price,
-		// 		price_id: course.priceLink,
-		// 	},
-		// });
+		router.push(`/checkout?product_id=${course.data.id}
+		&course_name=${course.data.name}
+		&price=${course.data.price}
+		&price_id=${course.data.priceLink}`);
 	};
 
 	const toCourseMaterials = () => {
@@ -143,6 +138,7 @@ const CourseDetails = () => {
 							</Grid>
 							<Grid xs={12} item sx={{ mt: "10px", mb: "50px" }}>
 								<Button
+									//.disabled={!!course}
 									style={{
 										color: "white",
 										backgroundColor: "green",

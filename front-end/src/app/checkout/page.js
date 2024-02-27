@@ -7,18 +7,22 @@ import {
 	EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { AuthContext } from "../context/AuthContext";
+import { useSearchParams } from "next/navigation";
+import { AuthContext } from "../../context/AuthContext";
 
 const stripePromise = loadStripe(
 	`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`,
 );
 const CheckoutForm = () => {
-	const { state } = useLocation();
+	const searchParams = useSearchParams();
 	const [clientSecret, setClientSecret] = useState();
 	const { isLoggedIn } = useContext(AuthContext);
 
 	useEffect(() => {
-		const { product_id, course_name, price, price_id } = state;
+		const product_id = searchParams.get("product_id");
+		const course_name = searchParams.get("course_name");
+		const price = searchParams.get("price");
+		const price_id = searchParams.get("price_id");
 		fetch(`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/pay`, {
 			method: "POST",
 			body: JSON.stringify({
@@ -29,8 +33,10 @@ const CheckoutForm = () => {
 			}),
 		})
 			.then((res) => res.json())
-			.then((secret) => setClientSecret(secret));
-	}, [state, isLoggedIn]);
+			.then((secret) => {
+				setClientSecret(secret);
+			});
+	}, [isLoggedIn]);
 
 	return (
 		<Box sx={{ m: 5, minHeight: 1000 }}>

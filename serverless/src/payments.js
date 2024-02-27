@@ -17,7 +17,7 @@ export const handler = async (event) => {
             },
           ],
           mode: "payment",
-          return_url: "payment-complete?session_id={CHECKOUT_SESSION_ID}",
+          return_url: `https://${process.env.NEXTBYTE_URL}/payment-complete?session_id={CHECKOUT_SESSION_ID}`,
           automatic_tax: { enabled: false },
           payment_intent_data: {
             metadata: {
