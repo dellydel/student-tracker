@@ -1,4 +1,4 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
 import {
   PutCommand,
   QueryCommand,
@@ -28,22 +28,19 @@ const generateCommand = (id, amount, created, receipt_email, line_item) => {
   });
 };
 
-export const getRegistrationByEmail = async (id) => {
-  const command = new QueryCommand({
+export const getRegistrationByEmail = async (email) => {
+  const command = new ScanCommand({
     TableName: process.env.REGISTRATIONS_TABLE,
-    FilterExpression: "#emailLower = :emailLower OR #email = :email",
-    ExpressionAttributeNames: {
-      "#emailLower": "emailLower",
-      "#email": "email",
-    },
+    FilterExpression: "emailLower = :emailLower OR email = :email",
     ExpressionAttributeValues: {
-      ":emailLower": email.toLocaleLowerCase(),
-      ":email": email,
+      ":emailLower": { S: email.toLocaleLowerCase() },
+      ":email": { S: email },
     },
+    ProjectionExpression: "product_id",
   });
   try {
-    let registrations = await docClient.send(command);
-    return httpResponse(200, registrations.Items);
+    let response = await docClient.send(command);
+    return httpResponse(200, response.Items);
   } catch (error) {
     console.error("Error retrieving registration:", error);
     return httpResponse(error.statusCode, "Error retrieving registrations");

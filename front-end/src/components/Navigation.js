@@ -52,15 +52,15 @@ const navLinkStyle = {
 
 const Navigation = () => {
 	const router = useRouter();
-	//const { isLoggedIn, logout, showLogin, user } = useContext(AuthContext);
+	const { isLoggedIn, logout, showLogin, user } = useContext(AuthContext);
 	const [open, setOpen] = useState(false);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
-	// useEffect(() => {
-	// 	if (showLogin) setOpen(true);
-	// 	else setOpen(false);
-	// }, [showLogin]);
+	useEffect(() => {
+		if (showLogin) setOpen(true);
+		else setOpen(false);
+	}, [showLogin]);
 
 	const handleMenu = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -131,7 +131,7 @@ const Navigation = () => {
 								{page.name}
 							</Link>
 						))}
-						{true ? (
+						{isLoggedIn ? (
 							<>
 								<Link href="/user" style={navLinkStyle}>
 									MY COURSES
@@ -143,7 +143,7 @@ const Navigation = () => {
 										underline="none"
 										style={navLinkStyle}
 									>
-										{/* {user ? user : "LOGOUT"} */}
+										{user ? user : "LOGOUT"}
 									</a>
 								</Box>
 							</>

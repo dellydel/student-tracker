@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useState, useEffect } from "react";
+import { Amplify } from "aws-amplify";
 import {
 	signIn,
 	signOut,
@@ -10,6 +11,9 @@ import {
 	getCurrentUser,
 	fetchUserAttributes,
 } from "aws-amplify/auth";
+import config from "../amplifyconfiguration.json";
+
+Amplify.configure(config);
 
 export const AuthContext = createContext();
 

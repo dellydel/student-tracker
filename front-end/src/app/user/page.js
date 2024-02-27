@@ -28,16 +28,13 @@ const UserInformationScreen = () => {
 				`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/registration?email=${encodedEmail}`,
 			);
 			if (registrations && registrations.data.length > 0) {
-				const courseIds = registrations.data.map(
-					(registration) => registration.product_id,
-				);
 				const courses = await axios.post(
 					`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/courses`,
 					{
-						courseIds,
+						registrations,
 					},
 				);
-				setCourseIds(courseIds);
+				setCourseIds(registrations);
 				setCourses(courses);
 			}
 		};
