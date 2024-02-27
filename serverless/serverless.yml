@@ -40,7 +40,8 @@ functions:
     name: courses-lambda-${opt:stage}
     package: 
       include:
-        - src/coursesHandler.js
+        - src/courses.mjs
+        - src/coursesHandler.mjs
     handler: src/coursesHandler.handler
     events:
      - http:
