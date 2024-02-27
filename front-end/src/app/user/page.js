@@ -1,9 +1,11 @@
+"use client";
+
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Box } from "@mui/material";
 import axios from "axios";
-import Course from "../components/Course";
-import { AuthContext } from "../context/AuthContext";
+import Course from "../../components/Course";
+import { AuthContext } from "../../context/AuthContext";
 
 const pageLayout = {
 	maxWidth: "1050px",
@@ -23,14 +25,14 @@ const UserInformationScreen = () => {
 			if (email === null) return [];
 			const encodedEmail = encodeURIComponent(email);
 			const registrations = await axios.get(
-				`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/registration?email=${encodedEmail}`,
+				`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/registration?email=${encodedEmail}`,
 			);
 			if (registrations && registrations.data.length > 0) {
 				const courseIds = registrations.data.map(
 					(registration) => registration.product_id,
 				);
 				const courses = await axios.post(
-					`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/courses`,
+					`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/courses`,
 					{
 						courseIds,
 					},

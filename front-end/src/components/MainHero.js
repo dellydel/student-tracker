@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { scroller } from "react-scroll";
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Link } from "next/link";
 import { heroText, heroCallToAction } from "../data/homeContent";
 
 const heroStyle = {
@@ -23,6 +23,7 @@ const MainHero = () => {
 	const callToAction = heroCallToAction[random];
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("md"));
+
 	const scrollToFooter = () => {
 		scroller.scrollTo("footer", {
 			duration: 800,
@@ -78,7 +79,7 @@ const MainHero = () => {
 						component={Link}
 						variant="contained"
 						size="medium"
-						to="/courses"
+						href="/courses"
 						sx={{
 							my: 1,
 							p: 2,

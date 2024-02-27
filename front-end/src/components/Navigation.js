@@ -1,12 +1,11 @@
+"use client";
+
 import React, { useContext, useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
 	Toolbar,
 	Box,
 	Modal,
-	Link,
 	Menu,
 	MenuItem,
 	Button,
@@ -17,6 +16,8 @@ import {
 	DialogActions,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { AuthContext } from "../context/AuthContext";
 import Login from "./Login";
 
@@ -36,19 +37,30 @@ const modalStyle = {
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 450,
+	width: 400,
+};
+
+const navLinkStyle = {
+	margin: "16px",
+	padding: "8px",
+	color: "white",
+	textDecoration: "none",
+	fontWeight: "bold",
+	fontSize: "1.2rem",
+	cursor: "pointer",
 };
 
 const Navigation = () => {
-	const { isLoggedIn, logout, showLogin, user } = useContext(AuthContext);
+	const router = useRouter();
+	//const { isLoggedIn, logout, showLogin, user } = useContext(AuthContext);
 	const [open, setOpen] = useState(false);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const navigate = useNavigate();
-	useEffect(() => {
-		if (showLogin) setOpen(true);
-		else setOpen(false);
-	}, [showLogin]);
+
+	// useEffect(() => {
+	// 	if (showLogin) setOpen(true);
+	// 	else setOpen(false);
+	// }, [showLogin]);
 
 	const handleMenu = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -76,9 +88,13 @@ const Navigation = () => {
 						}}
 					>
 						<Link
-							component={RouterLink}
-							to="/"
-							sx={{ my: 1, py: 1, color: "white", textDecoration: "none" }}
+							href="/"
+							style={{
+								margin: "8px 0",
+								padding: "8px 0",
+								color: "white",
+								textDecoration: "none",
+							}}
 						>
 							<Box
 								component="img"
@@ -95,7 +111,11 @@ const Navigation = () => {
 							justifyContent: "flex-end",
 						}}
 					>
-						<IconButton color="inherit" onClick={handleMenu}>
+						<IconButton
+							aria-label="hamburger"
+							color="inherit"
+							onClick={handleMenu}
+						>
 							<MenuIcon sx={{ color: "white" }} />
 						</IconButton>
 					</Box>
@@ -107,67 +127,36 @@ const Navigation = () => {
 						}}
 					>
 						{pages.map((page) => (
-							<Link
-								component={RouterLink}
-								key={page.name}
-								to={page.link}
-								sx={{
-									m: 1,
-									mr: 0,
-									p: 2,
-									color: "white",
-									textDecoration: "none",
-									fontWeight: "bold",
-									fontSize: "1.2rem",
-								}}
-							>
+							<Link key={page.name} href={`${page.link}`} style={navLinkStyle}>
 								{page.name}
 							</Link>
 						))}
-						{isLoggedIn ? (
+						{true ? (
 							<>
-								<Link
-									component={RouterLink}
-									to={"/user"}
-									sx={{
-										m: 1,
-										mr: 0,
-										p: 2,
-										color: "white",
-										textDecoration: "none",
-										fontWeight: "bold",
-										fontSize: "1.2rem",
-									}}
-								>
+								<Link href="/user" style={navLinkStyle}>
 									MY COURSES
 								</Link>
 								<Box sx={loginNav}>
 									|
-									<Link
+									<a
 										onClick={() => setDialogOpen(true)}
 										underline="none"
-										sx={{ color: "white", ml: 5, cursor: "pointer" }}
+										style={navLinkStyle}
 									>
-										{user ? user : "LOGOUT"}
-									</Link>
+										{/* {user ? user : "LOGOUT"} */}
+									</a>
 								</Box>
 							</>
 						) : (
 							<Box sx={loginNav}>
 								|
-								<Link
+								<a
 									underline="none"
-									sx={{
-										m: 1,
-										ml: 5,
-										p: 1,
-										color: "white",
-										cursor: "pointer",
-									}}
+									style={navLinkStyle}
 									onClick={() => setOpen(true)}
 								>
 									<Box component={"span"}>LOGIN /REGISTER</Box>
-								</Link>
+								</a>
 							</Box>
 						)}
 					</Box>
@@ -191,7 +180,7 @@ const Navigation = () => {
 								handleClose();
 							}}
 						>
-							<Button component={RouterLink} underline="none" to={"/courses"}>
+							<Button underline="none" href="/courses">
 								Courses
 							</Button>
 						</MenuItem>
@@ -216,7 +205,7 @@ const Navigation = () => {
 								onClick={() => {
 									logout();
 									setDialogOpen(false);
-									navigate("/");
+									router.push("/");
 								}}
 								color="primary"
 								autoFocus

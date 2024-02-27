@@ -77,7 +77,7 @@ const Register = () => {
 			delete data.password;
 			delete data.confirmPassword;
 			axios
-				.post(`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/students`, {
+				.post(`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/students`, {
 					...data,
 					id: userId.toString(),
 				})

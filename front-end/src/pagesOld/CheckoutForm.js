@@ -9,7 +9,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { AuthContext } from "../context/AuthContext";
 
 const stripePromise = loadStripe(
-	`${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`,
+	`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`,
 );
 const CheckoutForm = () => {
 	const { state } = useLocation();
@@ -18,7 +18,7 @@ const CheckoutForm = () => {
 
 	useEffect(() => {
 		const { product_id, course_name, price, price_id } = state;
-		fetch(`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/pay`, {
+		fetch(`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/pay`, {
 			method: "POST",
 			body: JSON.stringify({
 				product_id,

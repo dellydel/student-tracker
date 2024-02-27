@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Element } from "react-scroll";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -65,13 +67,11 @@ const Footer = () => {
 					</Box>
 					<Box sx={{ flex: 1, textAlign: "right" }}>
 						<List sx={{ ...footerText, listStyle: "none" }}>
-							<li>
+							<li style={{ marginBottom: 50 }}>
 								Nextbyte, LLC
 								<br />
 								Dallas, TX
 							</li>
-							<br />
-							<br />
 							<li>Contact: admin @ nextbyteweb.com</li>
 						</List>
 					</Box>

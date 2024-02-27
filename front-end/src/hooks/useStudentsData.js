@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchStudentById = async (studentId) => {
 	return axios.get(
-		`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/students/${studentId}`,
+		`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/students/${studentId}`,
 	);
 };
 
