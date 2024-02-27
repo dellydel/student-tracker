@@ -1,10 +1,10 @@
-const AWS = require("aws-sdk");
-const httpResponse = require("./http_response");
+import AWS from "aws-sdk";
+import httpResponse from "./http_response";
+import Stripe from "stripe";
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
-const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET);
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   const method = event.httpMethod;
 
   switch (method) {

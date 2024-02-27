@@ -42,7 +42,7 @@ functions:
       include:
         - src/courses.mjs
         - src/coursesHandler.mjs
-    handler: src/coursesHandler.handler
+    handler: src/coursesHandler
     events:
      - http:
          path: /courses
