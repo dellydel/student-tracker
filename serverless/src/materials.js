@@ -1,30 +1,41 @@
-import AWS from "aws-sdk";
-import httpResponse from "./http_response";
-const s3 = new AWS.S3();
+import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import httpResponse from "./http_response.js";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
 
-export const handler = async () => {
-  const params = {
+const client = new S3Client();
+
+const listAllMaterials = async () => {
+  const input = {
     Bucket: "nextbyte-course-materials",
     Prefix: "cybersecurity",
   };
+  const command = new ListObjectsV2Command(input);
+  const data = await client.send(command);
+  if (data.IsTruncated) {
+    throw new Error("Course Materials List truncated");
+  }
+  const objects = data.Contents.filter((item) => item.Key.substr(-1) !== "/");
+  return objects;
+};
 
+const getPresignedUrls = async (objects) => {
+  const files = [];
+  for (const item of objects) {
+    let command = new GetObjectCommand({
+      Bucket: "nextbyte-course-materials",
+      Key: item.Key,
+    });
+    const url = await getSignedUrl(client, command, { expiresIn: 1800 });
+    files.push({ name: item.Key, url: url });
+  }
+  return files;
+};
+
+export const getCourseMaterials = async () => {
   try {
-    const files = [];
-    const data = await s3.listObjectsV2(params).promise();
-    if (data.IsTruncated) {
-      throw new Error("Course Materials List truncated");
-    }
-    const objects = data.Contents.filter((item) => item.Key.substr(-1) !== "/");
-
-    for (const item of objects) {
-      let params = {
-        Bucket: "nextbyte-course-materials",
-        Key: item.Key,
-        Expires: 1800,
-      };
-      const url = await s3.getSignedUrlPromise("getObject", params);
-      files.push({ name: item.Key, url: url });
-    }
+    const objects = await listAllMaterials();
+    const files = await getPresignedUrls(objects);
     return httpResponse(200, files);
   } catch (error) {
     console.error("Error fetching S3 contents:", error);

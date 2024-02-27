@@ -3,7 +3,7 @@ frameworkVersion: "3"
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs18.x
   stackName: serverless-${opt:stage}
   environment:  ${file(env.yml):${self:custom.stage}}
   apiGateway:
@@ -57,6 +57,7 @@ functions:
     package: 
       include:
         - src/registration.js
+        - src/registrationHandler.js
     handler: src/registration.handler
     events:
      - http:
@@ -72,7 +73,8 @@ functions:
     package: 
       include:
         - src/students.js
-    handler: src/students.handler
+        - src/studentsHandler.js
+    handler: src/studentsHandler.handler
     events:
      - http:
          path: /students
@@ -87,6 +89,7 @@ functions:
       package: 
         include:
           - src/payments.js
+          - src/paymentsHandler.js
       handler: src/payments.handler
       events:
       - http:
@@ -102,6 +105,7 @@ functions:
       package: 
         include:
           - src/materials.js
+          - src/materialsHandler.js
       handler: src/materials.handler
       events:
       - http:

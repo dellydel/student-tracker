@@ -1,41 +1,45 @@
-import AWS from "aws-sdk";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+  PutCommand,
+  GetCommand,
+  DynamoDBDocumentClient,
+} from "@aws-sdk/lib-dynamodb";
 import httpResponse from "./http_response";
 
-export const handler = async (event) => {
-  const docClient = new AWS.DynamoDB.DocumentClient();
-  const method = event.httpMethod;
-  switch (method) {
-    case "POST":
-      const postParams = {
-        TableName: process.env.STUDENTS_TABLE,
-        Item: JSON.parse(event.body),
-      };
-      try {
-        await docClient.put(postParams).promise();
-        return httpResponse(
-          201,
-          "Thank you for registering with NextByte. A validation code has been sent to your email address."
-        );
-      } catch (err) {
-        return httpResponse(err.statusCode, err.message);
-      }
-    case "GET":
-      const studentId = event.pathParameters.studentId;
-      const getParams = {
-        TableName: process.env.STUDENTS_TABLE,
-        Key: {
-          id: studentId,
-        },
-      };
-      try {
-        let student = await docClient.get(getParams).promise();
-        return httpResponse(200, student);
-      } catch (error) {
-        console.error("Error retrieving student information:", error);
-        return httpResponse(
-          error.statusCode,
-          "Error retrieving student information"
-        );
-      }
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
+
+export const submitRegistration = async (body) => {
+  const command = new PutCommand({
+    TableName: process.env.STUDENTS_TABLE,
+    Item: body,
+  });
+  try {
+    await docClient.send(command);
+    return httpResponse(
+      201,
+      "Thank you for registering with NextByte. A validation code has been sent to your email address."
+    );
+  } catch (err) {
+    return httpResponse(err.statusCode, err.message);
+  }
+};
+
+export const getStudentById = async (studentId) => {
+  const command = new GetCommand({
+    TableName: process.env.STUDENTS_TABLE,
+    Key: {
+      id: studentId,
+    },
+  });
+  try {
+    let student = await docClient.send(command);
+    return httpResponse(200, student);
+  } catch (error) {
+    console.error("Error retrieving student information:", error);
+    return httpResponse(
+      error.statusCode,
+      "Error retrieving student information"
+    );
   }
 };

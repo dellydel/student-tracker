@@ -2,26 +2,31 @@
 
 import React, { useContext } from "react";
 import { Typography, Grid, Button, Box } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AuthContext } from "../../context/AuthContext";
 import { useCourseByIdData } from "../../hooks/useCoursesData";
 
 const CourseDetails = () => {
 	const router = useRouter();
-	const { courseId } = router.query;
+	const params = useSearchParams();
+	const id = params.get("id");
 	//const { isLoggedIn } = useContext(AuthContext);
-	const { data, isPending, isError, isSuccess, error } =
-		useCourseByIdData(courseId);
+	const {
+		data: course,
+		isPending,
+		isError,
+		isSuccess,
+		error,
+	} = useCourseByIdData(id);
 
-	const courseDetails = getCourseB;
 	const toCheckout = () => {
 		router.push("/checkout");
 		// router.push("/checkout", {
 		// 	state: {
-		// 		product_id: data.course.id,
-		// 		course_name: data.course.name,
-		// 		price: data.course.price,
-		// 		price_id: data.course.priceLink,
+		// 		product_id: course.id,
+		// 		course_name: course.name,
+		// 		price: course.price,
+		// 		price_id: course.priceLink,
 		// 	},
 		// });
 	};
@@ -50,7 +55,7 @@ const CourseDetails = () => {
 							my: 5,
 						}}
 					>
-						{data.course.name}
+						{course.data.name}
 					</Typography>
 					<form>
 						<Grid container spacing={2}>
@@ -64,7 +69,7 @@ const CourseDetails = () => {
 										color: "grey",
 									}}
 								>
-									<b>Duration:</b> {data.course.duration}
+									<b>Duration:</b> {course.data.duration}
 								</span>
 							</Grid>
 							<Grid xs={12} item sx={{ mb: 5 }}>
@@ -79,7 +84,7 @@ const CourseDetails = () => {
 								>
 									<b>Description:</b>
 									<br />
-									{data.course.description}
+									{course.data.description}
 								</span>
 							</Grid>
 							<Grid xs={12} md={6} item>
@@ -97,7 +102,7 @@ const CourseDetails = () => {
 											paddingInlineStart: 0,
 										}}
 									>
-										{data.course.technologies.map((technology, index) => (
+										{course.data.technologies.map((technology, index) => (
 											<li key={index}>{technology}</li>
 										))}
 									</ul>
@@ -119,7 +124,7 @@ const CourseDetails = () => {
 											paddingInlineStart: 0,
 										}}
 									>
-										{data.course.modules.map((outline, index) => (
+										{course.data.modules.map((outline, index) => (
 											<li key={index}>{outline}</li>
 										))}
 									</ul>
@@ -133,7 +138,7 @@ const CourseDetails = () => {
 										color: "grey",
 									}}
 								>
-									<b>Price: {data.course.price}</b>
+									<b>Price: {course.data.price}</b>
 								</span>
 							</Grid>
 							<Grid xs={12} item sx={{ mt: "10px", mb: "50px" }}>
@@ -145,13 +150,15 @@ const CourseDetails = () => {
 									}}
 									variant="contained"
 									onClick={
-										isLoggedIn && data.registered
+										// isLoggedIn && course.data.registered
+										true && course.data.registered
 											? toCourseMaterials
 											: toCheckout
 									}
 								>
-									{isLoggedIn && data.registered
-										? "View Course Material"
+									{true && course.data.registered
+										? //isLoggedIn && course.data.registered
+										  "View Course Material"
 										: "Register for course"}
 								</Button>
 							</Grid>

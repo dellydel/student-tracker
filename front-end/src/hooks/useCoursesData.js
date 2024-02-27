@@ -7,7 +7,7 @@ const fetchCourses = async () => {
 
 const fetchCourseById = async (courseId) => {
 	return axios.get(
-		`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/courses/${courseId}`,
+		`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/courses?courseId=${courseId}`,
 	);
 };
 
@@ -30,7 +30,6 @@ export const useCourseByIdData = (courseId) => {
 	return useQuery({
 		queryKey: ["courses", courseId],
 		queryFn: () => fetchCourseById(courseId),
-		select: (data) => data.data.map((course) => course),
 		enabled: !!courseId,
 	});
 };
