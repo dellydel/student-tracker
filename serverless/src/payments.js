@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import httpResponse from "./http_response";
+import httpResponse from "./http_response.js";
 const stripe = Stripe(process.env.STRIPE_SECRET);
 
 export const handler = async (event) => {
