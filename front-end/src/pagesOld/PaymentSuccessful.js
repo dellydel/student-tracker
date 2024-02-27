@@ -12,7 +12,7 @@ const PaymentSuccessful = () => {
 
 	useEffect(() => {
 		fetch(
-			`${process.env.REACT_APP_API_GATEWAY_BASE_URL}/pay?session_id=${sessionId}`,
+			`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/pay?session_id=${sessionId}`,
 		)
 			.then((res) => res.json())
 			.then((data) => {

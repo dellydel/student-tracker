@@ -18,7 +18,7 @@ custom:
 package:
   individually: true
   exclude:
-    - ./**
+    - src/**
   include:
     - node_modules/**
     - package.json
@@ -41,7 +41,8 @@ functions:
     package: 
       include:
         - src/courses.js
-    handler: src/courses.handler
+        - src/coursesHandler.js
+    handler: src/coursesHandler
     events:
      - http:
          path: /courses
