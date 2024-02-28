@@ -1,10 +1,5 @@
 import { Card, Typography, Box, Chip } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import Link from "next/link";
-
-const ListItem = styled("li")(({ theme }) => ({
-	margin: theme.spacing(0.3),
-}));
 
 const cardStyle = {
 	maxWidth: "450px",
@@ -16,7 +11,7 @@ const cardStyle = {
 	flexDirection: "column",
 	height: "400px",
 };
-const Course = ({ course, registered }) => {
+const Course = ({ course }) => {
 	return (
 		<Card sx={cardStyle}>
 			<Box sx={{ flex: "1 0 auto" }}>
@@ -48,14 +43,14 @@ const Course = ({ course, registered }) => {
 				>
 					{course.technologies.slice(0, 3).map((tech) => {
 						return (
-							<ListItem key={tech}>
+							<li key={tech} style={{ margin: "5px" }}>
 								<Chip
 									sx={{ p: 0.5 }}
 									label={tech}
 									style={{ backgroundColor: "light-grey" }}
 									size="small"
 								/>
-							</ListItem>
+							</li>
 						);
 					})}
 					{course.technologies.length > 4 && (

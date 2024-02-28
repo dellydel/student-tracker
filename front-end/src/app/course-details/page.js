@@ -1,16 +1,20 @@
 "use client";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { useState } from "react";
 import { Typography, Grid, Button, Box } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getCourseRegistrationsByEmail } from "../../api/registrationAPI";
 import { AuthContext } from "../../context/AuthContext";
 import { useCourseByIdData } from "../../hooks/useCoursesData";
+import { encodeEmail } from "../../utils/emailUtils";
 
 const CourseDetails = () => {
 	const router = useRouter();
 	const params = useSearchParams();
 	const id = params.get("id");
-	//const { isLoggedIn } = useContext(AuthContext);
+	const { user } = useContext(AuthContext);
+	const [registered, setRegistered] = useState(null);
 	const {
 		data: course,
 		isPending,
@@ -18,6 +22,25 @@ const CourseDetails = () => {
 		isSuccess,
 		error,
 	} = useCourseByIdData(id);
+
+	useEffect(() => {
+		const fetchRegistrations = async () => {
+			if (user === null) {
+				setRegistered(false);
+				return;
+			}
+			const registrations = await getCourseRegistrationsByEmail(
+				encodeEmail(user),
+			);
+
+			if (registrations && registrations.length > 0) {
+				setRegistered(registrations.includes(course?.data.id));
+			} else {
+				setRegistered(false);
+			}
+		};
+		fetchRegistrations();
+	}, [user]);
 
 	const toCheckout = () => {
 		router.push(`/checkout?product_id=${course.data.id}
@@ -136,28 +159,25 @@ const CourseDetails = () => {
 									<b>Price: {course.data.price}</b>
 								</span>
 							</Grid>
-							<Grid xs={12} item sx={{ mt: "10px", mb: "50px" }}>
-								<Button
-									//.disabled={!!course}
-									style={{
-										color: "white",
-										backgroundColor: "green",
-										mt: "150px",
-									}}
-									variant="contained"
-									onClick={
-										// isLoggedIn && course.data.registered
-										true && course.data.registered
-											? toCourseMaterials
-											: toCheckout
-									}
-								>
-									{true && course.data.registered
-										? //isLoggedIn && course.data.registered
-										  "View Course Material"
-										: "Register for course"}
-								</Button>
-							</Grid>
+							{registered !== null && (
+								<Grid xs={12} item sx={{ mt: "10px", mb: "50px" }}>
+									<Button
+										style={{
+											color: "white",
+											backgroundColor: "green",
+											mt: "150px",
+										}}
+										variant="contained"
+										onClick={
+											user && registered ? toCourseMaterials : toCheckout
+										}
+									>
+										{user && registered
+											? "View Course Material"
+											: "Register for course"}
+									</Button>
+								</Grid>
+							)}
 							<Grid xs={12} item></Grid>
 						</Grid>
 					</form>

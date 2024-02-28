@@ -1,13 +1,5 @@
-"use client";
-
-import { useContext, useEffect } from "react";
-import { useState } from "react";
 import { Box } from "@mui/material";
-import { getCourseRegistrations } from "../../api/registrationAPI";
 import Course from "../../components/Course";
-import { AuthContext } from "../../context/AuthContext";
-import { useCoursesData } from "../../hooks/useCoursesData";
-import { encodeEmail } from "../../utils/emailUtils";
 
 const pageLayout = {
 	maxWidth: "1050px",
@@ -17,52 +9,33 @@ const pageLayout = {
 	mt: 5,
 };
 
-const Courses = () => {
-	const { data, isPending, isError, isSuccess, error } = useCoursesData();
-	const { user } = useContext(AuthContext);
+const getCourses = async () => {
+	const res = await fetch(
+		`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/courses`,
+	);
+	if (!res.ok) {
+		throw new Error("Failed to fetch data");
+	}
+	return res.json();
+};
 
-	const [courseIds, setCourseIds] = useState(null);
-
-	useEffect(() => {
-		const fetchRegistrations = async () => {
-			if (user === null) {
-				setCourseIds([]);
-				return;
-			}
-			const registrations = await getCourseRegistrations(encodeEmail(user));
-
-			if (registrations && registrations.length > 0) {
-				const courseIds = registrations.map(
-					(registration) => registration.product_id,
-				);
-				setCourseIds(courseIds);
-			}
-		};
-		fetchRegistrations();
-	}, [user]);
+const Courses = async () => {
+	const data = await getCourses();
 
 	return (
 		<Box sx={pageLayout}>
-			{isPending && <span>Loading...</span>}
-			{isError && <span>{error.message}</span>}
-			{isSuccess && (
-				<Box
-					component={"div"}
-					sx={{
-						display: "flex",
-						flexWrap: "wrap",
-						justifyContent: "flex-start",
-					}}
-				>
-					{data.map((course) => (
-						<Course
-							registered={courseIds?.includes(course.id)}
-							course={course}
-							key={course.id}
-						/>
-					))}
-				</Box>
-			)}
+			<Box
+				component={"div"}
+				sx={{
+					display: "flex",
+					flexWrap: "wrap",
+					justifyContent: "flex-start",
+				}}
+			>
+				{data.map((course) => (
+					<Course course={course} key={course.id} />
+				))}
+			</Box>
 		</Box>
 	);
 };

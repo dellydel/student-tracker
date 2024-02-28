@@ -8,7 +8,6 @@ import {
 	Button,
 	Box,
 } from "@mui/material";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "../context/AuthContext";
 
@@ -19,7 +18,7 @@ const linkStyle = {
 	margin: "0 10px",
 };
 
-const Login = ({ setOpen }) => {
+const Login = () => {
 	const router = useRouter();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -41,7 +40,7 @@ const Login = ({ setOpen }) => {
 		const result = await login(email, password);
 		switch (result.type) {
 			case "success":
-				setOpen(false);
+				setShowLogin(false);
 				break;
 			case "nextSteps":
 				setAwaitingCode(true);
@@ -60,7 +59,6 @@ const Login = ({ setOpen }) => {
 		try {
 			const result = await handleConfirmation(email, code);
 			if (result.isSignUpComplete) {
-				setOpen(false);
 				setShowLogin(false);
 				router.push("/user");
 			}
@@ -96,10 +94,14 @@ const Login = ({ setOpen }) => {
 			setResetpassword(false);
 			setAwaitingNewPassword(true);
 		} else if (result.complete) {
-			setOpen(false);
 			setShowLogin(false);
 			router.push("/user");
 		}
+	};
+
+	const toRegistration = () => {
+		setShowLogin(false);
+		router.push("/register");
 	};
 
 	return (
@@ -196,9 +198,9 @@ const Login = ({ setOpen }) => {
 					{!awaitingNewPassword && !awaitingCode && (
 						<Grid xs={12} textAlign={"center"} item>
 							No account?
-							<Link href="/register" style={linkStyle}>
+							<a onClick={toRegistration} style={linkStyle}>
 								Register Now
-							</Link>
+							</a>
 						</Grid>
 					)}
 					{!resetPassword && !awaitingNewPassword && !awaitingCode && (

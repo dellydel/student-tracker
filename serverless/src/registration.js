@@ -1,9 +1,6 @@
 import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
-import {
-  PutCommand,
-  QueryCommand,
-  DynamoDBDocumentClient,
-} from "@aws-sdk/lib-dynamodb";
+import { PutCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
 
 import httpResponse from "./http_response.js";
 import Stripe from "stripe";
@@ -40,7 +37,9 @@ export const getRegistrationByEmail = async (email) => {
   });
   try {
     let response = await docClient.send(command);
-    return httpResponse(200, response.Items);
+    const productIdObjs = response.Items.map((record) => unmarshall(record));
+    const productIds = productIdObjs.map((obj) => obj.product_id);
+    return httpResponse(200, productIds);
   } catch (error) {
     console.error("Error retrieving registration:", error);
     return httpResponse(error.statusCode, "Error retrieving registrations");

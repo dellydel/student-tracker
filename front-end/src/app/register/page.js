@@ -15,7 +15,7 @@ import {
 	Box,
 } from "@mui/material";
 import { Snackbar, Alert } from "@mui/material";
-import { Amplify } from "aws-amplify";
+//import { Amplify } from "aws-amplify";
 import { signUp } from "aws-amplify/auth";
 import axios from "axios";
 import awsconfig from "../../aws-exports";
@@ -23,7 +23,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { registrationText } from "../../data/registrationContent";
 import { registrationSchema } from "../../schemas/registrationSchema";
 
-Amplify.configure(awsconfig);
+//Amplify.configure(awsconfig);
 
 const Register = () => {
 	const {

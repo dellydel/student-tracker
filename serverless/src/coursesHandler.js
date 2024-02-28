@@ -6,6 +6,7 @@ export const handler = async (event) => {
     switch (event.httpMethod) {
       case "POST":
         const { courseIds } = JSON.parse(event.body);
+        if (courseIds.length === 0) return httpResponse(200, []);
         return await getCoursesById(courseIds);
       case "GET":
         if (

@@ -8,7 +8,6 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSearchParams } from "next/navigation";
-import { AuthContext } from "../../context/AuthContext";
 
 const stripePromise = loadStripe(
 	`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`,
@@ -16,7 +15,6 @@ const stripePromise = loadStripe(
 const CheckoutForm = () => {
 	const searchParams = useSearchParams();
 	const [clientSecret, setClientSecret] = useState();
-	const { isLoggedIn } = useContext(AuthContext);
 
 	useEffect(() => {
 		const product_id = searchParams.get("product_id");
@@ -36,7 +34,7 @@ const CheckoutForm = () => {
 			.then((secret) => {
 				setClientSecret(secret);
 			});
-	}, [isLoggedIn]);
+	}, []);
 
 	return (
 		<Box sx={{ m: 5, minHeight: 1000 }}>

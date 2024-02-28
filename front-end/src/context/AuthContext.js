@@ -11,6 +11,7 @@ import {
 	getCurrentUser,
 	fetchUserAttributes,
 } from "aws-amplify/auth";
+import { Hub } from "aws-amplify/utils";
 import config from "../amplifyconfiguration.json";
 
 Amplify.configure(config);
@@ -21,21 +22,39 @@ export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [showLogin, setShowLogin] = useState(false);
 
-	useEffect(() => {
-		const getCurrentAuthenticatedUser = async () => {
-			try {
-				const currentUser = await getCurrentUser();
-				if (currentUser) {
-					const userAttributes = await fetchUserAttributes();
-					setUser(userAttributes.email);
-				} else {
-					setUser(null);
-				}
-			} catch (error) {
+	const listener = (data) => {
+		const event = data.payload.event;
+		switch (event) {
+			case "signedIn":
+				const userEmail = data.payload.data.signInDetails?.loginId;
+				setUser(userEmail);
+				break;
+			case "signedOut":
 				setUser(null);
-				console.error("Error fetching user:", error);
+				break;
+			default:
+				break;
+		}
+	};
+
+	Hub.listen("auth", listener);
+
+	const getCurrentAuthenticatedUser = async () => {
+		try {
+			const currentUser = await getCurrentUser();
+			if (currentUser) {
+				const userAttributes = await fetchUserAttributes();
+				setUser(userAttributes.email);
+			} else {
+				setUser(null);
 			}
-		};
+		} catch (error) {
+			setUser(null);
+			console.error("Error fetching user:", error);
+		}
+	};
+
+	useEffect(() => {
 		getCurrentAuthenticatedUser();
 	}, []);
 
@@ -45,8 +64,7 @@ export const AuthProvider = ({ children }) => {
 				username,
 				confirmationCode,
 			});
-			const userAttributes = await fetchUserAttributes();
-			setUser(userAttributes.email);
+			await getCurrentAuthenticatedUser();
 			return result;
 		} catch (error) {
 			return error;
@@ -125,7 +143,6 @@ export const AuthProvider = ({ children }) => {
 	return (
 		<AuthContext.Provider
 			value={{
-				isLoggedIn: !!user,
 				login,
 				logout,
 				user,

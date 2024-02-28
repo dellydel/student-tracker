@@ -52,15 +52,9 @@ const navLinkStyle = {
 
 const Navigation = () => {
 	const router = useRouter();
-	const { isLoggedIn, logout, showLogin, user } = useContext(AuthContext);
-	const [open, setOpen] = useState(false);
+	const { logout, showLogin, setShowLogin, user } = useContext(AuthContext);
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-
-	useEffect(() => {
-		if (showLogin) setOpen(true);
-		else setOpen(false);
-	}, [showLogin]);
 
 	const handleMenu = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -72,9 +66,9 @@ const Navigation = () => {
 
 	return (
 		<>
-			<Modal open={open} onClose={() => setOpen(false)}>
+			<Modal open={showLogin} onClose={() => setShowLogin(false)}>
 				<Box sx={modalStyle}>
-					<Login setOpen={setOpen} />
+					<Login setOpen={setShowLogin} />
 				</Box>
 			</Modal>
 			<Box sx={{ backgroundColor: "black", boxShadow: "none" }}>
@@ -131,7 +125,7 @@ const Navigation = () => {
 								{page.name}
 							</Link>
 						))}
-						{isLoggedIn ? (
+						{user ? (
 							<>
 								<Link href="/user" style={navLinkStyle}>
 									MY COURSES
@@ -153,7 +147,7 @@ const Navigation = () => {
 								<a
 									underline="none"
 									style={navLinkStyle}
-									onClick={() => setOpen(true)}
+									onClick={() => setShowLogin(true)}
 								>
 									<Box component={"span"}>LOGIN /REGISTER</Box>
 								</a>

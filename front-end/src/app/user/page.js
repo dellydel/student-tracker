@@ -4,6 +4,7 @@ import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Box } from "@mui/material";
 import axios from "axios";
+import { getCourseRegistrationsByEmail } from "../../api/registrationAPI";
 import Course from "../../components/Course";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -18,32 +19,29 @@ const pageLayout = {
 const UserInformationScreen = () => {
 	const { user } = useContext(AuthContext);
 	const [courses, setCourses] = useState(null);
-	const [courseIds, setCourseIds] = useState(null);
 
 	useEffect(() => {
 		const getRegisteredCourses = async (email) => {
 			if (email === null) return [];
 			const encodedEmail = encodeURIComponent(email);
-			const registrations = await axios.get(
-				`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/registration?email=${encodedEmail}`,
-			);
-			if (registrations && registrations.data.length > 0) {
+			const registrationProductIds =
+				await getCourseRegistrationsByEmail(encodedEmail);
+			if (registrationProductIds?.length > 0) {
 				const courses = await axios.post(
 					`${process.env.NEXT_PUBLIC_API_GATEWAY_BASE_URL}/courses`,
 					{
-						registrations,
+						courseIds: registrationProductIds,
 					},
 				);
-				setCourseIds(registrations);
 				setCourses(courses);
 			}
 		};
 		getRegisteredCourses(user);
-	}, [user]);
+	}, []);
 
 	return (
 		<Box sx={pageLayout}>
-			{courses && courses.data.length === 0 && (
+			{(!courses || courses.data.length === 0) && (
 				<h3>You have not registered for any upcoming courses.</h3>
 			)}
 			<Box
@@ -56,11 +54,7 @@ const UserInformationScreen = () => {
 			>
 				{courses &&
 					courses.data.map((course) => (
-						<Course
-							registered={courseIds?.includes(course.id)}
-							course={course}
-							key={course.id}
-						/>
+						<Course registered={true} course={course} key={course.id} />
 					))}
 			</Box>
 		</Box>

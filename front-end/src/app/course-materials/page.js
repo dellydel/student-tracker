@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { List, Box, Typography } from "@mui/material";
-import { getAllMaterials } from "../api/materialsAPI";
-import CourseMaterial from "../components/CourseMaterial";
+import { getAllMaterials } from "../../api/materialsAPI";
+import CourseMaterial from "../../components/CourseMaterial";
 
 const pageLayout = {
 	maxWidth: "1050px",
