@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import CourseDetails from "../../components/CourseDetails";
+import Error from "../../components/Error";
 
 const Page = () => {
 	return (
 		<Suspense>
-			<CourseDetails />
+			<Error />
 		</Suspense>
 	);
 };
