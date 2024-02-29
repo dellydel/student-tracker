@@ -31,13 +31,8 @@
   "scripts": {
     "start": "next start",
     "dev": "next dev",
-    "build": " next build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "build": " next build",
+    "lint": "next lint"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
