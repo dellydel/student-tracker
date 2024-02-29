@@ -31,9 +31,7 @@
   "scripts": {
     "start": "next start",
     "dev": "next dev",
-    "start:prod": "env-cmd -f .env.production next start",
-    "build:dev": "env-cmd -f .env.development next build",
-    "build:prod": "env-cmd -f .env.production next build"
+    "build": " next build"
   },
   "eslintConfig": {
     "extends": [
