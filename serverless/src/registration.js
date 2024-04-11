@@ -47,21 +47,24 @@ export const getRegistrationByEmail = async (email) => {
 };
 
 export const createCourseRegistration = async (body) => {
-  if (body.type === "checkout.session.completed") {
+  if (body.type === "payment_intent.succeeded") {
     const session = body.data.object;
-    const { id, amount_total: amount, created, customer_details } = session;
-
-    const line_items = await stripe.checkout.sessions.listLineItems(session.id);
-
-    const command = generateCommand(
-      id,
-      amount,
-      created,
-      customer_details.email,
-      line_items.data[0]
-    );
-
+    const { id, amount, created, receipt_email } = session;
     try {
+      const checkout_session = await stripe.checkout.sessions.list({
+        payment_intent: id,
+        expand: ["data.line_items"],
+      });
+      const lineItems = await stripe.checkout.sessions.listLineItems(
+        checkout_session.data[0].id
+      );
+      const command = generateCommand(
+        id,
+        amount,
+        created,
+        receipt_email,
+        lineItems.data[0]
+      );
       await docClient.send(command);
       return httpResponse(200, "Transaction recorded successfully");
     } catch (error) {
