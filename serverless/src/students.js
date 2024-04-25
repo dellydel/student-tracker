@@ -2,6 +2,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   PutCommand,
   GetCommand,
+  UpdateCommand,
   DynamoDBDocumentClient,
 } from "@aws-sdk/lib-dynamodb";
 import httpResponse from "./http_response.js";
@@ -41,5 +42,29 @@ export const getStudentById = async (studentId) => {
       error.statusCode,
       "Error retrieving student information"
     );
+  }
+};
+
+export const updateStudentById = async (studentId, updatedStudent) => {
+  const command = new UpdateCommand({
+    TableName: process.env.STUDENTS_TABLE,
+    Key: {
+      id: studentId,
+    },
+    UpdateExpression: "SET #data = :data",
+    ExpressionAttributeNames: {
+      "#data": "data",
+    },
+    ExpressionAttributeValues: {
+      ":data": updatedStudent,
+    },
+    ReturnValues: "ALL_NEW",
+  });
+  try {
+    const result = await docClient.send(command);
+    return httpResponse(200, result);
+  } catch (error) {
+    console.error("Error updating student information:", error);
+    return httpResponse(error.statusCode, "Error updating student information");
   }
 };
