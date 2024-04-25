@@ -1,6 +1,6 @@
 import httpResponse from "./http_response.js";
 
-const processContactRequest = async (name, email, message) => {
+export const processContactRequest = async (name, email, message) => {
   await saveRequest(name, email, message);
   return httpResponse(
     200,
