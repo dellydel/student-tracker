@@ -1,7 +1,8 @@
 import httpResponse from "./http_response.js";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
-import { uuidV4 } from "uuidv4";
+import { randomUUID } from "crypto";
+
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
@@ -18,7 +19,7 @@ const generateCommand = (name, email, message) => {
   return new PutCommand({
     TableName: process.env.CONTACT_TABLE,
     Item: {
-      id: uuidV4(),
+      id: randomUUID(),
       name: name,
       email: email,
       message: message,

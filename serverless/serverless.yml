@@ -82,6 +82,10 @@ functions:
          cors: true
      - http:
          path: /students/{studentId}
+         method: put
+         cors: true
+     - http:
+         path: /students/{studentId}
          method: get
 
   payments-lambda:
