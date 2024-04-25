@@ -58,7 +58,18 @@ Resources:
         - AttributeName: id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
-  
+  DynamoDBContact:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "next-byte-Contact-${Env}"
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
   APIGatewayRestAPI:
     Type: "AWS::ApiGateway::RestApi"
     Properties:

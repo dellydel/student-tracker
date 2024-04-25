@@ -111,6 +111,19 @@ functions:
           path: /materials
           method: get
 
+  contact-lambda:
+    name: contact-lambda-${opt:stage}
+    package: 
+      include:
+        - src/contact.js
+        - src/contactHandler.js
+    handler: src/contactHandler.handler
+    events:
+     - http:
+         path: /contact
+         method: post
+         cors: true
+
 resources:
   - Resources:
       IAMServerlessRole:
@@ -146,6 +159,7 @@ resources:
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-${opt:stage}
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-${opt:stage}
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-${opt:stage}
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Contact-${opt:stage}
                   - Effect: Allow
                     Action:
                       - "logs:CreateLogStream"
