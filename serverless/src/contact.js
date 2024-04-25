@@ -1,22 +1,28 @@
 import httpResponse from "./http_response.js";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { uuidV4 } from "uuidv4";
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 export const processContactRequest = async (name, email, message) => {
-  await saveRequest(name, email, message);
+  const command = generateCommand(name, email, message);
+  await docClient.send(command);
   return httpResponse(
     200,
     JSON.stringify({ message: "Success! Your message has been sent." })
   );
 };
 
-const saveRequest = async (name, email, message) => {
-  const params = {
+const generateCommand = (name, email, message) => {
+  return new PutCommand({
     TableName: process.env.CONTACT_TABLE,
     Item: {
+      id: uuidV4(),
       name: name,
       email: email,
       message: message,
       timestamp: Date.now(),
     },
-  };
-  await dynamodb.put(params).promise();
+  });
 };
