@@ -1,9 +1,5 @@
 import httpResponse from "./http_response.js";
-import {
-  submitRegistration,
-  getStudentById,
-  updateStudentById,
-} from "./students.js";
+import { submitRegistration, getStudentById } from "./students.js";
 
 export const handler = async (event) => {
   try {
@@ -19,17 +15,6 @@ export const handler = async (event) => {
           const studentId = event.pathParameters.studentId;
           return await getStudentById(studentId);
         }
-      case "PUT":
-        if (
-          event.pathParameters &&
-          event.pathParameters.studentId &&
-          event.body
-        ) {
-          const studentId = event.pathParameters.studentId;
-          const updatedStudent = JSON.parse(event.body);
-          return await updateStudentById(studentId, updatedStudent);
-        }
-        break;
     }
   } catch (err) {
     return httpResponse(err.statusCode, err.message);

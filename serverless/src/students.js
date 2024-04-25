@@ -2,7 +2,6 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   PutCommand,
   GetCommand,
-  UpdateCommand,
   DynamoDBDocumentClient,
 } from "@aws-sdk/lib-dynamodb";
 import httpResponse from "./http_response.js";
@@ -17,10 +16,7 @@ export const submitRegistration = async (body) => {
   });
   try {
     await docClient.send(command);
-    return httpResponse(
-      201,
-      "Thank you for registering with NextByte. A validation code has been sent to your email address."
-    );
+    return httpResponse(201, "Your submission was successful.");
   } catch (err) {
     return httpResponse(err.statusCode, err.message);
   }
@@ -42,29 +38,5 @@ export const getStudentById = async (studentId) => {
       error.statusCode,
       "Error retrieving student information"
     );
-  }
-};
-
-export const updateStudentById = async (studentId, updatedStudent) => {
-  const command = new UpdateCommand({
-    TableName: process.env.STUDENTS_TABLE,
-    Key: {
-      id: studentId,
-    },
-    UpdateExpression: "SET #data = :data",
-    ExpressionAttributeNames: {
-      "#data": "data",
-    },
-    ExpressionAttributeValues: {
-      ":data": updatedStudent,
-    },
-    ReturnValues: "ALL_NEW",
-  });
-  try {
-    const result = await docClient.send(command);
-    return httpResponse(200, result);
-  } catch (error) {
-    console.error("Error updating student information:", error);
-    return httpResponse(error.statusCode, "Error updating student information");
   }
 };
