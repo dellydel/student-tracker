@@ -1,6 +1,6 @@
 {
 	"name": "serverless",
-  "type": "module",
+	"type": "module",
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
@@ -9,6 +9,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"stripe": "^14.2.0"
+		"stripe": "^14.2.0",
+		"uuid": "^9.0.1"
 	}
 }
