@@ -83,6 +83,9 @@ functions:
      - http:
          path: /students/{studentId}
          method: get
+     - http:
+         path: /students
+         method: get
 
   payments-lambda:
       name: payments-lambda-${opt:stage}

@@ -1,5 +1,9 @@
 import httpResponse from "./http_response.js";
-import { submitRegistration, getStudentById } from "./students.js";
+import {
+  submitRegistration,
+  getStudentById,
+  getStudentByEmail,
+} from "./students.js";
 
 export const handler = async (event) => {
   try {
@@ -8,12 +12,17 @@ export const handler = async (event) => {
         const body = JSON.parse(event.body);
         return await submitRegistration(body);
       case "GET":
-        if (
-          event.queryStringParameters &&
-          event.queryStringParameters.studentId
-        ) {
+        if (event.pathParameters && event.pathParameters.studentId) {
           const studentId = event.pathParameters.studentId;
           return await getStudentById(studentId);
+        } else if (
+          event.queryStringParameters &&
+          event.queryStringParameters.email
+        ) {
+          const email = event.queryStringParameters.email;
+          return await getStudentByEmail(email);
+        } else {
+          return httpResponse(400, "Invalid request");
         }
     }
   } catch (err) {

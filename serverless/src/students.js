@@ -1,4 +1,4 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, QueryCommand } from "@aws-sdk/client-dynamodb";
 import {
   PutCommand,
   GetCommand,
@@ -32,6 +32,30 @@ export const getStudentById = async (studentId) => {
   try {
     let student = await docClient.send(command);
     return httpResponse(200, student);
+  } catch (error) {
+    console.error("Error retrieving student information:", error);
+    return httpResponse(
+      error.statusCode,
+      "Error retrieving student information"
+    );
+  }
+};
+
+export const getStudentByEmail = async (email) => {
+  const params = {
+    TableName: process.env.STUDENTS_TABLE,
+    IndexName: "EmailIndex",
+    KeyConditionExpression: "email = :email",
+    ExpressionAttributeValues: {
+      ":email": { S: email },
+    },
+  };
+
+  const command = new QueryCommand(params);
+
+  try {
+    let result = await client.send(command);
+    return httpResponse(200, result.Items);
   } catch (error) {
     console.error("Error retrieving student information:", error);
     return httpResponse(
