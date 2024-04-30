@@ -163,6 +163,7 @@ resources:
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-${opt:stage}
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-${opt:stage}
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Contact-${opt:stage}
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-${opt:stage}/index/EmailIndex
                   - Effect: Allow
                     Action:
                       - "logs:CreateLogStream"
