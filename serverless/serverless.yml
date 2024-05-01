@@ -3,7 +3,7 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  # runtime: nodejs18.x
+  runtime: nodejs18.x
   stackName: serverless-${opt:stage}
   environment: ${file(env.yml):${self:custom.stage}}
   apiGateway:
@@ -25,11 +25,10 @@ package:
 
 functions:
   ping:
-    runtime: python3.11
     name: ping-lambda-${opt:stage}
     package:
       include:
-        - ping.py
+        - ping.js
     handler: src/ping.handler
     events:
       - http:
@@ -37,7 +36,6 @@ functions:
           method: get
 
   courses-lambda:
-    runtime: nodejs18.x
     name: courses-lambda-${opt:stage}
     package:
       include:
@@ -54,7 +52,6 @@ functions:
           cors: true
 
   registration-lambda:
-    runtime: nodejs18.x
     name: registration-lambda-${opt:stage}
     package:
       include:
@@ -71,7 +68,6 @@ functions:
           method: get
 
   students-lambda:
-    runtime: nodejs18.x
     name: students-lambda-${opt:stage}
     package:
       include:
@@ -91,7 +87,6 @@ functions:
           method: get
 
   payments-lambda:
-    runtime: nodejs18.x
     name: payments-lambda-${opt:stage}
     package:
       include:
@@ -107,7 +102,6 @@ functions:
           method: get
 
   materials-lambda:
-    runtime: nodejs18.x
     name: materials-lambda-${opt:stage}
     package:
       include:
@@ -120,7 +114,6 @@ functions:
           method: get
 
   contact-lambda:
-    runtime: nodejs18.x
     name: contact-lambda-${opt:stage}
     package:
       include:
