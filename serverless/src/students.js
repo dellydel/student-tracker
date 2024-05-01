@@ -5,6 +5,7 @@ import {
   DynamoDBDocumentClient,
 } from "@aws-sdk/lib-dynamodb";
 import httpResponse from "./http_response.js";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
@@ -52,10 +53,11 @@ export const getStudentByEmail = async (email) => {
   };
 
   const command = new QueryCommand(params);
-
   try {
     let result = await client.send(command);
-    return httpResponse(200, result.Items);
+    const student = result.Items.map((record) => unmarshall(record));
+
+    return httpResponse(200, student[0] ?? []);
   } catch (error) {
     console.error("Error retrieving student information:", error);
     return httpResponse(

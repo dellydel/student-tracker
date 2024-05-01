@@ -1,19 +1,18 @@
 service: serverless
-frameworkVersion: "3"
+frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  # runtime: nodejs18.x
   stackName: serverless-${opt:stage}
-  environment:  ${file(env.yml):${self:custom.stage}}
+  environment: ${file(env.yml):${self:custom.stage}}
   apiGateway:
     restApiId: ${ssm:nextbyte-api-restApiId-${opt:stage}}
     restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-${opt:stage}}
   iam:
     role: IAMServerlessRole
 custom:
-    stage: ${opt:stage, self:provider.stage}
-    
+  stage: ${opt:stage, self:provider.stage}
 
 package:
   individually: true
@@ -26,74 +25,79 @@ package:
 
 functions:
   ping:
+    runtime: python3.11
     name: ping-lambda-${opt:stage}
-    package: 
+    package:
       include:
         - ping.js
     handler: src/ping.handler
     events:
-     - http:
-         path: /ping
-         method: get
-  
+      - http:
+          path: /ping
+          method: get
+
   courses-lambda:
+    runtime: nodejs18.x
     name: courses-lambda-${opt:stage}
-    package: 
+    package:
       include:
         - src/courses.js
         - src/coursesHandler.js
     handler: src/coursesHandler.handler
     events:
-     - http:
-         path: /courses
-         method: get
-     - http:
-         path: /courses
-         method: post
-         cors: true
-  
+      - http:
+          path: /courses
+          method: get
+      - http:
+          path: /courses
+          method: post
+          cors: true
+
   registration-lambda:
+    runtime: nodejs18.x
     name: registration-lambda-${opt:stage}
-    package: 
+    package:
       include:
         - src/registration.js
         - src/registrationHandler.js
     handler: src/registrationHandler.handler
     events:
-     - http:
-         path: /registration
-         method: post
-         cors: true
-     - http:
-         path: /registration
-         method: get
+      - http:
+          path: /registration
+          method: post
+          cors: true
+      - http:
+          path: /registration
+          method: get
 
   students-lambda:
+    runtime: nodejs18.x
     name: students-lambda-${opt:stage}
-    package: 
+    package:
       include:
         - src/students.js
         - src/studentsHandler.js
     handler: src/studentsHandler.handler
     events:
-     - http:
-         path: /students
-         method: post
-         cors: true
-     - http:
-         path: /students/{studentId}
-         method: get
-     - http:
-         path: /students
-         method: get
+      - http:
+          path: /students
+          method: post
+          cors: true
+      - http:
+          path: /students/{studentId}
+          method: get
+      - http:
+          path: /students
+          method: get
 
   payments-lambda:
-      name: payments-lambda-${opt:stage}
-      package: 
-        include:
-          - src/payments.js
-      handler: src/payments.handler
-      events:
+    runtime: nodejs18.x
+    name: payments-lambda-${opt:stage}
+    package:
+      include:
+        - src/payments.js
+    handler: src/payments.handler
+    events:
       - http:
           path: /pay
           method: post
@@ -103,29 +107,31 @@ functions:
           method: get
 
   materials-lambda:
-      name: materials-lambda-${opt:stage}
-      package: 
-        include:
-          - src/materials.js
-          - src/materialsHandler.js
-      handler: src/materialsHandler.handler
-      events:
+    runtime: nodejs18.x
+    name: materials-lambda-${opt:stage}
+    package:
+      include:
+        - src/materials.js
+        - src/materialsHandler.js
+    handler: src/materialsHandler.handler
+    events:
       - http:
           path: /materials
           method: get
 
   contact-lambda:
+    runtime: nodejs18.x
     name: contact-lambda-${opt:stage}
-    package: 
+    package:
       include:
         - src/contact.js
         - src/contactHandler.js
     handler: src/contactHandler.handler
     events:
-     - http:
-         path: /contact
-         method: post
-         cors: true
+      - http:
+          path: /contact
+          method: post
+          cors: true
 
 resources:
   - Resources:
@@ -133,32 +139,32 @@ resources:
         Type: AWS::IAM::Role
         Properties:
           AssumeRolePolicyDocument:
-            Version: "2012-10-17"
+            Version: '2012-10-17'
             Statement:
               - Effect: Allow
                 Principal:
                   Service:
                     - lambda.amazonaws.com
                 Action:
-                  - "sts:AssumeRole"
+                  - sts:AssumeRole
           Policies:
             - PolicyName: Policy_api-lambda-db
               PolicyDocument:
-                Version: "2012-10-17"
+                Version: '2012-10-17'
                 Statement:
                   - Effect: Allow
                     Action:
-                      - "dynamodb:BatchGetItem"
-                      - "dynamodb:BatchWriteItem"
-                      - "dynamodb:TagResource"
-                      - "dynamodb:UntagResource"
-                      - "dynamodb:PutItem"
-                      - "dynamodb:DeleteItem"
-                      - "dynamodb:GetItem"
-                      - "dynamodb:Scan"
-                      - "dynamodb:Query"
-                      - "dynamodb:UpdateItem"
-                    Resource: 
+                      - dynamodb:BatchGetItem
+                      - dynamodb:BatchWriteItem
+                      - dynamodb:TagResource
+                      - dynamodb:UntagResource
+                      - dynamodb:PutItem
+                      - dynamodb:DeleteItem
+                      - dynamodb:GetItem
+                      - dynamodb:Scan
+                      - dynamodb:Query
+                      - dynamodb:UpdateItem
+                    Resource:
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-${opt:stage}
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-${opt:stage}
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-${opt:stage}
@@ -166,14 +172,14 @@ resources:
                       - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-${opt:stage}/index/EmailIndex
                   - Effect: Allow
                     Action:
-                      - "logs:CreateLogStream"
-                      - "logs:CreateLogGroup"
-                      - "logs:PutLogEvents"
-                    Resource: "*"
+                      - logs:CreateLogStream
+                      - logs:CreateLogGroup
+                      - logs:PutLogEvents
+                    Resource: '*'
                   - Effect: Allow
                     Action:
-                      -  "s3:GetObject"
-                      -  "s3:ListBucket"
-                    Resource: 
+                      - s3:GetObject
+                      - s3:ListBucket
+                    Resource:
                       - arn:aws:s3:::nextbyte-course-materials
                       - arn:aws:s3:::nextbyte-course-materials/*
