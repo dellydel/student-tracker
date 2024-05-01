@@ -13,6 +13,14 @@ Conditions:
     - !Ref Env
     - development
 Resources:
+  ContactTopic: 
+    Type: AWS::SNS::Topic
+    Properties: 
+      FifoTopic: false
+      Subscription: 
+        - Endpoint: "admin@nextbyteweb.com"
+          Protocol: "email"
+      TopicName: ContactTopic
   DynamoDBStudents:
     Type: AWS::DynamoDB::Table
     DeletionPolicy: Retain
