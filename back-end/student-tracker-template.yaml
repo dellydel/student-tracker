@@ -18,7 +18,9 @@ Resources:
     Properties: 
       FifoTopic: false
       Subscription: 
-        - Endpoint: "admin@nextbyteweb.com"
+        - Endpoint: "info@nextbyteweb.com"
+          Protocol: "email"
+        - Endpoint: "dhall@nextbyteweb.com"
           Protocol: "email"
       TopicName: ContactTopic
   DynamoDBStudents:
