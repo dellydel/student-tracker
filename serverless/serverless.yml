@@ -29,7 +29,7 @@ functions:
     name: ping-lambda-${opt:stage}
     package:
       include:
-        - ping.js
+        - ping.py
     handler: src/ping.handler
     events:
       - http:
