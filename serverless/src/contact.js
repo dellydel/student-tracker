@@ -1,5 +1,5 @@
 import httpResponse from "./http_response.js";
-import { SNSClient } from "@aws-sdk/client-sns";
+import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { randomUUID } from "crypto";
@@ -32,8 +32,10 @@ const generateCommand = (name, email, message) => {
 };
 
 const sendContactEmailNotification = async () => {
-  await snsClient.publish({
-    TopicArn: process.env.CONTACT_TOPIC,
-    Message: "A new contact / more informtion request has been submitted",
-  });
+  await snsClient.send(
+    new PublishCommand({
+      TopicArn: process.env.CONTACT_TOPIC,
+      Message: "A new contact / more informtion request has been submitted",
+    })
+  );
 };

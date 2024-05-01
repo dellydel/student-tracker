@@ -176,3 +176,8 @@ resources:
                     Resource:
                       - arn:aws:s3:::nextbyte-course-materials
                       - arn:aws:s3:::nextbyte-course-materials/*
+                  - Effect: Allow
+                    Action:
+                      - sns:Publish
+                    Resource:
+                      - arn:aws:sns:us-east-1:893303684985:ContactTopic
