@@ -22,7 +22,7 @@ Resources:
           Protocol: "email"
         - Endpoint: "dhall@nextbyteweb.com"
           Protocol: "email"
-      TopicName: ContactTopic
+      TopicName:  !Sub "ContactTopic-${Env}"
   DynamoDBStudents:
     Type: AWS::DynamoDB::Table
     DeletionPolicy: Retain
