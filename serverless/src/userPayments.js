@@ -6,17 +6,15 @@ import { unmarshall } from "@aws-sdk/util-dynamodb";
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
-export const retrievePayments = async (email, productId) => {
+export const retrievePayments = async (email) => {
   const command = new ScanCommand({
     TableName: process.env.REGISTRATIONS_TABLE,
-    FilterExpression:
-      "emailLower = :emailLower OR email = :email AND productId = :productId",
+    FilterExpression: "emailLower = :emailLower OR email = :email",
     ExpressionAttributeValues: {
       ":emailLower": { S: email.toLocaleLowerCase() },
       ":email": { S: email },
-      ":productId": { S: productId },
     },
-    ProjectionExpression: "amount, created",
+    ProjectionExpression: "amount, created, course_name",
   });
   try {
     let response = await docClient.send(command);
@@ -25,6 +23,7 @@ export const retrievePayments = async (email, productId) => {
     const amounts = responseObjects.map((obj) => ({
       date: new Date(obj.created * 1000).toLocaleString(),
       amount: obj.amount,
+      name: obj.course_name,
     }));
     return httpResponse(200, amounts);
   } catch (error) {
