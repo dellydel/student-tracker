@@ -16,13 +16,17 @@ export const retrievePayments = async (email, productId) => {
       ":email": { S: email },
       ":productId": { S: productId },
     },
-    ProjectionExpression: "amount",
+    ProjectionExpression: "amount, created",
   });
   try {
     let response = await docClient.send(command);
-    const idObjs = response.Items.map((record) => unmarshall(record));
-    const ids = idObjs.map((obj) => obj.id);
-    return httpResponse(200, ids);
+    const responseObjects = response.Items.map((record) => unmarshall(record));
+
+    const amounts = responseObjects.map((obj) => ({
+      date: new Date(obj.created * 1000).toLocaleString(),
+      amount: obj.amount,
+    }));
+    return httpResponse(200, amounts);
   } catch (error) {
     console.error("Error retrieving payment amounts:", error);
     return httpResponse(error.statusCode, "Error retrieving payment amounts");
