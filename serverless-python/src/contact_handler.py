@@ -1,5 +1,5 @@
 import json 
-from src.http_response import create_response
+from error_handler import handle_client_error
 from src.contact import processContactRequest
 from botocore.exceptions import ClientError
 
@@ -11,6 +11,4 @@ def handler(event, _):
     message = body.get("message")
     return processContactRequest(name, email, message)
   except ClientError as err:
-    statusCode = err.statusCode if hasattr(err, 'statusCode') else 500
-    message = err.message if hasattr(err, 'message') else 'Internal Server Error'
-    return create_response(statusCode, message)
+      handle_client_error(err)
