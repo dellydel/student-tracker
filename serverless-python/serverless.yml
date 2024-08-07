@@ -17,6 +17,7 @@ custom:
 package:
   individually: true
   patterns:
+    - '!./**'
     - 'src/http_response.py'
     - '!package.json'
     - '!package-lock.json'
@@ -27,8 +28,8 @@ functions:
     name: ping-python-lambda-${opt:stage}   
     package:
       patterns:
-        - src/pingPython.py
-    handler: src/pingPython.handler
+        - src/ping_python.py
+    handler: src/ping_python.handler
     events:
       - http:
           path: /ping-python
