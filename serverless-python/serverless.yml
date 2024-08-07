@@ -3,7 +3,7 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: python3.11
   stackName: serverless-${opt:stage}
   environment: ${file(env.yml):${self:custom.stage}}
   apiGateway:
@@ -17,123 +17,20 @@ custom:
 package:
   individually: true
   patterns:
-    - '!./**'
-    - node_modules/**
-    - package.json
-    - src/http_response.js
-
+    - src/http_response.py
+    - '!package.json'
+    - '!package-lock.json'
+    - '!node_modules/**''
 functions:
-  ping:
-    name: ping-lambda-${opt:stage}
+  ping-python:
+    name: ping-python-lambda-${opt:stage}   
     package:
       patterns:
-        - ping.js
-    handler: src/ping.handler
+        - pingPython.py
+    handler: src/pingPython.handler
     events:
       - http:
-          path: /ping
-          method: get
-  courses-lambda:
-    name: courses-lambda-${opt:stage}
-    package:
-      include:
-        - src/courses.js
-        - src/coursesHandler.js
-    handler: src/coursesHandler.handler
-    events:
-      - http:
-          path: /courses
-          method: get
-      - http:
-          path: /courses
-          method: post
-          cors: true
-
-  registration-lambda:
-    name: registration-lambda-${opt:stage}
-    package:
-      patterns:
-        - src/registration.js
-        - src/registrationHandler.js
-    handler: src/registrationHandler.handler
-    events:
-      - http:
-          path: /registration
-          method: post
-          cors: true
-      - http:
-          path: /registration
-          method: get
-
-  students-lambda:
-    name: students-lambda-${opt:stage}
-    package:
-      patterns:
-        - src/students.js
-        - src/studentsHandler.js
-    handler: src/studentsHandler.handler
-    events:
-      - http:
-          path: /students
-          method: post
-          cors: true
-      - http:
-          path: /students/{studentId}
-          method: get
-      - http:
-          path: /students
-          method: get
-
-  payments-lambda:
-    name: payments-lambda-${opt:stage}
-    package:
-      patterns:
-        - src/payments.js
-    handler: src/payments.handler
-    events:
-      - http:
-          path: /pay
-          method: post
-          cors: true
-      - http:
-          path: /pay
-          method: get
-
-  materials-lambda:
-    name: materials-lambda-${opt:stage}
-    package:
-      patterns:
-        - src/materials.js
-        - src/materialsHandler.js
-    handler: src/materialsHandler.handler
-    events:
-      - http:
-          path: /materials
-          method: get
-
-  contact-lambda:
-    name: contact-lambda-${opt:stage}
-    package:
-      patterns:
-        - src/contact.js
-        - src/contactHandler.js
-    handler: src/contactHandler.handler
-    events:
-      - http:
-          path: /contact
-          method: post
-          cors: true
-
-  user-payments-lambda:
-    name: user-payments-lambda-${opt:stage}
-    package:
-      patterns:
-        - src/userPayments.js
-        - src/userPaymentsHandler.js
-    handler: src/userPaymentsHandler.handler
-    events:
-      - http:
-          path: /user-payments
+          path: /ping-python
           method: get
 
 resources:
@@ -191,3 +88,6 @@ resources:
                       - sns:Publish
                     Resource:
                       - arn:aws:sns:us-east-1:893303684985:ContactTopic
+
+plugins:
+  - serverless-python-requirements
