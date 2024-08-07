@@ -39,8 +39,8 @@ functions:
       package:
         patterns:
           - 'src/contact.py'
-          - 'src/contactHandler.py'
-      handler: src/contactHandler.handler
+          - 'src/contact_handler.py'
+      handler: src/contact_handler.handler
       events:
         - http:
             path: /contact-python
@@ -100,7 +100,7 @@ resources:
                     Action:
                       - sns:Publish
                     Resource:
-                      - arn:aws:sns:us-east-1:893303684985:ContactTopic
+                      - arn:aws:sns:us-east-1:893303684985:ContactTopic-${opt:stage}
 
 plugins:
   - serverless-python-requirements

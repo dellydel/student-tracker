@@ -4,19 +4,19 @@ import os
 import datetime
 import uuid
 from src.http_response import create_response
-
+from time import time
 dynamodb = boto3.resource('dynamodb')
-sns = boto3.resource('sns')
+sns = boto3.client('sns')
 
 def processContactRequest (name, email, message):
-  table = dynamodb.Table({os.environ.get("CONTACT_TABLE")})
+  table = dynamodb.Table(os.environ.get("CONTACT_TABLE"))
   table.put_item(
       Item={
-        'id': uuid.uuid4,
+        'id': str(uuid.uuid4()),
         'name': name,
         'email': email,
         'message': message,
-        'timestamp': datetime.datetime.now()
+        'timestamp': int(time() * 1000)
       }
   )
   sendContactEmailNotification()
