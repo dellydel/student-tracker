@@ -16,9 +16,8 @@ custom:
 
 package:
   individually: true
-  exclude:
-    - ./**
-  include:
+  patterns:
+    - '!./**'
     - node_modules/**
     - package.json
     - src/http_response.js
@@ -27,7 +26,7 @@ functions:
   ping:
     name: ping-lambda-${opt:stage}
     package:
-      include:
+      patterns:
         - ping.js
     handler: src/ping.handler
     events:
@@ -38,13 +37,12 @@ functions:
     name: ping-python-lambda-${opt:stage}
     runtime: python3.11
     package:
-      exclude:
-      - package.json
-      - package-lock.json
-      - node_modules/**
-      include:
+      patterns:
         - pingPython.py
         - src/http_response.py
+        - '!package.json'
+        - '!package-lock.json'
+        - '!node_modules/**''
     handler: src/pingPython.handler
     events:
       - http:
@@ -69,7 +67,7 @@ functions:
   registration-lambda:
     name: registration-lambda-${opt:stage}
     package:
-      include:
+      patterns:
         - src/registration.js
         - src/registrationHandler.js
     handler: src/registrationHandler.handler
@@ -85,7 +83,7 @@ functions:
   students-lambda:
     name: students-lambda-${opt:stage}
     package:
-      include:
+      patterns:
         - src/students.js
         - src/studentsHandler.js
     handler: src/studentsHandler.handler
@@ -104,7 +102,7 @@ functions:
   payments-lambda:
     name: payments-lambda-${opt:stage}
     package:
-      include:
+      patterns:
         - src/payments.js
     handler: src/payments.handler
     events:
@@ -119,7 +117,7 @@ functions:
   materials-lambda:
     name: materials-lambda-${opt:stage}
     package:
-      include:
+      patterns:
         - src/materials.js
         - src/materialsHandler.js
     handler: src/materialsHandler.handler
@@ -131,7 +129,7 @@ functions:
   contact-lambda:
     name: contact-lambda-${opt:stage}
     package:
-      include:
+      patterns:
         - src/contact.js
         - src/contactHandler.js
     handler: src/contactHandler.handler
@@ -144,7 +142,7 @@ functions:
   user-payments-lambda:
     name: user-payments-lambda-${opt:stage}
     package:
-      include:
+      patterns:
         - src/userPayments.js
         - src/userPaymentsHandler.js
     handler: src/userPaymentsHandler.handler
