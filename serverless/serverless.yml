@@ -18,16 +18,15 @@ package:
   individually: true
   patterns:
     - '!./**'
-    - node_modules/**
-    - package.json
-    - src/http_response.js
+    - 'package.json'
+    - 'src/http_response.js'
 
 functions:
   ping:
     name: ping-lambda-${opt:stage}
     package:
       patterns:
-        - ping.js
+        - 'ping.js'
     handler: src/ping.handler
     events:
       - http:
@@ -37,8 +36,8 @@ functions:
     name: courses-lambda-${opt:stage}
     package:
       include:
-        - src/courses.js
-        - src/coursesHandler.js
+        - 'src/courses.js'
+        - 'src/coursesHandler.js'
     handler: src/coursesHandler.handler
     events:
       - http:
@@ -53,8 +52,8 @@ functions:
     name: registration-lambda-${opt:stage}
     package:
       patterns:
-        - src/registration.js
-        - src/registrationHandler.js
+        - 'src/registration.js'
+        - 'src/registrationHandler.js'
     handler: src/registrationHandler.handler
     events:
       - http:
@@ -69,8 +68,8 @@ functions:
     name: students-lambda-${opt:stage}
     package:
       patterns:
-        - src/students.js
-        - src/studentsHandler.js
+        - 'src/students.js'
+        - 'src/studentsHandler.js'
     handler: src/studentsHandler.handler
     events:
       - http:
@@ -88,7 +87,7 @@ functions:
     name: payments-lambda-${opt:stage}
     package:
       patterns:
-        - src/payments.js
+        - 'src/payments.js'
     handler: src/payments.handler
     events:
       - http:
@@ -103,8 +102,8 @@ functions:
     name: materials-lambda-${opt:stage}
     package:
       patterns:
-        - src/materials.js
-        - src/materialsHandler.js
+        - 'src/materials.js'
+        - 'src/materialsHandler.js'
     handler: src/materialsHandler.handler
     events:
       - http:
@@ -115,8 +114,8 @@ functions:
     name: contact-lambda-${opt:stage}
     package:
       patterns:
-        - src/contact.js
-        - src/contactHandler.js
+        - 'src/contact.js'
+        - 'src/contactHandler.js'
     handler: src/contactHandler.handler
     events:
       - http:
@@ -128,8 +127,8 @@ functions:
     name: user-payments-lambda-${opt:stage}
     package:
       patterns:
-        - src/userPayments.js
-        - src/userPaymentsHandler.js
+        - 'src/userPayments.js'
+        - 'src/userPaymentsHandler.js'
     handler: src/userPaymentsHandler.handler
     events:
       - http:
