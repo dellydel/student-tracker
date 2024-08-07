@@ -22,17 +22,6 @@ package:
     - 'src/http_response.js'
 
 functions:
-  ping:
-    name: ping-lambda-${opt:stage}
-    package:
-      patterns:
-        - 'src/ping.js'
-    handler: src/ping.handler
-    events:
-      - http:
-          path: /ping
-          method: get
-  
   courses-lambda:
     name: courses-lambda-${opt:stage}
     package:
