@@ -33,6 +33,21 @@ functions:
       - http:
           path: /ping
           method: get
+  ping-python:
+    name: ping-python-lambda-${opt:stage}
+    runtime: python3.11
+    package:
+      patterns:
+        - pingPython.py
+        - src/http_response.py
+        - '!package.json'
+        - '!package-lock.json'
+        - '!node_modules/**''
+    handler: src/pingPython.handler
+    events:
+      - http:
+          path: /ping-python
+          method: get
   courses-lambda:
     name: courses-lambda-${opt:stage}
     package:
@@ -191,3 +206,6 @@ resources:
                       - sns:Publish
                     Resource:
                       - arn:aws:sns:us-east-1:893303684985:ContactTopic
+
+plugins:
+  - serverless-python-requirements

@@ -1,0 +1,19 @@
+{
+	"name": "nextbyte-serverless",
+	"type": "module",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"deploy": "serverless deploy"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"stripe": "^14.2.0",
+		"uuid": "^9.0.1"
+	},
+	"devDependencies": {
+		"serverless": "^3.0.0",
+		"serverless-python-requirements": "^6.1.0"
+	}
+}
