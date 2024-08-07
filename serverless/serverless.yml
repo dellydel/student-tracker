@@ -38,8 +38,13 @@ functions:
     name: ping-python-lambda-${opt:stage}
     runtime: python3.11
     package:
+      exclude:
+      - package.json
+      - package-lock.json
+      - node_modules/**
       include:
         - pingPython.py
+        - src/http_response.py
     handler: src/pingPython.handler
     events:
       - http:
@@ -203,3 +208,6 @@ resources:
                       - sns:Publish
                     Resource:
                       - arn:aws:sns:us-east-1:893303684985:ContactTopic
+
+plugins:
+  - serverless-python-requirements
