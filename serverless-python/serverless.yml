@@ -57,7 +57,41 @@ functions:
       - http:
           path: /materials
           method: get
-
+  user-payments-lambda:
+    name: user-payments-lambda-${opt:stage}
+    package:
+      patterns:
+        - 'src/user_payments.py'
+        - 'src/user_payments_handler.py'
+    handler: src/user_payments_handler.handler
+    events:
+      - http:
+          path: /user-payments
+          method: get
+  registration-lambda-get:
+    name: registration-lambda-get${opt:stage}
+    package:
+      patterns:
+        - 'src/registration.js'
+        - 'src/registration_handler_get.py'
+    handler: src/registration_handler_get.handler
+    events:
+      - http:
+          path: /registration
+          method: get
+          cors: true
+  registration-lambda-post:
+    name: registration-lambda-post${opt:stage}
+    package:
+      patterns:
+        - 'src/registration.js'
+        - 'src/registration_handler_post.py'
+    handler: src/registration_handler_post.handler
+    events:
+      - http:
+          path: /registration
+          method: post
+          cors: true
 resources:
   - Resources:
       IAMServerlessRole:

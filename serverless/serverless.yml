@@ -88,18 +88,6 @@ functions:
           path: /pay
           method: get
 
-  user-payments-lambda:
-    name: user-payments-lambda-${opt:stage}
-    package:
-      patterns:
-        - 'src/userPayments.js'
-        - 'src/userPaymentsHandler.js'
-    handler: src/userPaymentsHandler.handler
-    events:
-      - http:
-          path: /user-payments
-          method: get
-
 resources:
   - Resources:
       IAMServerlessRole:
