@@ -24,17 +24,28 @@ package:
     - '!node_modules/**'
 
 functions:
-  ping-python:
-    name: ping-python-lambda-${opt:stage}   
+  ping:
+    name: ping-lambda-${opt:stage}   
     package:
       patterns:
-        - src/ping_python.py
-    handler: src/ping_python.handler
+        - src/ping.py
+    handler: src/ping.handler
     events:
       - http:
-          path: /ping-python
+          path: /ping
           method: get
-
+  contact-lambda-python:
+      name: contact-lambda-python-${opt:stage}
+      package:
+        patterns:
+          - 'src/contact.py'
+          - 'src/contactHandler.py'
+      handler: src/contactHandler.handler
+      events:
+        - http:
+            path: /contact-python
+            method: post
+            cors: true
 resources:
   - Resources:
       IAMServerlessRole:
