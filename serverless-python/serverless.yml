@@ -17,16 +17,17 @@ custom:
 package:
   individually: true
   patterns:
-    - src/http_response.py
+    - 'src/http_response.py'
     - '!package.json'
     - '!package-lock.json'
-    - '!node_modules/**''
+    - '!node_modules/**'
+
 functions:
   ping-python:
     name: ping-python-lambda-${opt:stage}   
     package:
       patterns:
-        - pingPython.py
+        - src/pingPython.py
     handler: src/pingPython.handler
     events:
       - http:
