@@ -33,13 +33,11 @@ export const getRegistrationByEmail = async (email) => {
       ":emailLower": { S: email.toLocaleLowerCase() },
       ":email": { S: email },
     },
-    ProjectionExpression: "product_id",
   });
   try {
     let response = await docClient.send(command);
-    const productIdObjs = response.Items.map((record) => unmarshall(record));
-    const productIds = productIdObjs.map((obj) => obj.product_id);
-    return httpResponse(200, productIds);
+    const responseObjs = response.Items.map((record) => unmarshall(record));
+    return httpResponse(200, responseObjs);
   } catch (error) {
     console.error("Error retrieving registration:", error);
     return httpResponse(error.statusCode, "Error retrieving registrations");
