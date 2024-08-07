@@ -88,18 +88,6 @@ functions:
           path: /pay
           method: get
 
-  materials-lambda:
-    name: materials-lambda-${opt:stage}
-    package:
-      patterns:
-        - 'src/materials.js'
-        - 'src/materialsHandler.js'
-    handler: src/materialsHandler.handler
-    events:
-      - http:
-          path: /materials
-          method: get
-
   user-payments-lambda:
     name: user-payments-lambda-${opt:stage}
     package:
