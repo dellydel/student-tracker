@@ -1,5 +1,5 @@
 import os
-from http_response import create_response
+from src.http_response import create_response
 
 def handler():
     try:
