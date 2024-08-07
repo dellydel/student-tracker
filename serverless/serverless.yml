@@ -26,12 +26,13 @@ functions:
     name: ping-lambda-${opt:stage}
     package:
       patterns:
-        - 'ping.js'
+        - 'src/ping.js'
     handler: src/ping.handler
     events:
       - http:
           path: /ping
           method: get
+  
   courses-lambda:
     name: courses-lambda-${opt:stage}
     package:
