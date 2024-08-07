@@ -22,7 +22,7 @@ def processContactRequest (name, email, message):
   sendContactEmailNotification()
   return create_response(
     200,
-    json.dumps({message: "Success! Your message has been sent."} )
+    json.dumps({"message": "Success! Your message has been sent."} )
   )
 
 def sendContactEmailNotification(): 

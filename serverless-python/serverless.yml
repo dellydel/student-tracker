@@ -34,8 +34,8 @@ functions:
       - http:
           path: /ping
           method: get
-  contact-lambda-python:
-      name: contact-lambda-python-${opt:stage}
+  contact-lambda:
+      name: contact-lambda-${opt:stage}
       package:
         patterns:
           - 'src/contact.py'
@@ -43,7 +43,7 @@ functions:
       handler: src/contact_handler.handler
       events:
         - http:
-            path: /contact-python
+            path: /contact
             method: post
             cors: true
 resources:

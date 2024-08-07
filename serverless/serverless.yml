@@ -100,19 +100,6 @@ functions:
           path: /materials
           method: get
 
-  contact-lambda:
-    name: contact-lambda-${opt:stage}
-    package:
-      patterns:
-        - 'src/contact.js'
-        - 'src/contactHandler.js'
-    handler: src/contactHandler.handler
-    events:
-      - http:
-          path: /contact
-          method: post
-          cors: true
-
   user-payments-lambda:
     name: user-payments-lambda-${opt:stage}
     package:
