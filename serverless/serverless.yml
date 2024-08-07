@@ -34,7 +34,17 @@ functions:
       - http:
           path: /ping
           method: get
-
+  ping-python:
+    name: ping-python-lambda-${opt:stage}
+    runtime: python3.11
+    package:
+      include:
+        - pingPython.py
+    handler: src/pingPython.handler
+    events:
+      - http:
+          path: /ping-python
+          method: get
   courses-lambda:
     name: courses-lambda-${opt:stage}
     package:
