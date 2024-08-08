@@ -153,5 +153,5 @@ resources:
                       - arn:aws:sns:us-east-1:893303684985:ContactTopic-${opt:stage, 'development'}
 
 plugins:
-  # - serverless-python-requirements
+  - serverless-python-requirements
   - serverless-offline
