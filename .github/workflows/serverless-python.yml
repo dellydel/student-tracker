@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./serverless-python
+        working-directory: serverless-python
     strategy:
       matrix:
         node-version: [20.x]
