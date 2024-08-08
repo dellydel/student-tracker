@@ -1,4 +1,4 @@
-service: serverless
+service: serverless-python
 frameworkVersion: '3'
 
 provider:
