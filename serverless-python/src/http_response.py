@@ -8,7 +8,7 @@ def create_response(status_code, body):
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE",
     },
-    "body": json.dumps(body)
+    "body": body if isinstance(body, str) else json.dumps(body)
   }
 
 

@@ -4,10 +4,18 @@ from src.http_response import create_response
 
 s3_client = boto3.client('s3')
 
+def get_course_materials(topic):
+    try:
+        objects = list_all_materials(topic)
+        files = generate_presigned_urls(objects)
+        return create_response(200, files)
+    except Exception as e:
+        print(f"Error fetching S3 contents: {str(e)}")
+        return create_response(500, {'error': 'Internal Server Error'})
+    
 def list_all_materials(topic):
     bucket_name = "nextbyte-course-materials"
     prefix = topic
-
     try:
         response = s3_client.list_objects_v2(Bucket=bucket_name, Prefix=prefix)
     except ClientError as e:
@@ -32,11 +40,4 @@ def generate_presigned_urls(objects):
             print(f"Error generating presigned URL for {obj['Key']}: {e.response['Error']['Message']}")
     return files
 
-def get_course_materials(topic):
-    try:
-        objects = list_all_materials(topic)
-        files = generate_presigned_urls(objects)
-        return create_response(200, files)
-    except Exception as e:
-        print(f"Error fetching S3 contents: {str(e)}")
-        return create_response(500, {'error': 'Internal Server Error'})
+
