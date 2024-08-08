@@ -1,6 +1,6 @@
 from src.error_handler import handle_client_error
 from botocore.exceptions import ClientError
-from user_payments import retrievePayments
+from src.user_payments import retrievePayments
 
 def handler(event, _):
   query_params = event.get('queryStringParameters', {})

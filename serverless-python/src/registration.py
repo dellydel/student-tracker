@@ -3,36 +3,41 @@ import os
 import stripe
 from src.http_response import create_response
 from botocore.exceptions import ClientError
-
+from src.utils.unmarshall import deserialize, convert_decimal
+import datetime
 dynamodb = boto3.client('dynamodb')
-
-stripe_lib = stripe(api_key=os.environ.get("STRIPE_SECRET"))
+stripe.api_key = os.environ.get("STRIPE_SECRET")
 
 def getRegistrationByEmail(email):
   response = dynamodb.scan(
      TableName=os.environ.get("REGISTRATIONS_TABLE"),
      FilterExpression="emailLower = :emailLower OR email = :email",
      ExpressionAttributeValues={
-      ":emailLower": { "S": email.toLocaleLowerCase() },
+      ":emailLower": { "S": email.lower() },
       ":email": { "S": email },
     },
     ProjectionExpression="amount, created, course_name",
     )
   try:
-    responseObjs = response.Items
-    return create_response(200, responseObjs)
+    payments = deserialize(response)
+    amounts = list(map(lambda obj: {
+      'date': datetime.datetime.fromtimestamp(int(obj.get("created")) / 1000).strftime('%Y-%m-%d %H:%M:%S'),
+      'amount': convert_decimal(obj.get("amount")),
+      'name': obj.get("course_name"),
+    }, payments.get("Items")))
+    return create_response(200, amounts)
   except: 
-    raise ClientError("Error when attempting to retrieve registrations")
+    raise ClientError("Error when attempting to retrieve registrations.")
   
 def createCourseRegistration(body):
   if body.get("type").equals("payment_intent.succeeded"):
     session = body.get("data").get("object")
     try:
-      checkout_session = stripe_lib.checkout.sessions.list({
+      checkout_session = stripe.checkout.sessions.list({
         'payment_intent': session.get("id"),
         'expand': ["data.line_items"],
       })
-      lineItems = stripe_lib.checkout.sessions.listLineItems(
+      lineItems = stripe.checkout.sessions.listLineItems(
         checkout_session.data[0].id
       )
       table = dynamodb.Table(os.environ.get("REGISTRATIONS_TABLE"))
