@@ -13,6 +13,8 @@ provider:
     role: IAMServerlessRole
 custom:
   stage: ${opt:stage, 'development'}
+  pythonRequirements:
+    dockerizePip: true
 
 package:
   individually: true
