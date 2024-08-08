@@ -9,8 +9,6 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"stripe": "^14.2.0",
-		"uuid": "^9.0.1"
 	},
 	"devDependencies": {
 		"serverless": "^3.0.0",

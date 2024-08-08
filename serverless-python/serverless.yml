@@ -21,6 +21,8 @@ package:
   patterns:
     - '!./**'
     - 'src/http_response.py'
+    - 'src/error_handler.py'
+    - 'src/utils/unmarshall.py'
     - '!package.json'
     - '!package-lock.json'
     - '!node_modules/**'
