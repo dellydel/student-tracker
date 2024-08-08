@@ -9,7 +9,6 @@ provider:
   apiGateway:
     restApiId: ${ssm:nextbyte-api-restApiId-${opt:stage}}
     restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-${opt:stage}}
-  profile: default
   iam:
     role: IAMServerlessRole
 custom:
