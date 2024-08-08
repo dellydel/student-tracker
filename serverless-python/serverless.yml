@@ -7,8 +7,8 @@ provider:
   stackName: serverless-${opt:stage, 'development'}
   environment: ${file(env.yml):${self:custom.stage}}
   apiGateway:
-    restApiId: ${ssm:nextbyte-api-restApiId-${opt:stage, 'development'}}
-    restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-${opt:stage, 'development'}}
+    restApiId: ${ssm:nextbyte-api-restApiId-${opt:stage}}
+    restApiRootResourceId: ${ssm:nextbyte-api-restApiRootResourceId-${opt:stage}}
   profile: default
   iam:
     role: IAMServerlessRole
