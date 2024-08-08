@@ -6,7 +6,7 @@ from botocore.exceptions import ClientError
 
 dynamodb = boto3.client('dynamodb')
 
-stripe = stripe(api_key=os.environ.get("STRIPE_SECRET"))
+stripe_lib = stripe(api_key=os.environ.get("STRIPE_SECRET"))
 
 def getRegistrationByEmail(email):
   response = dynamodb.scan(
@@ -28,11 +28,11 @@ def createCourseRegistration(body):
   if body.get("type").equals("payment_intent.succeeded"):
     session = body.get("data").get("object")
     try:
-      checkout_session = stripe.checkout.sessions.list({
+      checkout_session = stripe_lib.checkout.sessions.list({
         'payment_intent': session.get("id"),
         'expand': ["data.line_items"],
       })
-      lineItems = stripe.checkout.sessions.listLineItems(
+      lineItems = stripe_lib.checkout.sessions.listLineItems(
         checkout_session.data[0].id
       )
       table = dynamodb.Table(os.environ.get("REGISTRATIONS_TABLE"))

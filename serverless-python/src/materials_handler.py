@@ -1,5 +1,5 @@
 from botocore.exceptions import ClientError
-from error_handler import handle_client_error
+from src.error_handler import handle_client_error
 from src.materials import get_course_materials
 
 def handler(event, context):
