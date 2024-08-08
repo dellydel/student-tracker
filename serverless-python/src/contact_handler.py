@@ -1,5 +1,5 @@
 import json 
-from error_handler import handle_client_error
+from src.error_handler import handle_client_error
 from src.contact import processContactRequest
 from botocore.exceptions import ClientError
 

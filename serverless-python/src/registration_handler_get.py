@@ -1,4 +1,4 @@
-from error_handler import handle_client_error
+from src.error_handler import handle_client_error
 from botocore.exceptions import ClientError
 from src.registration import getRegistrationByEmail 
 

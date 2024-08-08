@@ -8,3 +8,5 @@ jspm_packages
 .anima
 .venv
 
+__pycache__
+
