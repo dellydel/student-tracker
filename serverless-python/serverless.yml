@@ -38,40 +38,40 @@ functions:
       - http:
           path: /ping
           method: get
-  # contact-lambda:
-  #     name: contact-lambda-${opt:stage, 'development'}
-  #     package:
-  #       patterns:
-  #         - 'src/contact.py'
-  #         - 'src/contact_handler.py'
-  #     handler: src/contact_handler.handler
-  #     events:
-  #       - http:
-  #           path: /contact
-  #           method: post
-  #           cors: true
-  # materials-lambda:
-  #   name: materials-lambda-${opt:stage, 'development'}
-  #   package:
-  #     patterns:
-  #       - 'src/materials.py'
-  #       - 'src/materials_handler.py'
-  #   handler: src/materials_handler.handler
-  #   events:
-  #     - http:
-  #         path: /materials
-  #         method: get
-  # user-payments-lambda:
-  #   name: user-payments-lambda-${opt:stage, 'development'}
-  #   package:
-  #     patterns:
-  #       - 'src/user_payments.py'
-  #       - 'src/user_payments_handler.py'
-  #   handler: src/user_payments_handler.handler
-  #   events:
-  #     - http:
-  #         path: /user-payments
-  #         method: get
+  contact-lambda:
+      name: contact-lambda-${opt:stage, 'development'}
+      package:
+        patterns:
+          - 'src/contact.py'
+          - 'src/contact_handler.py'
+      handler: src/contact_handler.handler
+      events:
+        - http:
+            path: /contact
+            method: post
+            cors: true
+  materials-lambda:
+    name: materials-lambda-${opt:stage, 'development'}
+    package:
+      patterns:
+        - 'src/materials.py'
+        - 'src/materials_handler.py'
+    handler: src/materials_handler.handler
+    events:
+      - http:
+          path: /materials
+          method: get
+  user-payments-lambda:
+    name: user-payments-lambda-${opt:stage, 'development'}
+    package:
+      patterns:
+        - 'src/user_payments.py'
+        - 'src/user_payments_handler.py'
+    handler: src/user_payments_handler.handler
+    events:
+      - http:
+          path: /user-payments
+          method: get
   # registration-lambda-get:
   #   name: registration-lambda-get-${opt:stage, 'development'}
   #   package:
