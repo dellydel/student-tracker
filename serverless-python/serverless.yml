@@ -1,5 +1,4 @@
 service: serverless-python-${opt:stage}
-
 frameworkVersion: '3'
 
 provider:
