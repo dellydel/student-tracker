@@ -3,7 +3,7 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: python3.11
+  runtime: python3.8
   stackName: serverless-${opt:stage}
   environment: ${file(env.yml):${self:custom.stage}}
   apiGateway:
@@ -13,6 +13,8 @@ provider:
     role: IAMServerlessRole
 custom:
   stage: ${opt:stage}
+  pythonRequirements:
+    dockerizePip: false
 
 package:
   individually: true
@@ -152,3 +154,4 @@ resources:
 
 plugins:
   - serverless-offline
+  - serverless-python-requirements 
