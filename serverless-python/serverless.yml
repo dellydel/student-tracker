@@ -4,7 +4,7 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: python3.11
-  stackName: serverless-${opt:stage, 'development'}
+  stackName: serverless-${opt:stage}
   environment: ${file(env.yml):${self:custom.stage}}
   apiGateway:
     restApiId: ${ssm:nextbyte-api-restApiId-${opt:stage}}
@@ -12,7 +12,7 @@ provider:
   iam:
     role: IAMServerlessRole
 custom:
-  stage: ${opt:stage, 'development'}
+  stage: ${opt:stage}
 
 package:
   individually: true
@@ -27,7 +27,7 @@ package:
 
 functions:
   ping:
-    name: ping-lambda-${opt:stage, 'development'}   
+    name: ping-lambda-${opt:stage}   
     package:
       patterns:
         - src/ping.py
@@ -37,7 +37,7 @@ functions:
           path: /ping
           method: get
   contact-lambda:
-      name: contact-lambda-${opt:stage, 'development'}
+      name: contact-lambda-${opt:stage}
       package:
         patterns:
           - 'src/contact.py'
@@ -49,7 +49,7 @@ functions:
             method: post
             cors: true
   materials-lambda:
-    name: materials-lambda-${opt:stage, 'development'}
+    name: materials-lambda-${opt:stage}
     package:
       patterns:
         - 'src/materials.py'
@@ -60,7 +60,7 @@ functions:
           path: /materials
           method: get
   user-payments-lambda:
-    name: user-payments-lambda-${opt:stage, 'development'}
+    name: user-payments-lambda-${opt:stage}
     package:
       patterns:
         - 'src/user_payments.py'
@@ -71,7 +71,7 @@ functions:
           path: /user-payments
           method: get
   registration-lambda-get:
-    name: registration-lambda-get-${opt:stage, 'development'}
+    name: registration-lambda-get-${opt:stage}
     package:
       patterns:
         - 'src/registration.py'
@@ -83,7 +83,7 @@ functions:
           method: get
           cors: true
   registration-lambda-post:
-    name: registration-lambda-post-${opt:stage, 'development'}
+    name: registration-lambda-post-${opt:stage}
     package:
       patterns:
         - 'src/registration.py'
@@ -126,11 +126,11 @@ resources:
                       - dynamodb:Query
                       - dynamodb:UpdateItem
                     Resource:
-                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-${opt:stage, 'development'}
-                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-${opt:stage, 'development'}
-                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-${opt:stage, 'development'}
-                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Contact-${opt:stage, 'development'}
-                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-${opt:stage, 'development'}/index/EmailIndex
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-${opt:stage}
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Courses-${opt:stage}
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Registrations-${opt:stage}
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Contact-${opt:stage}
+                      - arn:aws:dynamodb:us-east-1:893303684985:table/next-byte-Students-${opt:stage}/index/EmailIndex
                   - Effect: Allow
                     Action:
                       - logs:CreateLogStream
@@ -148,8 +148,8 @@ resources:
                     Action:
                       - sns:Publish
                     Resource:
-                      - arn:aws:sns:us-east-1:893303684985:ContactTopic-${opt:stage, 'development'}
+                      - arn:aws:sns:us-east-1:893303684985:ContactTopic-${opt:stage}
 
 plugins:
-  - serverless-python-requirements
   - serverless-offline
+  - serverless-python-requirements
