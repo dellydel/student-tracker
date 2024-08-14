@@ -11,6 +11,9 @@ on:
 jobs:
   Deploy_Lambdas:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./serverless-python
     env:
       NODE_VERSION: 18.x
     strategy:
@@ -59,7 +62,6 @@ jobs:
     
     - name: Install Node Dependencies
       run: npm install
-      working-directory: ./serverless-python
       
     - name: serverless deploy        
       uses: dhollerbach/github-action-serverless-with-python-requirements@master
